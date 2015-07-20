@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+	id="WebApp_ID" version="3.0">
+	<display-name>DaPaas</display-name>
+	<welcome-file-list>
+		<welcome-file>index.html</welcome-file>
+		<welcome-file>index.htm</welcome-file>
+		<welcome-file>index.jsp</welcome-file>
+		
+	</welcome-file-list>
+	
+	
+	<servlet>
+		<servlet-name>BaseGateway</servlet-name>
+		<servlet-class>com.sirmamobile.commlib.web.BaseGateway</servlet-class>
+
+		<init-param>
+			<param-name>WizardService</param-name>
+			<param-value>eu.dapaas.service.WizardService</param-value>
+		</init-param>
+		<init-param>
+			<param-name>PortalService</param-name>
+			<param-value>eu.dapaas.service.PortalService</param-value>
+		</init-param>
+		<!-- <init-param>
+			<param-name>LodliveService</param-name>
+			<param-value>eu.dapaas.service.LodliveService</param-value>
+		</init-param>-->
+		<init-param>
+			<param-name>QueryConstructService</param-name>
+			<param-value>eu.dapaas.service.QueryConstructService</param-value>
+		</init-param>
+		<init-param>
+			<param-name>QueryResultService</param-name>
+			<param-value>eu.dapaas.service.QueryResultService</param-value>
+		</init-param>
+		<init-param>
+			<param-name>AdminService</param-name>
+			<param-value>eu.dapaas.service.AdminService</param-value>
+		</init-param>
+		
+		
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>BaseGateway</servlet-name>
+		<url-pattern>/BaseGateway/*</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+	<servlet-name>UploadServlet</servlet-name>
+    <servlet-class>eu.dapaas.service.UploadServlet</servlet-class>
+		<multipart-config>
+	       <!-- 150MB max -->
+	        <max-file-size>157286400</max-file-size>
+	       <max-request-size>157286400</max-request-size>
+	        <file-size-threshold>0</file-size-threshold>
+  		</multipart-config>
+	</servlet>
+	<servlet-mapping>
+        <servlet-name>UploadServlet</servlet-name>
+        <url-pattern>/upload</url-pattern>
+    </servlet-mapping>
+    
+    <!-- 
+    <servlet>
+	<servlet-name>UploadAdminServlet</servlet-name>
+    <servlet-class>eu.dapaas.service.UploadAdminServlet</servlet-class>
+	</servlet>
+	
+	<servlet-mapping>
+        <servlet-name>UploadAdminServlet</servlet-name>
+        <url-pattern>/admin/uploadpol</url-pattern>
+    </servlet-mapping>
+	 -->
+	 
+	<servlet>
+        <description>An OAuth Servlet Controller</description>
+        <display-name>OAuthServlet</display-name>
+        <servlet-name>OAuthServlet</servlet-name>
+        <servlet-class>eu.dapaas.oauth.OAuthBaseServlet</servlet-class>
+        <init-param>
+            <param-name>config</param-name>
+            <param-value>/WEB-INF/classes/oauth_config.xml</param-value>
+        </init-param>
+        <load-on-startup>3</load-on-startup>
+    </servlet>
+    
+    <servlet-mapping>
+        <servlet-name>OAuthServlet</servlet-name>
+        <url-pattern>/oauth/*</url-pattern>
+    </servlet-mapping>
+    
+	<filter>
+		<filter-name>ApplicationFilter</filter-name>
+		<filter-class>eu.dapaas.utils.ApplicationFilter</filter-class>
+		<init-param>
+            <param-name>logLevel</param-name>
+            <param-value>DEBUG</param-value>
+        </init-param>
+	</filter>
+	<filter-mapping>
+		<filter-name>ApplicationFilter</filter-name>
+		<!--TODO -->
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+	
+
+</web-app>

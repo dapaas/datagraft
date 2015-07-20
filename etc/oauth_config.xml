@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<oauth-config>
+    <!--Google OAuth Config -->
+    <oauth name="google" version="2">
+
+        <consumer key="$oauth.client.id.google" secret="$oauth.client.secret.google" />
+        <provider authorizationUrl="https://accounts.google.com/o/oauth2/auth"
+            accessTokenUrl="https://www.googleapis.com/oauth2/v3/token"/>
+    </oauth>
+
+     <!--Facebook OAuth Config -->
+    <oauth name="facebook" version="2">
+        <consumer key="$oauth.client.id.facebook" secret="$oauth.client.secret.facebook"/>
+        <provider authorizationUrl="https://graph.facebook.com/oauth/authorize"
+                  accessTokenUrl="https://graph.facebook.com/oauth/access_token"/>
+    </oauth>
+<!--twitter OAuth Config -->
+    <oauth name="twitter" version="1">
+        <consumer key="$oauth.client.id.twitter" secret="$oauth.client.secret.twitter"/>
+        <provider 
+          requestTokenUrl="https://api.twitter.com/oauth/request_token" 
+         authorizationUrl="https://api.twitter.com/oauth/authorize" 
+         accessTokenUrl="https://api.twitter.com/oauth/access_token"/>
+    </oauth>
+    <service path="/google" class="eu.dapaas.oauth.GoogleOAuthService" oauth="google">
+        <!--<success path="/pages/welcome.jsp"/>-->
+    </service>
+
+    <service path="/facebook" class="eu.dapaas.oauth.FacebookOAuthService" oauth="facebook">
+        <!--<success path="/pages/welcome.jsp"/>-->
+    </service>
+    <service path="/twitter" class="eu.dapaas.oauth.TwitterOAuthService" oauth="twitter">
+        <!--<success path="/pages/welcome.jsp"/>-->
+    </service>
+</oauth-config>

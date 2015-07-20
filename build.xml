@@ -1,0 +1,54 @@
+<project name="datagraft">
+
+	<property file="config/build.properties" />
+	<property name="dir.web" location="${project.root}/web" />
+	<property name="lib.dir" location="${project.root}/lib" />
+	<!--property name="replace.configs.file" value="config/config-local.properties" / -->
+	<property name="replace.configs.file" value="config/config-real.properties" />
+
+	<path id="classpath">
+		<fileset dir="${lib.dir}" includes="**/*.jar" />
+	</path>
+
+	<target name="compile">
+		<mkdir dir="${dir.web}/WEB-INF/classes" />
+		<javac srcdir="${project.root}/src" destdir="${dir.web}/WEB-INF/classes" debug="true">
+			<classpath>
+				<fileset dir="${dir.web}/WEB-INF/lib" />
+				<fileset dir="${tomcat.home}/lib" />
+			</classpath>
+		</javac>
+	</target>
+
+	<target name="prepare-lib">
+		<copy todir="${dir.web}/WEB-INF/lib">
+			<fileset dir="${directory.lib}" />
+		</copy>
+	</target>
+
+	<target name="create-war">
+		<delete file="${directory.dist}/${ant.project.name}.war" />
+		<jar basedir="${dir.web}" destfile="${directory.dist}/${ant.project.name}.war" />
+	</target>
+
+	<target name="clean">
+		<delete dir="${dir.web}/WEB-INF/classes" />
+		<delete dir="${dir.web}/WEB-INF/lib" />
+		<delete dir="${directory.dist}" includes="*.jar" />
+	</target>
+
+	<target name="replace-config-files">
+		<copy todir="${dir.web}/WEB-INF/classes" overwrite="true">
+			<fileset dir="${project.root}/etc" />
+			<fileset dir="${project.root}/src" includes="*/**.properties" />
+		</copy>
+
+		<replace dir="${dir.web}/WEB-INF/classes" includes="*.xml,*.properties" replacefilterfile="${replace.configs.file}" />
+		<copy todir="${dir.web}/WEB-INF/classes/eu/dapaas/utils" overwrite="true">
+		  <fileset dir="${project.root}/src/eu/dapaas/utils" includes="*.properties" />
+		 </copy>
+	</target>
+
+	<target name="build" depends="clean, prepare-lib, compile, replace-config-files, create-war" />
+	
+</project>
