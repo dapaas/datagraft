@@ -88,16 +88,5 @@ public class Config {
     return getString("dapaas.local.db");
   }
 
-  /*
-   * public String generateState() { String state = new BigInteger(130, new
-   * SecureRandom()).toString(32); return state; }
-   */
 
-  public String getAmazonAccessKeyId() {
-    return getString("amazon.access.key.id");
-  }
-
-  public String getAmazonSecretAccessKey() {
-    return getString("amazon.secret.access.key");
-  }
 }

@@ -1,10 +1,5 @@
 package eu.dapaas.db.dynamo;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -12,7 +7,7 @@ import java.util.Map;
 
 import org.apache.log4j.Logger;
 
-import com.amazonaws.auth.BasicAWSCredentials;
+import com.amazonaws.auth.InstanceProfileCredentialsProvider;
 import com.amazonaws.regions.Region;
 import com.amazonaws.regions.Regions;
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClient;
@@ -34,7 +29,6 @@ import com.amazonaws.services.dynamodbv2.util.Tables;
 import eu.dapaas.dao.Poligon;
 import eu.dapaas.dao.PortalContent;
 import eu.dapaas.dao.WizardPortal;
-import eu.dapaas.utils.Config;
 
 public class DynamoProvider {
 
@@ -42,17 +36,9 @@ public class DynamoProvider {
   private static AmazonDynamoDBClient dynamoDBClient;
 
   private static void init() {
-    BasicAWSCredentials awsCreds = null;
-    try {
-      awsCreds = new BasicAWSCredentials(Config.getInstance().getAmazonAccessKeyId(), Config.getInstance().getAmazonSecretAccessKey());
-    } catch (Exception e) {
-      logger.error("Cannot load the credentials from the credential profiles file. "
-          + "Please make sure that your credentials file is at the correct "
-          + "location (~/.aws/credentials), and is in valid format.", e);
-    }
-    dynamoDBClient = new AmazonDynamoDBClient(awsCreds);
-    Region usWest2 = Region.getRegion(Regions.US_WEST_2);
-    dynamoDBClient.setRegion(usWest2);
+    dynamoDBClient = new AmazonDynamoDBClient(new InstanceProfileCredentialsProvider());
+    Region usWest1 = Region.getRegion(Regions.EU_WEST_1);
+    dynamoDBClient.setRegion(usWest1);
   }
 
   public static void createDB() {
