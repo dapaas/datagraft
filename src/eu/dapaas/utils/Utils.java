@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import org.apache.commons.lang.StringEscapeUtils;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.log4j.Logger;
@@ -189,4 +190,7 @@ public class Utils {
     }
   }
 
+  public static String escapeJS(String value) {
+    return StringEscapeUtils.escapeJavaScript(value);
+  }
 }
