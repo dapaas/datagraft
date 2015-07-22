@@ -19,11 +19,11 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-material-design/0.2.1/css/material-wfont.css" />
   <link rel='stylesheet' type='text/css' href='http://fonts.googleapis.com/css?family=Roboto:100'/>
-  <link rel='stylesheet' type='text/css' href="${contextPath}/css/bootstrap-custom.css"/>
   <link rel='stylesheet' type='text/css' href="//cdn.datatables.net/1.10.4/css/jquery.dataTables.min.css">
   <link rel='stylesheet' type='text/css' href="${contextPath}/css/bootstrap-tokenfield.min.css"/>
   <link rel='stylesheet' type='text/css' href="${contextPath}/css/tokenfield-typeahead.min.css"/>
   <link rel='stylesheet' type='text/css' href="${contextPath}/css/bootstrap-custom.css"/>
+  <link rel='stylesheet' type='text/css' href="${contextPath}/css/sinchanges.css"/>
   
   
   
