@@ -4,10 +4,8 @@
 <%@ taglib prefix="template" tagdir="/WEB-INF/tags"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-<%
-	String transformationId = Utils.escapeJS(request.getParameter("id"));
-	String distributionId = Utils.escapeJS(request.getParameter("distribution"));
-%>
+<c:set var="transformationId" value='<%= Utils.escapeJS(request.getParameter("id")) %>' />
+<c:set var="distributionId" value='<%= Utils.escapeJS(request.getParameter("distribution")) %>' />
 <jsp:useBean id="userbean" class="eu.dapaas.bean.UserBean"/>
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
 ${userbean.putInCookie(pageContext.request, pageContext.response, pageContext.session) }
