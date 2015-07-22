@@ -15,9 +15,12 @@ iframe.grafterizer {
 }
 
 @media (max-width: 750px) {
+    body > header {
+      z-index:2;
+    }
     .grafterizer-container {
         top: 155px;
-        z-index:-1;
+        /*z-index:-1;*/
     }
 }
 
