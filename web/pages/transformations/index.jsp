@@ -20,12 +20,21 @@ ${userbean.putInCookie(pageContext.request, pageContext.response, pageContext.se
 		<template:search />
 	</jsp:attribute>
 	<jsp:body>
+	<c:set var="basicAuth" value="${userbean.getTemporaryBasicAuth(pageContext.request, pageContext.response,pageContext.session, 'grafterizer') }"/>
 	<!-- id=${data.id} -->
 	<c:if test="${empty param['id'] }">
-	<iframe src="http://ec2-54-154-72-62.eu-west-1.compute.amazonaws.com/transformations/new" style="width: 100%; height: 900px; border:0;">
+	<script async>
+	$(window).load(function() {
+		var graftInstance = new Grafterizer("https://grafterizer.datagraft.net", document.body)
+			.setAuthorization("${basicAuth}")
+			.go('transformations.new');
+	});
+	</script>
 	</c:if>
 	<c:if test="${not empty param['id'] }">
 	<iframe src="http://ec2-54-154-72-62.eu-west-1.compute.amazonaws.com/#/transformations/${param['id'] }" style="width: 100%; height: 900px; border:0;">
 	</c:if>
 	</jsp:body>
+<link rel='stylesheet' type='text/css' href="${contextPath}/css/grafterizer.css"/>
+<script type="text/javascript" src="${contextPath}/scripts/grafterizerPostMessage.js" async></script>
 </template:genericpage>

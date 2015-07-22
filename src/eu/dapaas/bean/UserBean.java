@@ -2,6 +2,7 @@ package eu.dapaas.bean;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.Cookie;
@@ -87,7 +88,33 @@ public class UserBean {
       logger.error("", e);
     }
   }
-  
+
+  public String getTemporaryBasicAuth(HttpServletRequest request, HttpServletResponse response, HttpSession session,
+                                      String usage) {
+    String basicAuthKey = SessionConstants.DAPAAS_TMPKEY_PREFIX + usage;
+    String basicAuthDateKey = SessionConstants.DAPAAS_TMPKEY_PREFIX + usage + "_date";
+
+    String basicAuth = (String) session.getAttribute(basicAuthKey);
+    Long basicAuthDate = (Long) session.getAttribute(basicAuthDateKey);
+
+    Long now = new Date().getTime();
+
+    // If the basic auth doesn't exist or is 24h old
+    if (basicAuth == null || basicAuthDate == null || (now - basicAuthDate >= 24*60*60*1000)) {
+      try {
+        UserHandler cathandler = new UserHandler(request, response, session);
+        User apiResponse = cathandler.getTempKey();
+        basicAuth = apiResponse.getApiKey() + ":" + apiResponse.getApiSecret();
+        session.setAttribute(basicAuthKey, basicAuth);
+        session.setAttribute(basicAuthDateKey, now);
+      } catch (Exception e) {
+        logger.error("", e);
+      }
+    }
+
+    return basicAuth;
+  }
+
   public boolean loginStatus(HttpServletRequest request, HttpServletResponse response, HttpSession session){
     LoginHandler handler = new LoginHandler(request, response, request.getSession());
     return handler.loginStatus();

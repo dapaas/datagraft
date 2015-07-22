@@ -70,9 +70,18 @@ public class UserHandler extends BaseHandler {
     try {
       DaPaasParams params = new DaPaasParams();
       params.getHeaders().put("Content-Type", "application/json");
-      User user = new User();
+      
       // get api key and secret
+      User user = (User) request.getSession().getAttribute(SessionConstants.DAPAAS_USER);
+      if (user == null){
+        return null;
+      }
+      
       gateway = new DaPaasUserGateway(HttpMethod.POST, Utils.getDaPaasEndpoint("dapaas-management-services/api/api_keys/temporary"), params);
+      for (Cookie cookie : user.getCookies()){
+          gateway.getContext().getCookieStore().addCookie(cookie);
+      }
+      
       HttpResponse httpresponse = gateway.execute();
       JSONObject apiResponse = Utils.convertEntityToJSON(httpresponse);
       user.setUserApi(apiResponse);
