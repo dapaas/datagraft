@@ -25,6 +25,8 @@
                _this.connected = true;
                _this._sendMessageWindow = event.source;
                _this._onReady();
+            } else if (data.message === 'set-location') {
+                window.location = data.location;
             }
         }, false);
     };
