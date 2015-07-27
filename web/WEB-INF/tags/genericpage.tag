@@ -18,7 +18,7 @@
   <link type="text/css" rel="stylesheet" href="${contextPath}/css/dropzone.css">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-material-design/0.2.1/css/material-wfont.css" />
-  <link rel='stylesheet' type='text/css' href='http://fonts.googleapis.com/css?family=Roboto:100'/>
+  <link rel='stylesheet' type='text/css' href='//fonts.googleapis.com/css?family=Roboto:100'/>
   <link rel='stylesheet' type='text/css' href="//cdn.datatables.net/1.10.4/css/jquery.dataTables.min.css">
   <link rel='stylesheet' type='text/css' href="${contextPath}/css/bootstrap-tokenfield.min.css"/>
   <link rel='stylesheet' type='text/css' href="${contextPath}/css/tokenfield-typeahead.min.css"/>
@@ -32,7 +32,7 @@
   <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-material-design/0.2.1/js/material.min.js"></script>
   <script type="text/javascript" src="https://cdn.datatables.net/1.10.4/js/jquery.dataTables.min.js"></script>
-  <script type="text/javascript" src="http://malsup.github.com/jquery.form.js"></script>
+  <script type="text/javascript" src="//malsup.github.com/jquery.form.js"></script>
   
   <script type="text/javascript" src="${contextPath}/scripts/jquery.rating.js"></script>
   <script type="text/javascript" src="${contextPath}/scripts/jquery.tablesorter.min.js"></script>
