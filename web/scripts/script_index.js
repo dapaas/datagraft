@@ -23,7 +23,7 @@
             'duration' : '100%',
             'animations' :  [
               {
-                'selector'    : 'H1',
+                'selector'    : '#intro H1',
                 'translateY'  : -140,
                 'opacity'     : 0
               } , {
@@ -87,16 +87,14 @@
                 'selector'    : '.iphone',
                 'translateY'  : ['-66%', '-90%'],
                 'translateX'  : '-0%',
-                'rotate'      : -90,
-                'scale'       : 1.3
+                  'scale'       : .8,
+                  'opacity'     : -.75
               } , {
                 'selector'    : '#screenshot1',
-                'scale'       : .9,
-                'translateX'  : '20%',
-              } , {
-                'selector'    : '#screenshot2',
-                'scale'       : [.5, 1]
-              }
+                'scale'       : .8,
+                'translateX'  : '-0%',
+                'opacity'     : -.75
+              } 
             ]
           } , {
             'wrapper' : '#images',
@@ -108,22 +106,13 @@
             'animations' :  [
               {
                 'selector'    : '.images-byline-2',
-                'opacity'     : [1, .5],
+                'opacity'     : [1.75, -.0],
                 'translateY'  : ['-15%', '50%'],
-                'opacity'     : [1, -2]
-              } , {
-                'selector'    : '.iphone',
-                'translateY'  : ['-90%', '5%'],
-                'translateX'  : ['-0%', '-0%'],
-                'rotate'      : [-90, -90],
-                'scale'       : [1.3, 1.3]
-              } , {
+                'opacity'     : .0
+              } ,  {
                 'selector'    : '#screenshot1',
                 'translateX'  : ['20%', '20%']
-              } , {
-                'selector'    : '#screenshot2',
-                'scale'       : [1, 1]
-              }
+              } 
             ]
           } , {
             'wrapper' : '#links',
