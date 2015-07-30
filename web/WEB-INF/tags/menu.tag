@@ -30,8 +30,9 @@
           <li class="dropdown">
                 <a href="#" data-target="#" class="dropdown-toggle" data-toggle="dropdown">${user.name } <b class="caret"></b></a>
                 <ul class="dropdown-menu menu-right theme-bg">
-                	 <li><a class="theme-bg" href="${contextPath}/pages/keymanager/index.jsp"">API Key manager</a></li>
-                    <li><a class="theme-bg" href="${contextPath}/pages/logout.jsp"">Logout</a></li>
+                	 <li><a class="theme-bg" href="${contextPath}/pages/keymanager/index.jsp">API Key manager</a></li>
+                	 <li><a class="theme-bg" href="http://dapaas.github.io/documentation">Help</a></li>
+                    <li><a class="theme-bg" href="${contextPath}/pages/logout.jsp">Logout</a></li>
                 </ul>
             </li>
           

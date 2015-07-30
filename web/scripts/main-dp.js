@@ -16,12 +16,12 @@ $(document).ready(function() {
   });
  
 
-  $('#catalogresult tr td').click(function(event) {
+/*  $('#catalogresult tr td').click(function(event) {
     var v = $(this).parent().attr("id");
     $("#selectdataset input[id=id]").val(v);
     $('#selectdataset').submit();
     return true;
-  });
+  }); */
  
   $('#portalresult tr td').click(function(event) {
     var portal = $(this).parent().data().portal;
@@ -173,8 +173,15 @@ $(document).ready(function() {
     },
     dateFormat : "pt"
   });
-
   
+  $("#transformationresult").tablesorter({
+    headers : {
+      1 : {
+        sorter : "myParser"
+      }
+    },
+    dateFormat : "pt"
+  });
 
   $("#mycatalogresult").tablesorter({
     headers : {

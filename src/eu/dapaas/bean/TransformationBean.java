@@ -26,6 +26,13 @@ public class TransformationBean {
     return transformations;
   }
 
+  public List<Transformation> getCatalogTransformations() {
+    TransformationCatalogHandler handler = new TransformationCatalogHandler();
+    handler.setSearchValue(searchValue);
+    List<Transformation> transformations = handler.getTransformationCatalog();
+    return transformations;
+  }
+  
   public List<Transformation> getScharedTransformations(User user) {
     TransformationCatalogHandler handler = new TransformationCatalogHandler(user.getApiKey(), user.getApiSecret());
     handler.setSearchValue(searchValue);
