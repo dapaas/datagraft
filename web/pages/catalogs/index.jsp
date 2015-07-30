@@ -44,7 +44,7 @@ ${userbean.putInCookie(pageContext.request, pageContext.response, pageContext.se
 	<c:set var="titleDataset" value="Latest public data pages"/>
 	<c:set var="emptylabel" value="No public data pages in the system. <a  class='theme-text' href='${contextPath }/pages/register.jsp'>Register</a> and create the first one." />
 	<c:if test="${ not empty param['searchvalue']}">
-	Data pages (filtered by ‘test’)
+	
 	<c:set var="titleDataset" value="Data pages (filtered by &quot;${param['searchvalue']}&quot;)" />
 	<c:set var="emptylabel" value="No matching data pages found. <a class='theme-text' href='${contextPath }/pages/catalogs/index.jsp'>Show all?</a> " />
 	</c:if>
@@ -59,7 +59,7 @@ ${userbean.putInCookie(pageContext.request, pageContext.response, pageContext.se
 	<c:set var="titleApplication" value="Latest public data transformations"/>
 	<c:set var="emptylabel" value="No public transformation in the system. <a  class='theme-text' href='${contextPath }/pages/register.jsp'>Register</a> and create the first one." />
 	<c:if test="${ not empty param['searchvalue']}">
-	<c:set var="titleApplication" value="Portals (filtered by  &quot;${param['searchvalue']}&quot;)"/>
+	<c:set var="titleApplication" value="Transformations (filtered by  &quot;${param['searchvalue']}&quot;)"/>
 	<c:set var="emptylabel" value="No matching transformations found. <a class='theme-text' href='${contextPath }/pages/catalogs/index.jsp'>Show all?</a>" />
 	</c:if>
 
