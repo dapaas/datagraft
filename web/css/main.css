@@ -66,17 +66,21 @@ body {
   top: 40%;
   left: 10%;
   color: white;
-  max-width: 25%;
+  max-width: 35%;
   opacity: 0;
 }
 
 .images-byline H1 {
   
-  font-size: 35px;
+  font-size: 1.7em;
   letter-spacing: 9px;
   line-height: 1.5;
   font-weight: 900;
   text-transform: uppercase;
+}
+
+.images-byline .biggerfont{
+	font-size: 1.5em
 }
 
 .images-byline-2 {
@@ -205,14 +209,10 @@ body {
 }
 .menulink{
   position: fixed;
-  font-size: 12px;
   top: 0;
   left: 20px;
 }
-.menulink .nav-tabs{
-	background:transparent;
-	border-bottom: 0px;
-}
+
 
 /* 4. Handling resize and small devices
 --------------------------------------- */
@@ -294,6 +294,7 @@ body {
   display: -webkit-box;
 }
 
+ .menulink a,
  .mainsearch> a{
   display: inline-block;
   padding: 10px 20px;
@@ -308,7 +309,10 @@ body {
   letter-spacing: .1em;
   cursor: pointer;
 }
- .mainsearch > A:hover, A:focus{
+ .menulink > A:hover, 
+ .menulink > A:focus,
+ .mainsearch > A:hover,
+ .mainsearch A:focus{
 	color: #fff;
     border-color: #fff;
 }

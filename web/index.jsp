@@ -110,7 +110,7 @@ if (user!=null){
       <div class="images-byline">
         <h1>DataGraft</h1>
         <ul>
-          <li>Manage your data in a simple, effective, and efficient way.</li>
+          <li class="biggerfont">Manage your data in a simple, effective, and efficient way.</li>
           <li>Powerful data transformation and scalable data access capabilities for your data.</li>
         </ul>
       </div>
@@ -120,7 +120,7 @@ if (user!=null){
       <div class="images-byline-2">
       	<div class="row show-grid">
 			  <div class="col-md-6">
-					<h3>One stop shop for hosted data management:</h3>
+					<h3>One stop shop for hosted data management</h3>
 					<ul>
 			          <li>Interactively build, modify and share data transformations.</li>
 			          <li>Reuse transformations to repeatably clean and transform spreadsheet data.</li>
@@ -128,7 +128,7 @@ if (user!=null){
 			        </ul>
 			  </div>
 			  <div class="col-md-6">
-			  	<h3>Flexible management and sharing of data and transformations:</h3>
+			  	<h3>Flexible management and sharing of data and transformations</h3>
 			  	<ul>
 			          <li>Choose to share transformations or datasets privately or publicly.</li>
 			          <li>Fork, reuse and extend transformations built by other professionals from our public catalog.</li>
@@ -141,7 +141,7 @@ if (user!=null){
 					&nbsp;
 			  </div>
 			  <div class="col-md-6">
-					<h3>Reliable data hosting and querying services:</h3>
+					<h3>Reliable data hosting and querying services</h3>
 					<ul>
 			          <li>Query Join and visualise datasets through your own SPARQL endpoint.</li>
 			          <li>We scale so you don't have to.</li>
@@ -181,10 +181,10 @@ if (user!=null){
   Photo by <a href="https://www.flickr.com/photos/jorneriksson/" target="_blank">Jørn Eriksson</a> (<a href="https://creativecommons.org/licenses/by/2.0/" target="_blank">CC BY 2.0</a>)
   </div>
   <div class="menulink">
-  	<ul class="nav nav-tabs">
-	  	<li><a href="http://dapaas.github.io/api" target="_blank">API</a></li>
-	  	<li><a href="http://dapaas.github.io/faq" target="_blank">FAQ</a></li>
-	</ul>
+  	
+	  	<a href="http://dapaas.github.io/api" target="_blank">API</a>
+	  	<a href="http://dapaas.github.io/faq" target="_blank">FAQ</a>
+	
   </div>
 </div>
 
