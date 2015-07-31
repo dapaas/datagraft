@@ -64,7 +64,7 @@ ${userbean.putInCookie(pageContext.request, pageContext.response, pageContext.se
 	</c:if>
 
 		<div class="col-lg-6 col-md-6">
-			<template:latesttransformation id='transformationresult' col1="Transformation" col2="Published" col3="Description" emptylabel="${emptylabel}" label="${titleApplication}" templateData="${transformationBean.getCatalogTransformations()}"/>
+			<template:latesttransformation id='transformationresult' col1="Transformation" col2="User" col3="Published"  emptylabel="${emptylabel}" label="${titleApplication}" templateData="${transformationBean.getCatalogTransformations()}"/>
 		</div>
 </div>
     </jsp:body>

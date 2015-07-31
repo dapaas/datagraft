@@ -3,11 +3,12 @@
 <%@taglib prefix="template" tagdir="/WEB-INF/tags"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-
+<%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 <%@attribute description="tHead col 1 name" name="col1"%>
 <%@attribute description="tHead col 2 name" name="col2"%>
 <%@attribute description="tHead col 3 name" name="col3"%>
+<%@attribute description="tHead col 4 name" name="col4"%>
 
 <%@attribute description="table label" name="label"%>
 <%@attribute description="table empty label" name="emptylabel"%>
@@ -25,8 +26,9 @@
 	<thead>
 		<tr>
 			<th class="header theme-bg">${col1}</th>
-			<th class="header theme-bg"><span class="hidden-xs">${col2}</span><span class="visible-xs">Date</span></th>
-			<th class="hidden-xs theme-bg">${col3}</th>
+			<th class="hidden-xs theme-bg">${col2}</th>
+			<th class="header theme-bg"><span class="hidden-xs">${col3}</span><span class="visible-xs">Date</span></th>
+			
 		</tr>
 	</thead>
 	<tbody>
@@ -40,7 +42,7 @@
 			<fmt:formatDate var="yesterdayString" value="${yesterday}" pattern="yyyy-MM-dd" />
 			<tr id="${data.id}" >
   				<td class="first-row">${data.title}</td>
-  				
+  				<td class="hidden-xs">${data.publisher}</td>
   				<td data-toggle="tooltip" data-container="body" title="<fmt:formatDate value="${issuedDate}" pattern="d MMM yyyy"/>" data-sort="${issuedString}">
   				<c:choose>
 				  <c:when test="${todayString == issuedString}">
@@ -54,7 +56,7 @@
 				  </c:otherwise>
 				</c:choose>
   				</td>
-  				<td class="hidden-xs">${data.description}</td>
+  				
 			</tr>	
 		</c:forEach>
 	</tbody>

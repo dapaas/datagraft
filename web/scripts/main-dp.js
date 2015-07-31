@@ -176,7 +176,7 @@ $(document).ready(function() {
   
   $("#transformationresult").tablesorter({
     headers : {
-      1 : {
+      2 : {
         sorter : "myParser"
       }
     },
