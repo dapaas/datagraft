@@ -153,6 +153,8 @@ public class Utils {
   }
 
   public static HashMap<String, String> convertColumn(String responseStr) {
+    HashMap<String, String> columns = new HashMap<String, String>();
+    try{
     // "head" : {
     // "vars" : [ "title", "Seoul", "Busan", "Daegu", "Incheon", "Gwangju",
     // "Daejeon", "Ulsan", "Gyeonggido", "Gangwondo", "Chungcheongbukdo",
@@ -170,7 +172,7 @@ public class Utils {
     q = q.replaceAll(",", "");
     q = q.replaceAll("\"", "");
     int i = 0;
-    HashMap<String, String> columns = new HashMap<String, String>();
+    
     String[] qq = q.trim().split(" ");
     while (i < qq.length) {
       String col = qq[i];
@@ -178,6 +180,10 @@ public class Utils {
       i++;
     }
     return columns;
+    }catch(Throwable t){
+      logger.error("", t);
+      return columns;
+    }
   }
 
   public static String htmlEncoding(String text) {

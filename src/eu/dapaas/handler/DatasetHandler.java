@@ -17,6 +17,7 @@ import java.util.List;
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
 import org.apache.log4j.Logger;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import eu.dapaas.bean.Wizard;
@@ -86,6 +87,15 @@ public class DatasetHandler extends BaseHandler {
       params.setJsonObject(new NameValuePair<JSONObject>(null, datasetCatalogDetails.toJSON()));
       gateway = new DaPaasGateway(HttpMethod.POST, user.getApiKey(), user.getApiSecret(), Utils.getDaPaasEndpoint("catalog/datasets"), params);
       JSONObject serverResponse = Utils.convertEntityToJSON(gateway.execute());
+      try {
+        error = serverResponse.getString("error");
+      } catch (JSONException e) {
+        logger.error("", e);
+      }
+      if (error != null){
+        throw new Exception(error);
+      }
+      
       logger.debug("CREATE DATASET : " + serverResponse);
       String datasetId = serverResponse.get("@id").toString();
       wizard.getDetails().setId(datasetId);
@@ -147,7 +157,14 @@ public class DatasetHandler extends BaseHandler {
       params.setJsonObject(new NameValuePair<JSONObject>(null, datasetCatalogDetails.toJSON()));
       gateway = new DaPaasGateway(HttpMethod.PUT, user.getApiKey(), user.getApiSecret(), Utils.getDaPaasEndpoint("catalog/datasets"), params);
       JSONObject serverResponse = Utils.convertEntityToJSON(gateway.execute());
-
+      try {
+        error = serverResponse.getString("error");
+      } catch (JSONException e) {
+        logger.error("", e);
+      }
+      if (error != null){
+        throw new Exception(error);
+      }
       logger.debug("UPDATE DATASET : " + serverResponse);
       String datasetId = datasetCatalogDetails.getId(); 
 
@@ -163,7 +180,14 @@ public class DatasetHandler extends BaseHandler {
         params.getHeaders().put("distrib-id", distibutionId);
         gateway.modifiedDaPaasGateway(HttpMethod.GET, Utils.getDaPaasEndpoint("catalog/distributions"), params);
         JSONObject response3 = Utils.convertEntityToJSON(gateway.execute());
-
+        try {
+          error = response3.getString("error");
+        } catch (JSONException e) {
+          logger.error("", e);
+        }
+        if (error != null){
+          throw new Exception(error);
+        }
         logger.debug("GET distributions : " + response3);
         DistributionDetail distribution = new DistributionDetail(response3);
 
@@ -266,6 +290,13 @@ public class DatasetHandler extends BaseHandler {
           break;
         }
       }
+    }else{
+      JSONObject response3 = Utils.convertEntityToJSON(repositoryResponse);
+          try {
+            error = response3.getString("error");
+          } catch (JSONException e) {
+            logger.error("", e);
+          }
     }
     if (error != null){
       throw new Exception(error);
@@ -295,8 +326,15 @@ public class DatasetHandler extends BaseHandler {
       gateway.modifiedDaPaasGateway(HttpMethod.POST, Utils.getDaPaasEndpoint("dapaas-services/grafter/transformation/graft"), params);
 
     }
-    gateway.execute();
-
+    JSONObject response2 = Utils.convertEntityToJSON(gateway.execute());
+    try {
+      error = response2.getString("error");
+    } catch (JSONException e) {
+      logger.error("", e);
+    }
+    if (error != null){
+      throw new Exception(error);
+    }
   }
   
   private String createRDFDistribution(String datasetId, String title, String description, List<String> keywords) throws Exception{
@@ -313,7 +351,16 @@ public class DatasetHandler extends BaseHandler {
 
     params.setJsonObject(new NameValuePair<JSONObject>("meta", metadata.toJSON()));
     gateway.modifiedDaPaasGateway(HttpMethod.POST, Utils.getDaPaasEndpoint("catalog/distributions"), params);
+    
     JSONObject response2 = Utils.convertEntityToJSON(gateway.execute());
+    try {
+      error = response2.getString("error");
+    } catch (JSONException e) {
+      logger.error("", e);
+    }
+    if (error != null){
+      throw new Exception(error);
+    }
     return response2.get("@id").toString();
 
   }
@@ -335,7 +382,14 @@ public class DatasetHandler extends BaseHandler {
     params.setMultipart(true);
     gateway.modifiedDaPaasGateway(HttpMethod.POST, Utils.getDaPaasEndpoint("catalog/distributions"), params);
     JSONObject response2 = Utils.convertEntityToJSON(gateway.execute());
-
+    try {
+      error = response2.getString("error");
+    } catch (JSONException e) {
+      logger.error("", e);
+    }
+    if (error != null){
+      throw new Exception(error);
+    }
     logger.debug("CREATE distributions : " + response2);
     return response2.get("@id").toString();
   }
@@ -451,6 +505,14 @@ public class DatasetHandler extends BaseHandler {
         HttpResponse result = gateway.execute();
 
         JSONObject responseRDF = Utils.convertEntityToJSON(result);
+        try {
+          error = responseRDF.getString("error");
+        } catch (JSONException e) {
+          logger.error("", e);
+        }
+        if (error != null){
+          throw new Exception(error);
+        }
         logger.debug("RESULT upload RDF : " + responseRDF);
       } catch (Throwable t) {
         t.printStackTrace();

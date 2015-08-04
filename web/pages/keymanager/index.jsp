@@ -37,7 +37,7 @@ ${userbean.putInCookie(pageContext.request, pageContext.response, pageContext.se
 	</jsp:attribute>
 <jsp:body>
 	<div class="dataset-wrapper">
-	<c:set var="emptylabel1" value="No user API Keys found. <a class='theme-text'  href='${contextPath }/pages/transformations/index.jsp'>Create your first API Key?</a> " />
+	<c:set var="emptylabel1" value="No user API Keys found. <a class='theme-text'  href='${contextPath }/pages/transformations'>Create your first API Key?</a> " />
 	<h2>API Keys manager</h2>		
 	<table  class="table table-striped table-hover  table-responsive">
 	<thead class="table-head">

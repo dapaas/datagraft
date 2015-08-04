@@ -29,6 +29,7 @@ public class DatasetCatalogHandler extends BaseHandler {
   private String              apiKey;
   private String              apiSecret;
   private String              searchValue;
+  private String              owner;
   private DaPaasGateway       gateway = null;
 
   public DatasetCatalogHandler(String apiKey, String apiSecret) {
@@ -44,12 +45,20 @@ public class DatasetCatalogHandler extends BaseHandler {
   public List<Dataset> getDatasetCatalog() {
     List<Dataset> catalog = new ArrayList<Dataset>();
     try {
+      
+      HashMap<String, String> header = new HashMap<String, String>();
+      if (!Utils.isEmpty(owner)){
+        header.put("owner-filter", owner);
+      }
+      DaPaasParams params = new DaPaasParams();
+      params.setHeaders(header);
+      
       JSONObject serverResponse = new JSONObject();
       if (searchValue != null && searchValue.length() > 0) {
-        gateway = new DaPaasGateway(HttpMethod.GET, apiKey, apiSecret, Utils.getDaPaasEndpoint("catalog/datasets/search?q=" + Utils.htmlEncoding(searchValue)));
+        gateway = new DaPaasGateway(HttpMethod.GET, apiKey, apiSecret, Utils.getDaPaasEndpoint("catalog/datasets/search?q=" + Utils.htmlEncoding(searchValue)), params);
         serverResponse = Utils.convertEntityToJSON(gateway.execute());
       } else {
-        gateway = new DaPaasGateway(HttpMethod.GET, apiKey, apiSecret, Utils.getDaPaasEndpoint("catalog/datasets/catalog"));
+        gateway = new DaPaasGateway(HttpMethod.GET, apiKey, apiSecret, Utils.getDaPaasEndpoint("catalog/datasets/catalog"), params);
         HttpResponse result = gateway.execute();
         serverResponse = Utils.convertEntityToJSON(result);
       }
@@ -103,6 +112,9 @@ public class DatasetCatalogHandler extends BaseHandler {
 
       HashMap<String, String> header = new HashMap<String, String>();
       header.put("showShared", "y");
+      if (!Utils.isEmpty(owner)){
+        header.put("owner-filter", owner);
+      }
 
       JSONObject serverResponse = new JSONObject();
       if (searchValue != null && searchValue.length() > 0) {
@@ -169,20 +181,21 @@ public class DatasetCatalogHandler extends BaseHandler {
 
       JSONObject jemptycontext = new JSONObject();
       jemptycontext.put("@context", new JSONObject());
-
-      String distibutionId = detail.getDistribution().get(0).toString();
-      params = new DaPaasParams();
-      params.setJsonObject(new NameValuePair<JSONObject>(null, jemptycontext));
-      params.getHeaders().put("distrib-id", distibutionId);
-      gateway.modifiedDaPaasGateway(HttpMethod.GET, Utils.getDaPaasEndpoint("catalog/distributions"), params);
-      JSONObject response3 = Utils.convertEntityToJSON(gateway.execute());
-
-      logger.debug("GET distributions : " + response3);
-      DistributionDetail distribution = new DistributionDetail(response3);
-
-      String accessURL = distribution.getAccessURL();
-      detail.setAccessURL(accessURL);
-
+      
+      if (detail.getDistribution().size()>0){
+        String distibutionId = detail.getDistribution().get(0).toString();
+        params = new DaPaasParams();
+        params.setJsonObject(new NameValuePair<JSONObject>(null, jemptycontext));
+        params.getHeaders().put("distrib-id", distibutionId);
+        gateway.modifiedDaPaasGateway(HttpMethod.GET, Utils.getDaPaasEndpoint("catalog/distributions"), params);
+        JSONObject response3 = Utils.convertEntityToJSON(gateway.execute());
+  
+        logger.debug("GET distributions : " + response3);
+        DistributionDetail distribution = new DistributionDetail(response3);
+  
+        String accessURL = distribution.getAccessURL();
+        detail.setAccessURL(accessURL);
+      }
       WizardPortal portal = LocalDBProvider.getPortaltByDatasetId(detail.getId());
       detail.setPortalParameter(portal.getParameter());
 
@@ -204,8 +217,14 @@ public class DatasetCatalogHandler extends BaseHandler {
       for (String distrId : dataset.getDistribution()) {
         DaPaasParams params = new DaPaasParams();
         params.getHeaders().put("distrib-id", distrId);
-        gateway = new DaPaasGateway(HttpMethod.DELETE, apiKey, apiSecret, Utils.getDaPaasEndpoint("catalog/distributions"), params);
+        
+        gateway = new DaPaasGateway(HttpMethod.DELETE, apiKey, apiSecret, Utils.getDaPaasEndpoint("catalog/distributions/repository"), params);
         JSONObject serverResponse = Utils.convertEntityToJSON(gateway.execute());
+        logger.debug("Repository DELETE RESULT: " + serverResponse);
+        
+        
+        gateway = new DaPaasGateway(HttpMethod.DELETE, apiKey, apiSecret, Utils.getDaPaasEndpoint("catalog/distributions"), params);
+        serverResponse = Utils.convertEntityToJSON(gateway.execute());
         logger.debug("Distribution DELETE RESULT: " + serverResponse);
       }
       DaPaasParams params = new DaPaasParams();
@@ -231,6 +250,14 @@ public class DatasetCatalogHandler extends BaseHandler {
 
   public void setSearchValue(String searchValue) {
     this.searchValue = searchValue;
+  }
+
+  public String getOwner() {
+    return owner;
+  }
+
+  public void setOwner(String owner) {
+    this.owner = owner;
   }
 
 }

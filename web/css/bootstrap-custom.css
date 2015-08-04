@@ -579,6 +579,10 @@ SVG>TEXT {
 	margin-top: 55px;
 }
 
+#catalogresult tr td{
+	cursor: pointer;
+}
+
 @media only screen and (min-width:1199px){
 .dropdown-menu {
 		margin-right: -77px;

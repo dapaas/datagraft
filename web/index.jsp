@@ -86,7 +86,7 @@ if (user!=null){
 			   <input type="text" id="searchtext" name="searchvalue" class="form-control col-lg-8 white" placeholder="Search">
 			   
 			</form>
-			<a href="${contextPath}/pages/catalogs/index.jsp" id="searchsubmitbutton">Explore</a>
+			<a href="${contextPath}/pages/catalogs" id="searchsubmitbutton">Explore</a>
 			<a  id="singupdata" data-login="${user.username}" data-isloginever="${isloginever }" data-hasdataset="<%= hasDataset%>">Sign In</a>
 	      </div>
 	    

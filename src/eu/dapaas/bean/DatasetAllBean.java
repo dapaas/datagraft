@@ -17,16 +17,19 @@ public class DatasetAllBean {
   private HttpServletResponse response;
   private HttpSession         session;
   private String              searchValue;
+  private String              owner;
 
   public List<Dataset> getCatalogDataset() throws JSONException, IOException {
     DatasetCatalogHandler cathandler = new DatasetCatalogHandler();
     cathandler.setSearchValue(searchValue);
+    cathandler.setOwner(owner);
     return cathandler.getDatasetCatalog();
   }
 
   public List<Dataset> getCatalogSharedDataset() throws JSONException, IOException {
     DatasetCatalogHandler cathandler = new DatasetCatalogHandler();
     cathandler.setSearchValue(searchValue);
+    cathandler.setOwner(owner);
     return cathandler.getSharedDatasetCatalog();
   }
 
@@ -41,6 +44,11 @@ public class DatasetAllBean {
       }
     }
     return datasetsPortals;
+  }
+  
+  public Dataset getCatalogDetails(String datasetId) throws JSONException, IOException {
+    DatasetCatalogHandler cathandler = new DatasetCatalogHandler();
+    return cathandler.getDetailsCatalog(datasetId);
   }
 
   public String getSearchValue() {
@@ -65,6 +73,14 @@ public class DatasetAllBean {
 
   public void setSession(HttpSession session) {
     this.session = session;
+  }
+
+  public String getOwner() {
+    return owner;
+  }
+
+  public void setOwner(String owner) {
+    this.owner = owner;
   }
 
 }

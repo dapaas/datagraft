@@ -374,6 +374,10 @@ require.register("dropzone/lib/dropzone.js", function (exports, module) {
           file.transformation = "" ;
           break;
         default:
+          file.content = "GRF";
+          file.mimetype = file.type;
+          file.transformation = "" ;
+        break;
 
     }   
         if (this.previewsContainer) {

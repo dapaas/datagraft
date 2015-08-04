@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE urlrewrite PUBLIC "-//tuckey.org//DTD UrlRewrite 4.0//EN" "http://www.tuckey.org/res/dtds/urlrewrite4.0.dtd">
+<!-- Configuration file for UrlRewriteFilter http://www.tuckey.org/urlrewrite/ -->
+<urlrewrite>
+	<rule>
+		<from>/pages/logout$</from>
+		<to type="forward" last="true">/pages/logout.jsp</to>
+	</rule>
+	<rule>
+		<from>/pages/ddp/([a-zA-Z]+)$</from>
+		<to type="forward" >/pages/ddp.jsp?$1</to>
+	</rule>
+	<rule>
+		<from>/pages/error$</from>
+		<to type="forward" last="true">/pages/error.jsp</to>
+	</rule>
+	<rule>
+		<from>/pages/register$</from>
+		<to type="forward" last="true">/pages/register.jsp</to>
+	</rule>
+	<rule>
+		<from>/pages/catalogs/([a-zA-Z]+)$</from>
+		<to type="forward">/pages/catalogs/index.jsp?owner=$1</to>
+	</rule>
+	
+	<rule>
+		<from>/pages/([a-zA-Z]+)$</from>
+		<to type="forward">/pages/$1/index.jsp</to>
+	</rule>
+	
+</urlrewrite>

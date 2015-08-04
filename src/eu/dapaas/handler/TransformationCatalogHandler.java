@@ -2,6 +2,7 @@ package eu.dapaas.handler;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -18,6 +19,7 @@ public class TransformationCatalogHandler extends BaseHandler {
   private static final Logger logger  = Logger.getLogger(TransformationCatalogHandler.class);
   private String              apiKey;
   private String              apiSecret;
+  private String              owner;
   private String              searchValue;
   private DaPaasGateway       gateway = null;
 
@@ -34,12 +36,18 @@ public class TransformationCatalogHandler extends BaseHandler {
   public List<Transformation> getTransformationCatalog() {
     List<Transformation> catalog = new ArrayList<Transformation>();
     try {
+      HashMap<String, String> header = new HashMap<String, String>();
+      if (!Utils.isEmpty(owner)){
+        header.put("owner-filter", owner);
+      }
+      DaPaasParams params = new DaPaasParams();
+      params.setHeaders(header);
       JSONObject serverResponse = new JSONObject();
       if (searchValue != null && searchValue.length() > 0) {
-        gateway = new DaPaasGateway(HttpMethod.GET, apiKey, apiSecret, Utils.getDaPaasEndpoint("catalog/transformations/search?q=" + Utils.htmlEncoding(searchValue)));
+        gateway = new DaPaasGateway(HttpMethod.GET, apiKey, apiSecret, Utils.getDaPaasEndpoint("catalog/transformations/search?q=" + Utils.htmlEncoding(searchValue)), params);
         serverResponse = Utils.convertEntityToJSON(gateway.execute());
       } else {
-        gateway = new DaPaasGateway(HttpMethod.GET, apiKey, apiSecret, Utils.getDaPaasEndpoint("catalog/transformations/catalog"));
+        gateway = new DaPaasGateway(HttpMethod.GET, apiKey, apiSecret, Utils.getDaPaasEndpoint("catalog/transformations/catalog"), params);
         serverResponse = Utils.convertEntityToJSON(gateway.execute());
       }
       logger.debug("CATALOG : " + serverResponse);
@@ -70,6 +78,9 @@ public class TransformationCatalogHandler extends BaseHandler {
       JSONObject serverResponse = new JSONObject();
       DaPaasParams params = new DaPaasParams();
       params.getHeaders().put("showShared", "y");
+      if (!Utils.isEmpty(owner)){
+        params.getHeaders().put("owner-filter", owner);
+      }
       if (searchValue != null && searchValue.length() > 0) {
         gateway = new DaPaasGateway(HttpMethod.GET, apiKey, apiSecret, Utils.getDaPaasEndpoint("catalog/transformations/search?q=" + Utils.htmlEncoding(searchValue)), params);
         serverResponse = Utils.convertEntityToJSON(gateway.execute());
@@ -126,5 +137,13 @@ public class TransformationCatalogHandler extends BaseHandler {
 
   public void setSearchValue(String searchValue) {
     this.searchValue = searchValue;
+  }
+
+  public String getOwner() {
+    return owner;
+  }
+
+  public void setOwner(String owner) {
+    this.owner = owner;
   }
 }

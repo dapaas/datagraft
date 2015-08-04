@@ -36,7 +36,7 @@
 						<a id="previewdetail" href="" class="aimg" title="Apply transformation">
 						 	<i class="mdi-hardware-keyboard-arrow-right theme-text"></i>
 						 </a>
-						<c:url value="/pages/transformations/index.jsp" var="dwnUrl" scope="request">
+						<c:url value="/pages/transformations" var="dwnUrl" scope="request">
 							<c:param name="id" value="${data.id}"></c:param>
 						 </c:url>
 						 <a href="${dwnUrl}" class="aimg" title="Edit">

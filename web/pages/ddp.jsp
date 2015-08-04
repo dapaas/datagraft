@@ -6,7 +6,7 @@
 <%@taglib prefix="template" tagdir="/WEB-INF/tags"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-
+<c:set var="contextPath" value="${pageContext.request.contextPath}" />
 <c:forEach var="pageParameter" items="${param}">
 <c:set var="portal" value="${datasetbean.getPortalByParameter(pageParameter.key) }"/>
 </c:forEach>
@@ -60,15 +60,15 @@
 		<script type="text/javascript" src="http://code.highcharts.com/highcharts.js" defer></script>
 		<script type="text/javascript" src="http://code.highcharts.com/highcharts-more.js" defer></script>
 		<script src="http://code.highcharts.com/maps/modules/map.js" defer></script>
-		<script type="text/javascript" src="../scripts/common.js" defer></script>
-		<script type="text/javascript" src="../scripts/properties.js" defer></script>
-		<script type="text/javascript" src="../scripts/highchartLine.js" defer></script>
-		<script type="text/javascript" src="../scripts/highchartBar.js" defer></script>
-		<script type="text/javascript" src="../scripts/highchartPie.js" defer></script>
-		<script type="text/javascript" src="../scripts/highchartScatter.js" defer></script>
-		<script type="text/javascript" src="../scripts/highchartBubble.js" defer></script>
-		<script type="text/javascript" src="../scripts/drawTable.js" defer></script>
-		<script type="text/javascript" src="../scripts/googleMaps.js" defer></script>
-		<script type="text/javascript" src="../scripts/main.js" defer></script>				
+		<script type="text/javascript" src="${contextPath}/scripts/common.js" defer></script>
+		<script type="text/javascript" src="${contextPath}/scripts/properties.js" defer></script>
+		<script type="text/javascript" src="${contextPath}/scripts/highchartLine.js" defer></script>
+		<script type="text/javascript" src="${contextPath}/scripts/highchartBar.js" defer></script>
+		<script type="text/javascript" src="${contextPath}/scripts/highchartPie.js" defer></script>
+		<script type="text/javascript" src="${contextPath}/scripts/highchartScatter.js" defer></script>
+		<script type="text/javascript" src="${contextPath}/scripts/highchartBubble.js" defer></script>
+		<script type="text/javascript" src="${contextPath}/scripts/drawTable.js" defer></script>
+		<script type="text/javascript" src="${contextPath}/scripts/googleMaps.js" defer></script>
+		<script type="text/javascript" src="${contextPath}/scripts/main.js" defer></script>				
 	</jsp:body>
 </template:genericpage>

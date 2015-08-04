@@ -89,7 +89,7 @@ $(document).ready(function() {
                if( $("#setupdpp").hasClass('down')){
                  document.location=Application.contextPath +"/pages/publish/details.jsp";
                }else{
-                 document.location=Application.contextPath +"/pages/myassets/index.jsp";
+                 document.location=Application.contextPath +"/pages/myassets";
                }
              }
            };

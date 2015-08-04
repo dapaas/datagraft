@@ -9,5 +9,5 @@
 <c:set var="islogin" value="${userbean.loginStatus(pageContext.request, pageContext.response, pageContext.session) }" />
 <c:if test="${empty user and not islogin}">
 	<c:set var="error" value="User is not Sign In. Please Sign In!" scope="session" />
-	<jsp:forward page="/pages/error.jsp"></jsp:forward>
+	<jsp:forward page="/pages/error"></jsp:forward>
 </c:if>

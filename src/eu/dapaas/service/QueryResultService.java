@@ -23,7 +23,15 @@ public class QueryResultService {
       User user = (User) webSession.getSessionObject(SessionConstants.DAPAAS_USER);
       SPARQLResult sparqlresult = new SPARQLResult();
       QueryHandler queryhandler = new QueryHandler(query);
-      String responseStr = queryhandler.executeQueryById(user.getApiKey(), user.getApiSecret(), id);
+      String apiKey = null;
+      String apiSecret = null;
+      if (user!=null && !Utils.isEmpty(user.getApiKey())){
+        apiKey = user.getApiKey();
+      }
+      if (user!=null && Utils.isEmpty(user.getApiSecret())){
+        apiSecret = user.getApiSecret();
+      }
+      String responseStr = queryhandler.executeQueryById(apiKey, apiSecret, id);
 
       JSONObject qresult = Utils.convertStringToJSON(responseStr);
       sparqlresult = new SPARQLResult(qresult);

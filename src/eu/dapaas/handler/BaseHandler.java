@@ -42,7 +42,7 @@ public abstract class BaseHandler {
   protected void showErrorPage(String error) {
     getSession().setAttribute("error", error);
     try {
-      getResponse().sendRedirect("pages/error.jsp");
+      getResponse().sendRedirect("pages/error");
     } catch (IOException e) {
       logger.error("", e);
     }
