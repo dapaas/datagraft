@@ -282,9 +282,9 @@ ${userbean.putInCookie(pageContext.request, pageContext.response, pageContext.se
 			<div id="poligonchart-results" class="result-tab-section">
 				<div id="polChart"></div>
 			</div>
-			<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
-			<script type="text/javascript" src="http://code.highcharts.com/highcharts.js" defer></script>
-			<script type="text/javascript" src="http://code.highcharts.com/highcharts-more.js" defer></script>
+			<script type="text/javascript" src="//maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+			<script type="text/javascript" src="//code.highcharts.com/highcharts.js" defer></script>
+			<script type="text/javascript" src="//code.highcharts.com/highcharts-more.js" defer></script>
 			
 			<script src="http://code.highcharts.com/maps/modules/map.js" defer></script>
 			<script type="text/javascript" src="${contextPath }/scripts/common.js" defer></script>
@@ -421,21 +421,7 @@ ${userbean.putInCookie(pageContext.request, pageContext.response, pageContext.se
   <div id="dialog-preview-portal" title="Preview">
   
 	    <div id="container"></div>
-		<!-- <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
-		<script type="text/javascript" src="http://code.highcharts.com/highcharts.js" defer></script>
-		<script type="text/javascript" src="http://code.highcharts.com/highcharts-more.js" defer></script>
-		<script src="http://code.highcharts.com/maps/modules/map.js" defer></script>
 		
-		<script type="text/javascript" src="${contextPath }/scripts/common.js" defer></script>
-		<script type="text/javascript" src="${contextPath }/scripts/properties.js" defer></script>
-		<script type="text/javascript" src="${contextPath }/scripts/highchartLine.js" defer></script>
-		<script type="text/javascript" src="${contextPath }/scripts/highchartBar.js" defer></script>
-		<script type="text/javascript" src="${contextPath }/scripts/highchartPie.js" defer></script>
-		<script type="text/javascript" src="${contextPath }/scripts/highchartScatter.js" defer></script>
-		<script type="text/javascript" src="${contextPath }/scripts/highchartBubble.js" defer></script>
-		<script type="text/javascript" src="${contextPath }/scripts/drawTable.js" defer></script>
-		<script type="text/javascript" src="${contextPath }/scripts/googleMaps.js" defer></script>
-		<script type="text/javascript" src="${contextPath }/scripts/main.js" defer></script> -->
   </div>
   
   <div id="dialog-export" title="" class="modal fade" tabindex="-1">

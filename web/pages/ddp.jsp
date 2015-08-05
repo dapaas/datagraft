@@ -56,10 +56,10 @@
 		<div id="container" ></div>
 		
 		
-		<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
-		<script type="text/javascript" src="http://code.highcharts.com/highcharts.js" defer></script>
-		<script type="text/javascript" src="http://code.highcharts.com/highcharts-more.js" defer></script>
-		<script src="http://code.highcharts.com/maps/modules/map.js" defer></script>
+		<script type="text/javascript" src="//maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+		<script type="text/javascript" src="//code.highcharts.com/highcharts.js" defer></script>
+		<script type="text/javascript" src="//code.highcharts.com/highcharts-more.js" defer></script>
+		<script src="//code.highcharts.com/maps/modules/map.js" defer></script>
 		<script type="text/javascript" src="${contextPath}/scripts/common.js" defer></script>
 		<script type="text/javascript" src="${contextPath}/scripts/properties.js" defer></script>
 		<script type="text/javascript" src="${contextPath}/scripts/highchartLine.js" defer></script>

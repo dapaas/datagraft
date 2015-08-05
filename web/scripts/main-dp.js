@@ -426,7 +426,7 @@ $(document).ready(function() {
   });
   
   $("#createnewtransformation").click(function(){
-    window.open("http://ec2-54-154-72-62.eu-west-1.compute.amazonaws.com/transformations/new");
+    window.open("//ec2-54-154-72-62.eu-west-1.compute.amazonaws.com/transformations/new");
     
   }); 
   

@@ -35,26 +35,26 @@ if (user!=null){
   <link type="text/css" rel="stylesheet" href="${contextPath}/css/jquery.rating.css">
   <link type="text/css" rel="stylesheet" href="//code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">
   <link type="text/css" rel="stylesheet" href="${contextPath}/css/dropzone.css">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-material-design/0.2.1/css/material-wfont.css" />
-  <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Roboto:100" />
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-material-design/0.2.1/css/material-wfont.css" />
+  <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Roboto:100" />
   <link rel="stylesheet" type="text/css" href="${contextPath}/css/bootstrap-custom.css" />
   <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.4/css/jquery.dataTables.min.css">
   <link rel="stylesheet" type="text/css" href="css/stylish-index.css" />
 
   <script type="text/javascript" src="//code.jquery.com/jquery-1.9.1.min.js"></script>
   <script type="text/javascript" src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
-  <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
-  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-material-design/0.2.1/js/material.min.js"></script>
+  <script type="text/javascript" src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+  <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-material-design/0.2.1/js/material.min.js"></script>
   <script type="text/javascript" src="${contextPath}/scripts/script_index.js"></script>
-  <script type="text/javascript" src="https://cdn.datatables.net/1.10.4/js/jquery.dataTables.min.js"></script>
+  <script type="text/javascript" src="//cdn.datatables.net/1.10.4/js/jquery.dataTables.min.js"></script>
   <script type="text/javascript" src="${contextPath}/scripts/jquery.rating.js"></script>
   <script type="text/javascript" src="${contextPath}/scripts/main-dp.js"></script>
   <script type="text/javascript" src="${contextPath}/scripts/jquery.tablesorter.min.js"></script>
   <script type="text/javascript" src="${contextPath}/scripts/jquery-linenumbers.js"></script>
   <script type="text/javascript" src="${contextPath}/scripts/bootstrap-tokenfield.min.js"></script>
   <script type="text/javascript" src="${contextPath}/scripts/ddpservices.js"></script>
-  <script type="text/javascript" src="http://malsup.github.com/jquery.form.js"></script>
+  <script type="text/javascript" src="//malsup.github.io/jquery.form.js"></script>
   <script type="text/javascript" src="${contextPath}/scripts/dropzone.js"></script>
   <script type="text/javascript" src="${contextPath}/scripts/upload.js"></script>
   
@@ -182,8 +182,8 @@ if (user!=null){
   </div>
   <div class="menulink">
   	
-	  	<a href="http://dapaas.github.io/api" target="_blank">API</a>
-	  	<a href="http://dapaas.github.io/faq" target="_blank">FAQ</a>
+	  	<a href="//dapaas.github.io/api" target="_blank">API</a>
+	  	<a href="//dapaas.github.io/faq" target="_blank">FAQ</a>
 	
   </div>
 </div>

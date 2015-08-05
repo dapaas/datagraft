@@ -16,8 +16,8 @@
   <link type="text/css" rel="stylesheet" href="${contextPath}/css/jquery.rating.css">
   <link type="text/css" rel="stylesheet" href="//code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">
   <link type="text/css" rel="stylesheet" href="${contextPath}/css/dropzone.css">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-material-design/0.2.1/css/material-wfont.css" />
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-material-design/0.2.1/css/material-wfont.css" />
   <link rel='stylesheet' type='text/css' href='//fonts.googleapis.com/css?family=Roboto:100'/>
   <link rel='stylesheet' type='text/css' href="//cdn.datatables.net/1.10.4/css/jquery.dataTables.min.css">
   <link rel='stylesheet' type='text/css' href="${contextPath}/css/bootstrap-tokenfield.min.css"/>
@@ -29,10 +29,10 @@
   
   <script type="text/javascript" src="//code.jquery.com/jquery-1.9.1.min.js"></script>
   <script type="text/javascript" src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
-  <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
-  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-material-design/0.2.1/js/material.min.js"></script>
-  <script type="text/javascript" src="https://cdn.datatables.net/1.10.4/js/jquery.dataTables.min.js"></script>
-  <script type="text/javascript" src="//malsup.github.com/jquery.form.js"></script>
+  <script type="text/javascript" src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+  <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-material-design/0.2.1/js/material.min.js"></script>
+  <script type="text/javascript" src="//cdn.datatables.net/1.10.4/js/jquery.dataTables.min.js"></script>
+  <script type="text/javascript" src="//malsup.github.io/jquery.form.js"></script>
   
   <script type="text/javascript" src="${contextPath}/scripts/jquery.rating.js"></script>
   <script type="text/javascript" src="${contextPath}/scripts/jquery.tablesorter.min.js"></script>
@@ -89,13 +89,13 @@
       </div>
       <div class="navbar-collapse collapse navbar-responsive-collapse">
         <ul class="nav navbar-nav navbar-right">
-          <li><a href="http://project.dapaas.eu/dapaas-terms-of-use">Terms of use</a></li>
-          <li><a href="http://project.dapaas.eu/dapaas-privacy-policy">Privacy policy</a></li>
-          <li><a href="http://project.dapaas.eu/dapaas-cookie-policy">Cookie policy</a></li>
-          <li><a href="http://project.dapaas.eu/dapaas-contact-us">Contact</a></li>
+          <li><a href="//project.dapaas.eu/dapaas-terms-of-use">Terms of use</a></li>
+          <li><a href="//project.dapaas.eu/dapaas-privacy-policy">Privacy policy</a></li>
+          <li><a href="//project.dapaas.eu/dapaas-cookie-policy">Cookie policy</a></li>
+          <li><a href="//project.dapaas.eu/dapaas-contact-us">Contact</a></li>
         </ul>
       </div>
-      <p class="navbar-link">DataGraft is a product of <a href="http://dapaas.eu">DaPaaS</a>, project co-founded by the EC under 7th Framework Programme (FP7 2007-2013)</p>
+      <p class="navbar-link">DataGraft is a product of <a href="//dapaas.eu">DaPaaS</a>, project co-founded by the EC under 7th Framework Programme (FP7 2007-2013)</p>
     </nav>
   </footer>
 </body>
