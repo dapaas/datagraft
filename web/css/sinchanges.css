@@ -1,0 +1,25 @@
+/* Puts the footer at the bottom of the page */
+/* Can be simplified using flexbox when it be supported by most of the web browsers */
+
+html {
+    height:100%;
+}
+
+body {
+    min-height:100%;
+    position:relative;
+}
+
+body #body {
+    min-height: inherit;
+    padding-bottom:8em;
+}
+
+body > footer.navbar {
+    position: absolute;
+    left:0;
+    right:0;
+    bottom:0;
+    margin-bottom:0;
+    max-height: 8em;
+}
