@@ -76,9 +76,9 @@ public class LoginHandler extends BaseHandler {
           user.setCookies(cookies);
           request.getSession().setAttribute(SessionConstants.DAPAAS_USER, user);
           if (Utils.checkCatalog(user.getApiKey(), user.getApiSecret())) {
-            redirectToPage("pages/myassets/index.jsp", serverResponse);
+            redirectToPage("pages/myassets", serverResponse);
           } else {
-            redirectToPage("pages/publish/index.jsp", serverResponse);
+            redirectToPage("pages/publish", serverResponse);
           }
         }
       } else {

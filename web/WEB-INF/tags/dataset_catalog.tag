@@ -71,7 +71,7 @@
 						 <i class="mdi-content-create theme-text"></i>
 						 </a> 
 						 
-						 <c:url value="/pages/myassets/index.jsp" var="delUrl" scope="request">
+						 <c:url value="/pages/myassets" var="delUrl" scope="request">
 							  <c:param name="id" value="${data.id}"/>
 							  <c:param name="delete" value="dataset"/>
 							  </c:url>

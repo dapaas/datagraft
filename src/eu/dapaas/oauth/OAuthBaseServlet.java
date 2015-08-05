@@ -50,7 +50,7 @@ public class OAuthBaseServlet extends OAuthServlet {
      if (Utils.isEmpty((String) req.getSession().getAttribute(SessionConstants.ERROR))){
        handleSuccess(req, resp);
      }else{
-       req.getRequestDispatcher("/pages/error.jsp").forward(req, resp);
+       req.getRequestDispatcher("/pages/error").forward(req, resp);
      }
     } catch (Throwable e) {
       logger.error("", e);
@@ -63,9 +63,9 @@ public class OAuthBaseServlet extends OAuthServlet {
       User user = (User) req.getSession().getAttribute(SessionConstants.DAPAAS_USER);
       if (user != null && user.getApiKey()!= null && user.getApiKey().length() > 0) {
         if (Utils.checkCatalog(user.getApiKey(), user.getApiSecret())) {
-          resp.sendRedirect(req.getContextPath() + "/pages/myassets/index.jsp");
+          resp.sendRedirect(req.getContextPath() + "/pages/myassets");
         } else {
-          resp.sendRedirect(req.getContextPath() + "/pages/publish/index.jsp");
+          resp.sendRedirect(req.getContextPath() + "/pages/publish");
         }
       }
     }
@@ -89,6 +89,6 @@ public class OAuthBaseServlet extends OAuthServlet {
     String oauthError = e.getMessage();
     String error = oauthError;
     request.getSession().setAttribute(SessionConstants.ERROR, error);
-    request.getRequestDispatcher("/pages/error.jsp").forward(request, response);
+    request.getRequestDispatcher("/pages/error").forward(request, response);
   }
 }

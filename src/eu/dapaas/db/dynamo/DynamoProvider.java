@@ -36,7 +36,7 @@ public class DynamoProvider {
   private static AmazonDynamoDBClient dynamoDBClient;
 
   private static void init() {
-    dynamoDBClient = new AmazonDynamoDBClient(new InstanceProfileCredentialsProvider());
+    dynamoDBClient = new AmazonDynamoDBClient(); //new InstanceProfileCredentialsProvider()
     Region usWest1 = Region.getRegion(Regions.EU_WEST_1);
     dynamoDBClient.setRegion(usWest1);
   }

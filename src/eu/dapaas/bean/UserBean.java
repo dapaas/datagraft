@@ -32,7 +32,7 @@ public class UserBean {
       session.removeAttribute(SessionConstants.DAPAAS_USER);
     }
     try{
-      response.sendRedirect(request.getContextPath() + "/pages/catalogs/index.jsp");
+      response.sendRedirect(request.getContextPath() + "/pages/catalogs");
     }catch(IOException e){
       
     }

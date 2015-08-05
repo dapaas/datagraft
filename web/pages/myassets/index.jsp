@@ -56,21 +56,21 @@ ${userbean.putInCookie(pageContext.request, pageContext.response, pageContext.se
 </form>
 
 <ul class="breadcrumb">
-    <li><a class="theme-text" href="${contextPath }/pages/catalogs/index.jsp">Explore</a></li>
+    <li><a class="theme-text" href="${contextPath }/pages/catalogs">Explore</a></li>
     <li class="active">Dashboard</li>
 </ul> 
 		<div class="dataset-wrapper">
 			
 			<c:set var="titleDataset" value="My data pages"/>
-			<c:set var="emptylabel" value="No user data pages found. <a class='theme-text'  href='${contextPath }/pages/publish/index.jsp'>Create your first data page?</a> " />
+			<c:set var="emptylabel" value="No user data pages found. <a class='theme-text'  href='${contextPath }/pages/publish'>Create your first data page?</a> " />
 			<c:if test="${ not empty param['mydatapagesearch']}">
 			<c:set var="titleDataset" value="My data pages (filtered by &quot;${param['mydatapagesearch']}&quot;)" />
-			<c:set var="emptylabel" value="No matching data pages found. <a class='theme-text' href='${contextPath }/pages/myassets/index.jsp'>Show all?</a> " />
+			<c:set var="emptylabel" value="No matching data pages found. <a class='theme-text' href='${contextPath }/pages/myassets'>Show all?</a> " />
 			</c:if>
 			<div class="col-lg-6 col-md-6">
 				<h2>${titleDataset }</h2>
 				<!-- search data page -->
-				<form id="formmydatapagesearch" method="post" action="${contextPath }/pages/myassets/index.jsp">
+				<form id="formmydatapagesearch" method="post" action="${contextPath }/pages/myassets">
 				   <div class="form-group">
 				   <div class="input-group">
 				        <input type="text" id="mydatapagesearch" name="mydatapagesearch" class="form-control col-lg-8" placeholder="Search">
@@ -80,15 +80,15 @@ ${userbean.putInCookie(pageContext.request, pageContext.response, pageContext.se
 				<template:dataset_catalog id="mycatalogresult" templateData="${datasetBean.getCatalogDataset(user.apiKey, user.apiSecret)}" action="${true }" emptylabel="${emptylabel }"/>
 			</div>
 			<c:set var="titleTransformation" value="My transformations"/>
-			<c:set var="emptylabel1" value="No user transformations found. <a class='theme-text'  href='${contextPath }/pages/transformations/index.jsp'>Create your first transformation?</a> " />
+			<c:set var="emptylabel1" value="No user transformations found. <a class='theme-text'  href='${contextPath }/pages/transformations'>Create your first transformation?</a> " />
 			<c:if test="${ not empty param['mytransformationsearch']}">
 			<c:set var="titleTransformation" value="My transformations (filtered by &quot;${param['mytransformationsearch']}&quot;)"/>
-			<c:set var="emptylabel1" value="No matching transformations found. <a class='theme-text' href='${contextPath }/pages/myassets/index.jsp'>Show all?</a> " />
+			<c:set var="emptylabel1" value="No matching transformations found. <a class='theme-text' href='${contextPath }/pages/myassets'>Show all?</a> " />
 			</c:if>
 			<div class="col-lg-6 col-md-6">
 				<h2>${titleTransformation }</h2>
 				<!-- search transformation -->
-				<form id="formmytransformationsearch" method="post" action="${contextPath }/pages/myassets/index.jsp">
+				<form id="formmytransformationsearch" method="post" action="${contextPath }/pages/myassets">
 				   <div class="form-group">
 				   <div class="input-group">
 				        <input type="text" id="mytransformationsearch" name="mytransformationsearch" class="form-control col-lg-8" placeholder="Search">

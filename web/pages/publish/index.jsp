@@ -36,8 +36,8 @@ ${wizard.emptyNew()}
 <div class="container">
 
 <ul class="breadcrumb">
-    <li><a class="theme-text" href="${contextPath }/pages/catalogs/index.jsp">Explore</a></li>
-    <li><a class="theme-text" href="${contextPath }/pages/myassets/index.jsp">Dashboard</a></li>
+    <li><a class="theme-text" href="${contextPath }/pages/catalogs">Explore</a></li>
+    <li><a class="theme-text" href="${contextPath }/pages/myassets">Dashboard</a></li>
     <li class="active">Create Data Page</li>
 </ul>
 

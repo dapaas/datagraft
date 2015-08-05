@@ -90,7 +90,7 @@ public class Transformation {
       // e.printStackTrace();
     }
     try {
-      this.isPublic = o.getBoolean("dct:public");
+      this.isPublic = o.getBoolean("dcat:public");
     } catch (JSONException e) {
       // e.printStackTrace();
     }
@@ -149,7 +149,7 @@ public class Transformation {
       json.put("dct:modified", this.modified);
       json.put("dct:title", this.title);
       json.put("dct:description", this.description);
-      json.put("dct:public", this.isPublic);
+      json.put("dcat:public", this.isPublic);
       json.put("dcat:transformationCommand", this.transformationCommand);
       json.put("dcat:transformationType", this.transformationType);
 
@@ -223,6 +223,14 @@ public class Transformation {
 
   public void setTransformationCommand(String transformationCommand) {
     this.transformationCommand = transformationCommand;
+  }
+
+  public String getPublisher() {
+    return publisher;
+  }
+
+  public void setPublisher(String publisher) {
+    this.publisher = publisher;
   }
 
 }

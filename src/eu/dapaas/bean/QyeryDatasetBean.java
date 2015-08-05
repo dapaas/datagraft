@@ -30,6 +30,12 @@ public class QyeryDatasetBean {
   }
 
   public void exportRDF(HttpServletResponse response, String apiKey, String apiSecret, String username, String datasetId, String contentType) throws JSONException, IOException {
+    if (Utils.isEmpty(apiKey)){
+      apiKey = null;
+    }
+    if (Utils.isEmpty(apiSecret)){
+      apiSecret = null;
+    }
     QueryHandler queryhandler = new QueryHandler();
     File file = queryhandler.exportRDF(apiKey, apiSecret, username, datasetId, contentType);
     if (file != null) {
@@ -47,6 +53,12 @@ public class QyeryDatasetBean {
   }
 	
 	public List<String> getDatasetProperties(String apiKey, String apiSecret, String datasetId) throws JSONException, IOException {
+	  if (Utils.isEmpty(apiKey)){
+	    apiKey = null;
+	  }
+	  if (Utils.isEmpty(apiSecret)){
+	    apiSecret = null;
+    }
 	    QueryHandler queryhandler = new QueryHandler(Config.getInstance().getDatasetPropertiesQuery());
 	    String responseStr = queryhandler.executeQueryById(apiKey, apiSecret, datasetId);
 	    JSONObject qresult = Utils.convertStringToJSON(responseStr);

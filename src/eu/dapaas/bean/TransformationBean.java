@@ -18,6 +18,7 @@ public class TransformationBean {
   private HttpServletResponse response;
   private HttpSession         session;
   private String              searchValue;
+  private String              owner;
 
   public List<Transformation> getCatalogTransformations(User user) {
     TransformationCatalogHandler handler = new TransformationCatalogHandler(user.getApiKey(), user.getApiSecret());
@@ -26,9 +27,18 @@ public class TransformationBean {
     return transformations;
   }
 
+  public List<Transformation> getCatalogTransformations() {
+    TransformationCatalogHandler handler = new TransformationCatalogHandler();
+    handler.setSearchValue(searchValue);
+    handler.setOwner(owner);
+    List<Transformation> transformations = handler.getTransformationCatalog();
+    return transformations;
+  }
+
   public List<Transformation> getScharedTransformations(User user) {
     TransformationCatalogHandler handler = new TransformationCatalogHandler(user.getApiKey(), user.getApiSecret());
     handler.setSearchValue(searchValue);
+    handler.setOwner(owner);
     List<Transformation> transformations = handler.getSharedTransformationCatalog();
     return transformations;
   }
@@ -87,5 +97,13 @@ public class TransformationBean {
 
   public void setSearchValue(String searchValue) {
     this.searchValue = searchValue;
+  }
+
+  public String getOwner() {
+    return owner;
+  }
+
+  public void setOwner(String owner) {
+    this.owner = owner;
   }
 }

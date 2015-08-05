@@ -82,7 +82,7 @@ public class SignupHandler extends BaseHandler {
           user.setCookies(cookies);
           getSession().setAttribute(SessionConstants.DAPAAS_USER, user);
 
-          redirectToPage("pages/publish/index.jsp", serverResponse);
+          redirectToPage("pages/publish", serverResponse);
         }
       } else {
         // {"error_message":"Email already in use"}

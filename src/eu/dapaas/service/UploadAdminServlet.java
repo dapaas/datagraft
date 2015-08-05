@@ -113,7 +113,7 @@ public class UploadAdminServlet extends HttpServlet {
         response.sendRedirect("pages/admin/upload.jsp");
       } else {
         files.put("error", "File not uploaded. Please upload new file");
-        response.sendRedirect("pages/error.jsp");
+        response.sendRedirect("pages/error");
       }
 
     } catch (Exception e) {

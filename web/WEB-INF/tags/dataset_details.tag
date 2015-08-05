@@ -64,7 +64,7 @@ ${querydetails.exportRDF(pageContext.request, pageContext.response, pageContext.
 <c:if test="${editable == 'editable'}">
 	<div class="linkbar">
 		<a type="button" class="btn btn-primary btn-raised theme-bg" data-toggle="modal" data-target="#dialog-export" > 	Export RDF </a> 
-		<a type="button" class="btn btn-primary btn-raised theme-bg" href="${contextPath }/pages/publish/index.jsp?id=${templateData.id}"> 	Edit </a> 
+		<a type="button" class="btn btn-primary btn-raised theme-bg" href="${contextPath }/pages/publish/${templateData.id}"> 	Edit </a> 
 		
 	</div>
 </c:if>

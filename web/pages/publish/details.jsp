@@ -42,15 +42,15 @@ ${userbean.putInCookie(pageContext.request, pageContext.response, pageContext.se
 	<jsp:body>
 		<div class="container">
 			<ul class="breadcrumb">
-    			<li><a class="theme-text" href="${contextPath }/pages/catalogs/index.jsp">Explore</a></li>
-    			<li><a class="theme-text" href="${contextPath }/pages/myassets/index.jsp">Dashboard</a></li>
+    			<li><a class="theme-text" href="${contextPath }/pages/catalogs">Explore</a></li>
+    			<li><a class="theme-text" href="${contextPath }/pages/myassets">Dashboard</a></li>
     			<li class="active">Data Page</li>
 			</ul>
 			<c:if test="${wizard.action =='new' }">
 				<h1 class="add-label">Data page</h1>
 			</c:if>
 			<c:if test="${wizard.action =='edit' }">
-				<c:url value="/pages/publish/index.jsp" var="dwnUrl" scope="request">
+				<c:url value="/pages/publish" var="dwnUrl" scope="request">
 					<c:param name="id" value="${wizard.details.id}"/>
 				</c:url>
 				<h1 class="add-label">Edit ${wizard.details.title}  </h1>
@@ -315,7 +315,7 @@ ${userbean.putInCookie(pageContext.request, pageContext.response, pageContext.se
  
 <div id="dialog-portal" title="Configure widget">
 
-    <form id="dialogportal" method="POST" action="${contextPath }/pages/publish/index.jsp" class="form-horizontal">
+    <form id="dialogportal" method="POST" action="${contextPath }/pages/publish" class="form-horizontal">
       <input type="hidden" id="action" name="action" value="${wizard.action}" />
       <!-- input type="hidden" id="portalparam" name="portalparam" value="" /-->
       <input type="hidden" id="portalid" name="portalid" value="" />

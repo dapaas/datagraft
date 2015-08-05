@@ -86,7 +86,7 @@ if (user!=null){
 			   <input type="text" id="searchtext" name="searchvalue" class="form-control col-lg-8 white" placeholder="Search">
 			   
 			</form>
-			<a href="${contextPath}/pages/catalogs/index.jsp" id="searchsubmitbutton">Explore</a>
+			<a href="${contextPath}/pages/catalogs" id="searchsubmitbutton">Explore</a>
 			<a  id="singupdata" data-login="${user.username}" data-isloginever="${isloginever }" data-hasdataset="<%= hasDataset%>">Sign In</a>
 	      </div>
 	    
@@ -102,32 +102,74 @@ if (user!=null){
 	<line x1="0" y1="0" x2="18" y2="18" />
 	<line x1="36" y1="0" x2="18" y2="18" />
 </svg></a>
+    </section>
+    
+    
+    <section id="images" class="wrapper" style="display: none;">
+    
+      <div class="images-byline">
+        <h1>DataGraft</h1>
+        <ul>
+          <li class="biggerfont">Manage your data in a simple, effective, and efficient way.</li>
+          <li>Powerful data transformation and scalable data access capabilities for your data.</li>
+        </ul>
+      </div>
+      
+      
+      
+      <div class="images-byline-2">
+      	<div class="row show-grid">
+			  <div class="col-md-6">
+					<h3>One stop shop for hosted data management</h3>
+					<ul>
+			          <li>Interactively build, modify and share data transformations.</li>
+			          <li>Reuse transformations to repeatably clean and transform spreadsheet data.</li>
+			          <li>Host and share datasets and transformations in our cloud based catalog.</li>
+			        </ul>
+			  </div>
+			  <div class="col-md-6">
+			  	<h3>Flexible management and sharing of data and transformations</h3>
+			  	<ul>
+			          <li>Choose to share transformations or datasets privately or publicly.</li>
+			          <li>Fork, reuse and extend transformations built by other professionals from our public catalog.</li>
+			          <li>API access to public or private datasets and transformations.</li>
+			        </ul>
+			  </div>
+		</div>
+        <div class="row show-grid">
+              <div class="col-md-3">
+					&nbsp;
+			  </div>
+			  <div class="col-md-6">
+					<h3>Reliable data hosting and querying services</h3>
+					<ul>
+			          <li>Query Join and visualise datasets through your own SPARQL endpoint.</li>
+			          <li>We scale so you don't have to.</li>
+			          <li>Visualise your data with our SPARQL based chart builder.</li>
+			        </ul>
+			  </div>
+			  <div class="col-md-3">
+			  	&nbsp;
+			  </div>
+		</div>
+      
       
       
 
-      
-    </section>
-    <section id="images" class="wrapper" style="display: none;">
-      <div class="images-byline">
-        <h3>Key benefits of DataGraft:</h3>
-        <ul>
-          <li>Automagically transform your data to more clean and meaningful format.</li>
-          <li>No need for special technical skills. Just drop your data and publish it.</li>
-          <li>Support many popular formats: RDF, CSV, XLS and many more.</li>
-        </ul>
-      </div>
-      <p class="images-byline-2">Data visualizations: easily view, present and understand your data.</p>
+
+	  </div>
       <img id="homepage" class="raw-page" src="images/home.jpg" alt="">
       <div class="iphone">
         <img class="iphone-frame" src="images/iphoneframe.png" alt="">
         <div class="iphone-viewport">
           <img id="screenshot1" class="iphone-content" src="images/screenshot1.jpg" alt="">
-          <img id="screenshot2" class="iphone-content" src="images/screenshot2.jpg" alt="">
+         
         </div>
       </div>
     </section>
+    
     <section id="links" style="display: none;">
-      <p class="links-byline">Sign up today and start publishing your data.</p>
+      <p class="links-byline">Sign up today and unleash DataGraft for your data!</p>
       <a class="btn-ind" id="publishmydata" data-login="${user.username}" data-isloginever="${isloginever }" data-hasdataset="<%= hasDataset%>">Start using DataGraft now</a>
     </section>
   </div>
@@ -137,6 +179,12 @@ if (user!=null){
   </div>
   <div class="photoby">
   Photo by <a href="https://www.flickr.com/photos/jorneriksson/" target="_blank">Jørn Eriksson</a> (<a href="https://creativecommons.org/licenses/by/2.0/" target="_blank">CC BY 2.0</a>)
+  </div>
+  <div class="menulink">
+  	
+	  	<a href="http://dapaas.github.io/api" target="_blank">API</a>
+	  	<a href="http://dapaas.github.io/faq" target="_blank">FAQ</a>
+	
   </div>
 </div>
 

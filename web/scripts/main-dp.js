@@ -21,11 +21,11 @@ $(document).ready(function() {
     $("#selectdataset input[id=id]").val(v);
     $('#selectdataset').submit();
     return true;
-  });
+  }); 
  
   $('#portalresult tr td').click(function(event) {
     var portal = $(this).parent().data().portal;
-    document.location = Application.contextPath +"/pages/ddp.jsp?"+portal;
+    document.location = Application.contextPath +"/pages/ddp/"+portal;
     return true;
   });
 
@@ -87,9 +87,9 @@ $(document).ready(function() {
         $('#complete-dialog-signin').modal('show');
     }else{
       if (hasdataset){
-        document.location = Application.contextPath +"/pages/myassets/index.jsp";
+        document.location = Application.contextPath +"/pages/myassets";
       }else{
-        document.location = Application.contextPath +"/pages/publish/index.jsp";
+        document.location = Application.contextPath +"/pages/publish";
       }
       
     }
@@ -109,9 +109,9 @@ $(document).ready(function() {
       
     }else{
       if (hasdataset){
-        document.location = Application.contextPath +"/pages/myassets/index.jsp";
+        document.location = Application.contextPath +"/pages/myassets";
       }else{
-        document.location = Application.contextPath +"/pages/publish/index.jsp";
+        document.location = Application.contextPath +"/pages/publish";
       }
       
     }
@@ -173,8 +173,15 @@ $(document).ready(function() {
     },
     dateFormat : "pt"
   });
-
   
+  $("#transformationresult").tablesorter({
+    headers : {
+      2 : {
+        sorter : "myParser"
+      }
+    },
+    dateFormat : "pt"
+  });
 
   $("#mycatalogresult").tablesorter({
     headers : {

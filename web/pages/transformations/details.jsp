@@ -41,8 +41,8 @@ ${userbean.putInCookie(pageContext.request, pageContext.response, pageContext.se
 		<input type="hidden" name="action" id="action" />
 	</form>
 	<ul class="breadcrumb">
-    			<li><a class="theme-text" href="${contextPath }/pages/catalogs/index.jsp">Explore</a></li>
-    			<li><a class="theme-text" href="${contextPath }/pages/myassets/index.jsp">Dashboard</a></li>
+    			<li><a class="theme-text" href="${contextPath }/pages/catalogs">Explore</a></li>
+    			<li><a class="theme-text" href="${contextPath }/pages/myassets">Dashboard</a></li>
     			<li>Transformation page</li>
     			
 			</ul>
