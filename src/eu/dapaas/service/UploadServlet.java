@@ -44,9 +44,13 @@ public class UploadServlet extends HttpServlet {
    */
 
   protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+    response.setContentType("application/json");
+    response.addHeader("content-type", "application/json");
+    response.setCharacterEncoding("UTF-8");
     if (!ServletFileUpload.isMultipartContent(request)) {
-      throw new IllegalArgumentException("Request is not multipart, please 'multipart/form-data' enctype for your form.");
+      //throw new IllegalArgumentException("Request is not multipart, please 'multipart/form-data' enctype for your form.");
+      response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Request is not multipart, please 'multipart/form-data' enctype for your form.");
+      return;
     }
 
     JSONArray json = new JSONArray();
@@ -54,6 +58,13 @@ public class UploadServlet extends HttpServlet {
     
     HttpSession session = request.getSession();
     User user = (User) session.getAttribute(SessionConstants.DAPAAS_USER);
+    if (user == null){
+      response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+      response.setHeader("Content-Type", "application/json");
+      response.getOutputStream().print("{\"error\":\"File can not upload. Please sign in and try again.\"}");
+      response.flushBuffer();
+      return; 
+    }
     Wizard wizard = (Wizard) session.getAttribute("wizard");
 
     File fileUploadPath = new File(Config.getInstance().getPathUploadFile() + File.separator + user.getUsername());
@@ -103,8 +114,18 @@ public class UploadServlet extends HttpServlet {
       files.put("result", json);
     } catch (FileUploadException e) {
       logger.error("", e);
+      response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+      response.setHeader("Content-Type", "application/json");
+      response.getOutputStream().print("{\"error\":\"File can not upload.\"}");
+      response.flushBuffer();
+      return; 
     } catch (Exception e) {
       logger.error("", e);
+      response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+      response.setHeader("Content-Type", "application/json");
+      response.getOutputStream().print("{\"error\":\"File can not upload.\"}");
+      response.flushBuffer();
+      return; 
     } finally {
 
       writer.write(files.toString());
