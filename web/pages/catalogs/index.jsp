@@ -83,7 +83,9 @@ ${userbean.putInCookie(pageContext.request, pageContext.response, pageContext.se
 	<c:set var="titleApplication" value="Transformations (filtered by  &quot;${param['searchvalue']}&quot;)" />
 	<c:set var="emptylabel" value="No matching transformations found. <a class='theme-text' href='${contextPath }/pages/catalogs'>Show all?</a>" />
 	</c:if>
-
+<form id="selecttransformation" action="${contextPath}/pages/transformations/index.jsp" method="get">
+	<input type="hidden" id="id" name="id" />
+	</form>
 		<div class="col-lg-6 col-md-6">
 			<template:latesttransformation id='transformationresult' col1="Transformation" col2="User" col3="Published" emptylabel="${emptylabel}" label="${titleApplication}" templateData="${transformationBean.getCatalogTransformations()}" />
 		</div>

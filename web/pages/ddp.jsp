@@ -26,9 +26,9 @@
 	<jsp:body>  
 	
 <script>
-<c:forEach var="pageParameter" items="${param}">
-	Service.param="${pageParameter.key}";
-</c:forEach>
+
+	Service.param="${param['stat']}";
+
 </script>   
 
  

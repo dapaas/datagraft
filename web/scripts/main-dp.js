@@ -22,6 +22,13 @@ $(document).ready(function() {
     $('#selectdataset').submit();
     return true;
   }); 
+  
+  $('#transformationresult tr td').click(function(event) {
+    var v = $(this).parent().attr("id");
+    $("#selecttransformation input[id=id]").val(v);
+    $('#selecttransformation').submit();
+    return true;
+  });
  
   $('#portalresult tr td').click(function(event) {
     var portal = $(this).parent().data().portal;

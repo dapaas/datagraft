@@ -8,7 +8,7 @@
 	</rule>
 	<rule>
 		<from>/pages/ddp/([a-zA-Z]+)$</from>
-		<to type="forward" >/pages/ddp.jsp?$1</to>
+		<to type="forward" >/pages/ddp.jsp?stat=$1</to>
 	</rule>
 	<rule>
 		<from>/pages/error$</from>

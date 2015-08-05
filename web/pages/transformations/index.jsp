@@ -10,7 +10,6 @@
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
 ${userbean.putInCookie(pageContext.request, pageContext.response, pageContext.session) }
 
-<template:validation/>
 <template:genericpage title="DataGraft Public Portal">
 
 <jsp:attribute name="navbar">
