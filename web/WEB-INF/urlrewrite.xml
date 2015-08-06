@@ -7,7 +7,7 @@
 		<to type="forward" last="true">/pages/logout.jsp</to>
 	</rule>
 	<rule>
-		<from>/pages/ddp/([a-zA-Z]+)$</from>
+		<from>/pages/ddp/(.*)$</from>
 		<to type="forward" >/pages/ddp.jsp?stat=$1</to>
 	</rule>
 	<rule>

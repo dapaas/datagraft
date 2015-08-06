@@ -28,7 +28,7 @@ public class QueryResultService {
       if (user!=null && !Utils.isEmpty(user.getApiKey())){
         apiKey = user.getApiKey();
       }
-      if (user!=null && Utils.isEmpty(user.getApiSecret())){
+      if (user!=null && !Utils.isEmpty(user.getApiSecret())){
         apiSecret = user.getApiSecret();
       }
       String responseStr = queryhandler.executeQueryById(apiKey, apiSecret, id);

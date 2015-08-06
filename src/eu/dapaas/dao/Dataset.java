@@ -81,10 +81,17 @@ public class Dataset {
     } catch (JSONException e) {
       // e.printStackTrace();
     }
+    //dct:public
+    //dcat:public":"true"
     try {
-      this.exposePublic = o.getBoolean("dcat:public");
+      this.exposePublic = o.getBoolean("dct:public");
     } catch (JSONException e) {
       // e.printStackTrace();
+      try {
+        this.exposePublic = o.getBoolean("dcat:public");
+      } catch (JSONException ee) {
+
+      }
     }
 
     try {

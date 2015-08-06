@@ -151,7 +151,7 @@ ${userbean.putInCookie(pageContext.request, pageContext.response, pageContext.se
 			    <li class="b-chart"><a href="#bubble-results">Bubble chart Results</a></li>
 			    <!-- <li class="maps"><a href="#map-results">Map Results</a></li> -->
 			    <li class="maps"><a href="#googlemap-results">Google map Results</a></li>
-			    <li class="charts"><a href="#poligonchart-results">Poligon chart Results</a></li>
+			   
 			</ul>
 			<div id="table-results" class="result-tab-section">
 				<div id="tResult" >No result found</div>	
@@ -175,9 +175,7 @@ ${userbean.putInCookie(pageContext.request, pageContext.response, pageContext.se
 			<div id="googlemap-results" class="result-tab-section">
 				<div id="gMap"></div>
 			</div>
-			<div id="poligonchart-results" class="result-tab-section">
-				<div id="polChart"></div>
-			</div>
+			
 			<script type="text/javascript" src="//maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
 			<script type="text/javascript" src="//code.highcharts.com/highcharts.js" defer></script>
 			<script type="text/javascript" src="//code.highcharts.com/highcharts-more.js" defer></script>
