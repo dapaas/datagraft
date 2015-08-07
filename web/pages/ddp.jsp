@@ -8,7 +8,7 @@
 
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
 <c:forEach var="pageParameter" items="${param}">
-<c:set var="portal" value="${datasetbean.getPortalByParameter(pageParameter.key) }"/>
+<c:set var="portal" value="${datasetbean.getPortalByParameter(param['stat']) }"/>
 </c:forEach>
 
 <template:genericpage title="Data Driven portal">
