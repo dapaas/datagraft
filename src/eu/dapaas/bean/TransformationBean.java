@@ -48,6 +48,11 @@ public class TransformationBean {
     return handler.getDetail(id);
   }
 
+  public Transformation getDetail(String id) {
+    TransformationCatalogHandler handler = new TransformationCatalogHandler();
+    return handler.getDetail(id);
+  }
+  
   public void delete(User user, String id) {
     TransformationHandler header = new TransformationHandler(user.getApiKey(), user.getApiSecret());
     header.deleteTransformation(id);

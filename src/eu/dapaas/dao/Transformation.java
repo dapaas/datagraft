@@ -1,6 +1,10 @@
 package eu.dapaas.dao;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.apache.log4j.Logger;
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -53,6 +57,7 @@ public class Transformation {
   private String              jsonDataID;
   private String              clojureDataID;
   private String              publisher;
+  private List<String>        keyword      = new ArrayList<String>();
 
   public Transformation() {
 
@@ -94,7 +99,16 @@ public class Transformation {
     } catch (JSONException e) {
       // e.printStackTrace();
     }
-
+    try {
+      JSONArray kws = (JSONArray) o.get("dcat:keyword");
+      if (kws != null) {
+        for (int i = 0; i < kws.length(); i++) {
+          this.keyword.add(kws.get(i).toString());
+        }
+      }
+    } catch (JSONException e) {
+      // e.printStackTrace();
+    }
     try {
       this.transformationType = o.getString("http://www.w3.org/ns/dcat#transformationType");
     } catch (JSONException e) {
@@ -231,6 +245,14 @@ public class Transformation {
 
   public void setPublisher(String publisher) {
     this.publisher = publisher;
+  }
+
+  public List<String> getKeyword() {
+    return keyword;
+  }
+
+  public void setKeyword(List<String> keyword) {
+    this.keyword = keyword;
   }
 
 }
