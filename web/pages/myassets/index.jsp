@@ -70,7 +70,7 @@ ${userbean.putInCookie(pageContext.request, pageContext.response, pageContext.se
 			<div class="col-lg-6 col-md-6">
 				<h2>${titleDataset }</h2>
 				<!-- search data page -->
-				<form id="formmydatapagesearch" method="post" action="${contextPath }/pages/myassets">
+				<form id="formmydatapagesearch" method="post" action="${contextPath }/pages/myassets/index.jsp">
 				   <div class="form-group">
 				   <div class="input-group">
 				        <input type="text" id="mydatapagesearch" name="mydatapagesearch" class="form-control col-lg-8" placeholder="Search">
@@ -88,7 +88,7 @@ ${userbean.putInCookie(pageContext.request, pageContext.response, pageContext.se
 			<div class="col-lg-6 col-md-6">
 				<h2>${titleTransformation }</h2>
 				<!-- search transformation -->
-				<form id="formmytransformationsearch" method="post" action="${contextPath }/pages/myassets">
+				<form id="formmytransformationsearch" method="post" action="${contextPath }/pages/myassets/index.jsp">
 				   <div class="form-group">
 				   <div class="input-group">
 				        <input type="text" id="mytransformationsearch" name="mytransformationsearch" class="form-control col-lg-8" placeholder="Search">
