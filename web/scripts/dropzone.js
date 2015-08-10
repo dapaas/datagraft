@@ -1377,7 +1377,7 @@ require.register("dropzone/lib/dropzone.js", function (exports, module) {
               $("#content").toggle();
               
               if ( file.content == "GRF"){
-                $("#createrawbutton").addClass('disabled'); // disable
+                //$("#createrawbutton").addClass('disabled'); // disable
                 $("#createnewtransformation").removeClass('disabled'); // able
                 $("#usetransformation").removeClass('disabled');
                
@@ -1385,7 +1385,7 @@ require.register("dropzone/lib/dropzone.js", function (exports, module) {
                 $("#uploadnewtransformation").removeClass('disabled'); // able
                 $("#uploadtransformation").removeClass('disabled');
               }else{
-                $("#createrawbutton").removeClass('disabled'); // disable
+               // $("#createrawbutton").removeClass('disabled'); // disable
                 $("#createnewtransformation").addClass('disabled'); // able
                 $("#usetransformation").addClass('disabled');
                 

@@ -268,6 +268,14 @@ $(document).ready(function() {
    // $("#dialog-export").dialog("close");  
 
   });
+  
+  
+  $("#exportraw").click(function() {
+    $("#exportrawform input[id='action']").val("exportraw");
+    $("#exportrawform").submit();
+   // $("#dialog-export").dialog("close");  
+
+  });
 
   $(".confirmation").bind('click', function(e) {
 	  var targetUrl = $(this).attr("href");
@@ -392,7 +400,9 @@ $(document).ready(function() {
   }).change();	
   
   $("#createrawbutton").click(function(){
-    document.location = Application.contextPath +"/pages/publish/details.jsp";
+    //document.location = Application.contextPath +"/pages/publish/details.jsp";
+    $("#createrawform input[id='israw']").val('israw');
+    $("#createrawform").submit();
   });
   
   $("#uploadrawbutton").click(function(){

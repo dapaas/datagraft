@@ -192,7 +192,7 @@ public class DatasetCatalogHandler extends BaseHandler {
   
         logger.debug("GET distributions : " + response3);
         DistributionDetail distribution = new DistributionDetail(response3);
-  
+        detail.setFileId(distribution.getFileId());
         String accessURL = distribution.getAccessURL();
         detail.setAccessURL(accessURL);
       }

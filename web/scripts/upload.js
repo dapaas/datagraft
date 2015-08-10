@@ -106,7 +106,7 @@ $(document).ready(function() {
       formData.append("filecontenttype", $("#contenttype").val());
     }
     formData.append("public", $("#ispublic").is(":checked"));
-    
+    formData.append("israw", $("#savedataset").data("israw"));
     xhr.send(formData);
 //    var reg = /^[-\w\s]+$/ig;
 //      if (reg.test($("#datasetname").val())) {

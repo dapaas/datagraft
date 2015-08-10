@@ -53,11 +53,9 @@ ${userbean.putInCookie(pageContext.request, pageContext.response, pageContext.se
 				${ wizard.uploadesFile.setContentType(param['id'])}
 				
 				<blockquote>
-					Transformation Description: ${transformation.description}
+					${transformation.description}
 				</blockquote>
-				<blockquote>
-					Transformation Type: ${transformation.transformationType}
-				</blockquote>
+				
 				<div id="tr_dropzone_dataset" class="dropzone-dataset well up">
 				</div>
 			</c:if>

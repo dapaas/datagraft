@@ -75,12 +75,9 @@ public class DatasetHandler extends BaseHandler {
     this.user = user;
   }
 
-  public Wizard createDataset() {
+  public Wizard createDataset(boolean isRaw) {
     try {
       Dataset datasetCatalogDetails = wizard.getDetails();
-
-      // before create need to check PORTAL PARAM ( will be unique ). check by
-      // portal_parameter and null
       datasetCatalogDetails.setIssued(formatCurrentDate());
 
       DaPaasParams params = new DaPaasParams();
@@ -103,39 +100,43 @@ public class DatasetHandler extends BaseHandler {
       jemptycontext.put("@context", new JSONObject());
 
       UploadFile file = wizard.getUploadesFile();
-      String distibutionId = "";
+      DistributionDetail distibution = null;
       String accessURL = "";
       switch (file.getFiletype()) {
       case "RDF": {
-        distibutionId = createRDFDistribution(datasetId, datasetCatalogDetails.getTitle(), datasetCatalogDetails.getDescription(), datasetCatalogDetails.getKeyword());
-        accessURL = createRepository(distibutionId);
+        distibution = createRDFDistribution(datasetId, datasetCatalogDetails.getTitle(), datasetCatalogDetails.getDescription(), datasetCatalogDetails.getKeyword());
+        accessURL = createRepository(distibution.getId());
         uploadFiles(file, accessURL, user.getUsername());
       }
         break;
       case "GRF": {
-        distibutionId = createGRFDistribution(datasetId, datasetCatalogDetails.getTitle(), datasetCatalogDetails.getDescription(), file);
-        accessURL = createRepository(distibutionId);
-        Transformation transformation = wizard.getTransformation();
-        transformation(transformation, distibutionId, datasetCatalogDetails.getTitle(), file);
+        distibution = createGRFDistribution(datasetId, datasetCatalogDetails.getTitle(), datasetCatalogDetails.getDescription(), file);
+        if (!isRaw){
+          accessURL = createRepository(distibution.getId());
+          Transformation transformation = wizard.getTransformation();
+          transformation(transformation, distibution.getId(), datasetCatalogDetails.getTitle(), file);
+        }
       }
         break;
       }
-      wizard.getDetails().getDistribution().add(distibutionId);
+      wizard.getDetails().getDistribution().add(distibution.getId());
       wizard.getDetails().setAccessURL(accessURL);
-
+      wizard.getDetails().setFileId(distibution.getFileId());
       // Go to embebed DB and add rows for this DS with ID : datasetId
       wizard.getPortal().setDatasetId(datasetId);
-      for (PortalContent pc : wizard.getPortal().getPortalContent()) {
-        pc.setAccessURL(accessURL);
-      }
-
-      if (wizard.getPortal().getParameter() != null && wizard.getPortal().getParameter().length() > 0 && wizard.getPortal().getPortalContent().size() > 0) {
-        // insert only
-        if (LocalDBProvider.checkPortalParameter(wizard.getPortal().getParameter(), null)) {
-          throw new Exception("Can't create portal because parameter exist");
+      if (!isRaw){
+        for (PortalContent pc : wizard.getPortal().getPortalContent()) {
+          pc.setAccessURL(accessURL);
         }
-        if (wizard.getPortal().getPortalContent().size() > 0) {
-          LocalDBProvider.insertDSPortal(wizard.getPortal());
+  
+        if (wizard.getPortal().getParameter() != null && wizard.getPortal().getParameter().length() > 0 && wizard.getPortal().getPortalContent().size() > 0) {
+          // insert only
+          if (LocalDBProvider.checkPortalParameter(wizard.getPortal().getParameter(), null)) {
+            throw new Exception("Can't create portal because parameter exist");
+          }
+          if (wizard.getPortal().getPortalContent().size() > 0) {
+            LocalDBProvider.insertDSPortal(wizard.getPortal());
+          }
         }
       }
 
@@ -171,10 +172,11 @@ public class DatasetHandler extends BaseHandler {
       JSONObject jemptycontext = new JSONObject();
       jemptycontext.put("@context", new JSONObject());
 
-      String distibutionId = "";
+      DistributionDetail distribution = null;
       String accessURL = "";
+      
       if (datasetCatalogDetails.getDistribution().size() > 0 && datasetCatalogDetails.getDistribution().get(0).length() > 0) {
-        distibutionId = datasetCatalogDetails.getDistribution().get(0).toString();
+        String distibutionId = datasetCatalogDetails.getDistribution().get(0).toString();
         params = new DaPaasParams();
         params.setJsonObject(new NameValuePair<JSONObject>(null, jemptycontext));
         params.getHeaders().put("distrib-id", distibutionId);
@@ -189,29 +191,41 @@ public class DatasetHandler extends BaseHandler {
           throw new Exception(error);
         }
         logger.debug("GET distributions : " + response3);
-        DistributionDetail distribution = new DistributionDetail(response3);
+        distribution = new DistributionDetail(response3);
 
         accessURL = distribution.getAccessURL();
-      } else {
-        // create
+        if (Utils.isEmpty(accessURL)){
+          UploadFile file = wizard.getUploadesFile();
+          switch (file.getFiletype()) {
+          case "RDF": {
+            accessURL = createRepository(distibutionId);
+            
+          }
+            break;
+          case "GRF": {
+            accessURL = createRepository(distibutionId);
+          }
+            break;
+          }
+        }
+      }else{
         UploadFile file = wizard.getUploadesFile();
         switch (file.getFiletype()) {
         case "RDF": {
-          distibutionId = createRDFDistribution(datasetId, datasetCatalogDetails.getTitle(), datasetCatalogDetails.getDescription(), datasetCatalogDetails.getKeyword());
-          accessURL = createRepository(distibutionId);
+          distribution = createRDFDistribution(datasetId, datasetCatalogDetails.getTitle(), datasetCatalogDetails.getDescription(), datasetCatalogDetails.getKeyword());
+          accessURL = createRepository(distribution.getId());
           
         }
           break;
         case "GRF": {
-          distibutionId = createGRFDistribution(datasetId, datasetCatalogDetails.getTitle(), datasetCatalogDetails.getDescription(), file);
-          accessURL = createRepository(distibutionId);
+          distribution = createGRFDistribution(datasetId, datasetCatalogDetails.getTitle(), datasetCatalogDetails.getDescription(), file);
+          accessURL = createRepository(distribution.getId());
         }
           break;
         }
       }
-
       wizard.getDetails().setAccessURL(accessURL);
-
+      wizard.getDetails().setFileId(distribution.getFileId());
       UploadFile file = wizard.getUploadesFile();
       if (file.getFile() != null) {
         switch (file.getFiletype()) {
@@ -221,7 +235,7 @@ public class DatasetHandler extends BaseHandler {
           break;
         case "GRF": {
           Transformation transformation = wizard.getTransformation();
-          transformation(transformation, distibutionId, datasetCatalogDetails.getTitle(), file);
+          transformation(transformation, distribution.getId(), datasetCatalogDetails.getTitle(), file);
         }
           break;
         }
@@ -337,7 +351,7 @@ public class DatasetHandler extends BaseHandler {
     }
   }
   
-  private String createRDFDistribution(String datasetId, String title, String description, List<String> keywords) throws Exception{
+  private DistributionDetail createRDFDistribution(String datasetId, String title, String description, List<String> keywords) throws Exception{
     DaPaasParams params = new DaPaasParams();
     params.getHeaders().put("dataset-id", datasetId);
 
@@ -361,10 +375,21 @@ public class DatasetHandler extends BaseHandler {
     if (error != null){
       throw new Exception(error);
     }
-    return response2.get("@id").toString();
+    
+    params = new DaPaasParams();
+    params.getHeaders().put("distrib-id", response2.get("@id").toString());
+    gateway.modifiedDaPaasGateway(HttpMethod.GET, Utils.getDaPaasEndpoint("catalog/distributions"), params);
+    JSONObject response3 = Utils.convertEntityToJSON(gateway.execute());
+
+    logger.debug("GET distributions : " + response3);
+    DistributionDetail distribution = new DistributionDetail(response3);
+    
+    
+    
+    return distribution;
 
   }
-  private String createGRFDistribution(String datasetId, String title, String description, UploadFile file) throws Exception{
+  private DistributionDetail createGRFDistribution(String datasetId, String title, String description, UploadFile file) throws Exception{
     JSONObject jemptycontext = new JSONObject();
     jemptycontext.put("@context", new JSONObject());
     DaPaasParams params = new DaPaasParams();
@@ -391,7 +416,16 @@ public class DatasetHandler extends BaseHandler {
       throw new Exception(error);
     }
     logger.debug("CREATE distributions : " + response2);
-    return response2.get("@id").toString();
+    
+    params = new DaPaasParams();
+    params.getHeaders().put("distrib-id", response2.get("@id").toString());
+    gateway.modifiedDaPaasGateway(HttpMethod.GET, Utils.getDaPaasEndpoint("catalog/distributions"), params);
+    JSONObject response3 = Utils.convertEntityToJSON(gateway.execute());
+
+    logger.debug("GET distributions : " + response3);
+    DistributionDetail distribution = new DistributionDetail(response3);
+    
+    return distribution;
   }
 
   public File executeAndDownload() {

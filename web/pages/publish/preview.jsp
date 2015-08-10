@@ -3,6 +3,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="template" tagdir="/WEB-INF/tags"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="fn"  uri="http://java.sun.com/jsp/jstl/functions" %>
 <jsp:useBean id="wizard" class="eu.dapaas.bean.Wizard" scope="session"/>
 <jsp:useBean id="userbean" class="eu.dapaas.bean.UserBean"/>
@@ -21,6 +22,9 @@ ${userbean.putInCookie(pageContext.request, pageContext.response, pageContext.se
 
 <c:if test="${param['action'] == 'export' }">
 	${querydetails.exportRDF(pageContext.response, '', '', 'guest', dataset.id, param['exportcontenttype'])}
+</c:if>
+<c:if test="${param['action'] == 'exportraw' }">
+	${querydetails.exportRaw(pageContext.response, '', '', 'guest', dataset.id)}
 </c:if>
 
 <c:set var="propertyArray" value="${querydetails.getDatasetProperties( '', '', dataset.id)}"></c:set>
@@ -90,6 +94,25 @@ ${userbean.putInCookie(pageContext.request, pageContext.response, pageContext.se
 			</div>
 			</div>
 		</div>
+		
+		<div class="form-group">
+			<label class="col-lg-2 control-label" for="description">Date:</label>
+			 <div class="col-lg-10">
+             <div class="form-control-wrapper">
+				<label  class="form-control empty">
+				<c:if test="${wizard.action =='edit' }">
+					<fmt:parseDate value="${wizard.details.issued}" pattern="yyyy-MM-dd" var="issuedDate"/>
+					<fmt:formatDate value="${issuedDate }" pattern="d MMM yyyy"/>
+				</c:if>
+				<c:if test="${wizard.action =='new' }">
+					<c:set var="now" value="<%=new java.util.Date()%>" />
+					<fmt:formatDate value="${now }" pattern="d MMM yyyy"/>
+				</c:if>
+				
+				</label>
+			</div>
+			</div>
+		</div>
 
 		<c:set var="kw" value="" />
 		<c:forEach items="${dataset.keyword}" var="k" >
@@ -107,8 +130,13 @@ ${userbean.putInCookie(pageContext.request, pageContext.response, pageContext.se
 		
 </div>
 
+<form id="exportrawform" method="POST">
+	<input type="hidden" id="action" name="action" /> 
+</form>
+
+<c:if test="${not empty dataset.accessURL }" >
 		<!--  SPARQL  -->
-		
+
 		<div class="dataset-wrapper" id="sparqueryresult">
 			<h2 class="table-label">SPARQL</h2>
 			<h5>Endpoint: ${dataset.accessURL }</h5>
@@ -195,13 +223,20 @@ ${userbean.putInCookie(pageContext.request, pageContext.response, pageContext.se
 		</div>
 		
 		<!-- END SPARQL -->
-		
+</c:if>
 		<div class="publish-div">
-			<a type="button" class="btn btn-primary btn-raised theme-bg" data-toggle="modal" data-target="#dialog-export" id="exportrdf">Export RDF</a> 
+		<c:if test="${not empty dataset.accessURL }" >
+			<a type="button" class="btn btn-primary btn-raised theme-bg" data-toggle="modal" data-target="#dialog-export" id="exportrdf">Export RDF</a>
+			</c:if>
+			<c:if test="${not empty dataset.fileId }">
+				<a type="button" class="btn btn-primary btn-raised theme-bg "  id="exportraw">Export Raw</a>
+			</c:if>
+			<c:if test="${not empty dataset.accessURL }" >
 			<a type="button" class="btn btn-primary btn-raised theme-bg add-btn" target="_blank" href="${contextPath}/${portalpath}${dataset.portalParameter}" title="View portal at /${dataset.portalParameter}" > View portal </a>
+			</c:if>
 		</div>
 		
-		</div>
+</div>
 
 </div>
  

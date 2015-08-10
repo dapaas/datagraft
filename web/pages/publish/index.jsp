@@ -53,6 +53,9 @@ ${wizard.emptyNew()}
 	
 	<p> Create your own data page by selecting one of the three options below</p>
 	<div class="row">
+	<form id="createrawform" action="${contextPath }/pages/publish/details.jsp" method="post">
+		<input type="hidden" id="israw" name="israw"/>
+	</form>
 	<div class="col-xs-6 col-md-4"> <h4>Use your uploaded data to create a data page </h4><a type="button" class="btn btn-primary btn-raised theme-bg input-full-button"  id="createrawbutton" href="#"> Create raw </a> </div>
 	<div class="col-xs-6 col-md-4"> <h4>Use the Grafterizer tool to transform your data</h4> <a type="button" class="btn btn-primary btn-raised theme-bg input-full-button" id="createnewtransformation" href="#" data-toggle="modal" data-target="#dialog-refresh"> Create using a new transformation </a> </div>
 	<div class="col-xs-6 col-md-4"> <h4>Choose an existing transformation from the library</h4> <a type="button" class="btn btn-primary btn-raised theme-bg input-full-button" id="usetransformation" href="#"> Create using existing transformation </a> </div>

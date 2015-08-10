@@ -162,27 +162,64 @@ public class QueryHandler extends BaseHandler {
     }
   }
 
-//  public String executeQueryByUrl(String accessURL) {
-//    try {
-//      DaPaasParams params = new DaPaasParams();
-//      params.getHeaders().put("Content-Type", "application/json");
-//      DaPaasUserGateway gateway = new DaPaasUserGateway(HttpMethod.GET, Utils.getDaPaasEndpoint("dapaas-management-services/api/api_keys/temporary"), params);
-//      HttpResponse httpresponse = gateway.execute();
-//      JSONObject apiResponse = Utils.convertEntityToJSON(httpresponse);
-//      String apiKey = null;
-//      String apiSecret = null;
-//      try {
-//        apiKey = apiResponse.get("api_key").toString();
-//        apiSecret = apiResponse.get("secret").toString();
-//      } catch (JSONException je) {
-//        je.printStackTrace();
-//      }
-//
-//      return executeQueryByUrl(apiKey, apiSecret, accessURL);
-//    } catch (Exception e) {
-//      logger.error("", e);
-//      return null;
-//    }
-//
-//  }
+  public File exportRaw(String apiKey, String apiSecret, String username, String id) {
+    try {
+      
+      JSONObject serverResponse = new JSONObject();
+      DaPaasParams params = new DaPaasParams();
+      params.getHeaders().put("dataset-id", id);
+      gateway = new DaPaasGateway(HttpMethod.GET, apiKey, apiSecret, Utils.getDaPaasEndpoint("catalog/datasets"), params);
+      serverResponse = Utils.convertEntityToJSON(gateway.execute());
+      Dataset datasetCatalogDetails = new Dataset(serverResponse);
+      String distibutionId = datasetCatalogDetails.getDistribution().get(0).toString();
+      params = new DaPaasParams();
+      params.getHeaders().put("distrib-id", distibutionId);
+      gateway = new DaPaasGateway(HttpMethod.GET, apiKey, apiSecret, Utils.getDaPaasEndpoint("catalog/distributions/file"), params);
+      HttpResponse response = gateway.execute();
+      
+      
+
+      String filename = "statements";
+      Header header = response.getFirstHeader("Content-Disposition");
+      HeaderElement[] hes = header.getElements();
+      for (HeaderElement he : hes) {
+        NameValuePair nvp = he.getParameterByName("filename");
+        if (nvp != null) {
+          filename = nvp.getValue();
+        }
+      }
+      String tempFolder = new File(System.getProperty("java.io.tmpdir")).getAbsolutePath();
+      InputStream ins = null;
+      OutputStream out = null;
+      File tempfile = null;
+      try {
+        File dir = new File(tempFolder + File.separator + username);
+        if (!dir.exists()) {
+          dir.mkdir();
+        }
+        ins = response.getEntity().getContent();
+        tempfile = new File(tempFolder + File.separator + username + File.separator + filename);
+        if (tempfile.exists()) {
+          tempfile.delete();
+        }
+        out = new FileOutputStream(tempfile);
+        byte[] buf = new byte[1024];
+        int len;
+        while ((len = ins.read(buf)) > 0) {
+          out.write(buf, 0, len);
+        }
+        ins.close();
+        out.close();
+      } finally {
+        if (ins != null)
+          ins.close();
+        if (out != null)
+          out.close();
+      }
+      return tempfile;
+    } catch (Exception e) {
+      logger.error("", e);
+      return null;
+    }
+  }
 }

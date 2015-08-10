@@ -42,6 +42,7 @@ public class Dataset {
   private List<String>        distribution = new ArrayList<String>();
   private String              portalParameter;
   private String              accessURL;
+  private String              fileId;
 
   // private
 
@@ -81,8 +82,8 @@ public class Dataset {
     } catch (JSONException e) {
       // e.printStackTrace();
     }
-    //dct:public
-    //dcat:public":"true"
+    // dct:public
+    // dcat:public":"true"
     try {
       this.exposePublic = o.getBoolean("dct:public");
     } catch (JSONException e) {
@@ -244,6 +245,7 @@ public class Dataset {
   public void setExposePublic(boolean exposePublic) {
     this.exposePublic = exposePublic;
   }
+
   // //dct:issued":"2014-09-15
   // public class DatasetCompare implements Comparator<Dataset>
   // {
@@ -268,5 +270,13 @@ public class Dataset {
 
   public void setAccessURL(String accessURL) {
     this.accessURL = accessURL;
+  }
+
+  public String getFileId() {
+    return fileId;
+  }
+
+  public void setFileId(String fileId) {
+    this.fileId = fileId;
   }
 }

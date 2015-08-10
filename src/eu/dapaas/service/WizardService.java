@@ -76,7 +76,7 @@ public class WizardService {
       DatasetHandler handler = new DatasetHandler(wizard, user);
       try {
         if (wizard.getAction().equals("new")) {
-          handler.createDataset();
+          handler.createDataset(false);
         }
         if (wizard.getAction().equals("edit")) {
           handler.updateDataset();
@@ -128,7 +128,8 @@ public class WizardService {
 
   @WebMethod
   public Object create(@WebParam(name = "datasetname") String datasetName, @WebParam(name = "description") String description, @WebParam(name = "keyword") String keyword, @WebParam(name = "portalparam") String portalparam,
-      @WebParam(name = "portaltitle") String portaltitle, @WebParam(name = "filecontenttype") String filecontenttype, @WebParam(name = "public") Boolean isPublic, @WebSession WebSessionObject webSession) {
+      @WebParam(name = "portaltitle") String portaltitle, @WebParam(name = "filecontenttype") String filecontenttype, @WebParam(name = "public") Boolean isPublic, 
+      @WebParam(name="israw")String israw,  @WebSession WebSessionObject webSession) {
     User user = (User) webSession.getSessionObject(SessionConstants.DAPAAS_USER);
     Wizard wizard = (Wizard) webSession.getSessionObject("wizard");
     if (wizard == null) {
@@ -170,7 +171,7 @@ public class WizardService {
       DatasetHandler handler = new DatasetHandler(wizard, user);
       try {
         if (wizard.getAction().equals("new")) {
-          wizard = handler.createDataset();
+          wizard = handler.createDataset(!Utils.isEmpty(israw));
         }
         if (wizard.getAction().equals("edit")) {
           wizard = handler.updateDataset();

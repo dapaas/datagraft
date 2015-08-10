@@ -51,6 +51,29 @@ public class QyeryDatasetBean {
     }
 
   }
+  
+  public void exportRaw(HttpServletResponse response, String apiKey, String apiSecret, String username, String datasetId) throws JSONException, IOException {
+    if (Utils.isEmpty(apiKey)){
+      apiKey = null;
+    }
+    if (Utils.isEmpty(apiSecret)){
+      apiSecret = null;
+    }
+    QueryHandler queryhandler = new QueryHandler();
+    File file = queryhandler.exportRaw(apiKey, apiSecret, username, datasetId);
+    if (file != null) {
+      response.setHeader("Content-Disposition", "attachment; filename=\"" + file.getName() + "\"");
+      FileInputStream fileInputStream = new FileInputStream(file.getAbsoluteFile());
+      int i;
+      while ((i = fileInputStream.read()) != -1) {
+        response.getOutputStream().write(i);
+      }
+      fileInputStream.close();
+      response.getOutputStream().close();
+      file.delete();
+    }
+
+  }
 	
 	public List<String> getDatasetProperties(String apiKey, String apiSecret, String datasetId) throws JSONException, IOException {
 	  if (Utils.isEmpty(apiKey)){
