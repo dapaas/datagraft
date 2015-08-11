@@ -211,7 +211,7 @@ require.register("dropzone/lib/dropzone.js", function (exports, module) {
       dictDefaultMessage: "Drop files here to upload",
       dictFallbackMessage: "Your browser does not support drag'n'drop file uploads.",
       dictFallbackText: "Please use the fallback form below to upload your files like in the olden days.",
-      dictFileTooBig: "File is too big ({{filesize}}MiB). Max filesize: {{maxFilesize}}MiB.",
+      dictFileTooBig: "File is too big ({{filesize}}MB). Max filesize: {{maxFilesize}}MB.",
       dictInvalidFileType: "You can't upload files of this type.",
       dictResponseError: "Server responded with {{statusCode}} code.",
       dictCancelUpload: "Cancel upload",
@@ -316,6 +316,7 @@ require.register("dropzone/lib/dropzone.js", function (exports, module) {
       },
       addedfile: function(file) {
         var node, removeFileEvent, removeLink, propertiesLink, _i, _j, _k, _len, _len1, _len2, _ref, _ref1, _ref2, _ref3,  _results;
+        // this.removeAllFiles(true);
         if (this.element === this.previewsContainer) {
           this.element.classList.add("dz-started");
         }
@@ -381,8 +382,10 @@ require.register("dropzone/lib/dropzone.js", function (exports, module) {
 
     }   
         if (this.previewsContainer) {
+          
           file.previewElement = Dropzone.createElement(this.options.previewTemplate.trim());
           file.previewTemplate = file.previewElement;
+         
           this.previewsContainer.appendChild(file.previewElement);
           _ref = file.previewElement.querySelectorAll("[data-dz-name]");
           for (_i = 0, _len = _ref.length; _i < _len; _i++) {
@@ -394,27 +397,10 @@ require.register("dropzone/lib/dropzone.js", function (exports, module) {
             node = _ref1[_j];
             node.innerHTML = this.filesize(file.size);
           }
-          
-          
-          /*if (this.options.addPropertiesLinks) {
-            file._propertiesLink = Dropzone.createElement("<a class=\"dz-property\" href=\"javascript:undefined;\" data-dz-property><img src='"+Application.contextPath +"/css/images/icon_configure.png' title='Change import options' /></a>");
-            file.previewElement.appendChild(file._propertiesLink);
-          }*/
-          
           if (this.options.addRemoveLinks) {
             file._removeLink = Dropzone.createElement("<a class=\"dz-remove\" href=\"javascript:undefined;\" data-dz-remove><img src='"+Application.contextPath +"/css/images/icon_remove.png' title='Remove file' alt='' /></a>");
             file.previewElement.appendChild(file._removeLink);
           }
-          
-          
-         /* propertiesFileEvent = (function(_this) {
-            return function(e) {
-              e.preventDefault();
-              e.stopPropagation();
-              return _this.openProperties(_this, file);
-            };
-          })(this);*/
-          
           removeFileEvent = (function(_this) {
             return function(e) {
               e.preventDefault();
@@ -434,13 +420,7 @@ require.register("dropzone/lib/dropzone.js", function (exports, module) {
               }
             };
           })(this);
-         // _ref3 = file.previewElement.querySelectorAll("[data-dz-property]");
           _results = [];
-         /* for (_k = 0, _len2 = _ref3.length; _k < _len2; _k++) {
-            propertiesLink = _ref3[_k];
-            _results.push(propertiesLink.addEventListener("click", propertiesFileEvent));
-          }*/
-          
           _ref2 = file.previewElement.querySelectorAll("[data-dz-remove]");
           // _results = [];
           for (_k = 0, _len2 = _ref2.length; _k < _len2; _k++) {
@@ -456,39 +436,15 @@ require.register("dropzone/lib/dropzone.js", function (exports, module) {
       
       removedfile: function(file) {
         var _ref;
-//        descr = "";
-//        fname="";
-        
         if (file.previewElement) {
           if ((_ref = file.previewElement) != null) {
             var vlag = false;
             for (var i=0; i<this.files.length; i++ ){
-              //this.files.length<=1  file.accepted
               var f = this.files[i];
-//              n = f.name;
-//              n = n.substring(0, n.lastIndexOf("."));
               if (f.accepted){
                 vlag = true;
-//                descr = descr + n+", ";
-//                if (fname.length<=0){
-//                  fname = n;
-//                }
               }
             }
-//            descr = descr.substring(0, descr.length -2);
-//            if (!Dropzone.prototype.isdescrwrite){
-//              $("#description").val(descr);
-//            }
-//            
-//            if (!Dropzone.prototype.isappwrite){
-//                $("#applicationname").val(fname);
-//                $("#deploymentname").val(fname);
-//            }
-//            if (!Dropzone.prototype.isdatasetwrite){
-//                $("#datasetname").val(fname);
-//                $("#portalparam").val(fname);
-//            }
-//            
             if (!vlag && $("#content").hasClass("up")){
               $("#content").addClass('down').removeClass('up');
               $("#content").toggle();
@@ -527,118 +483,6 @@ require.register("dropzone/lib/dropzone.js", function (exports, module) {
         
         return this._updateMaxFilesReachedClass();
       },
-      
-    /*  openproperties:  function(_this, file) {
-            var confirmdialog = $('<div></div>').appendTo(file.previewElement)
-            .html('<form class="form-horizontal">'+
-                '<div class="form-group">'+
-                '<label class="col-sm-4 col-md-4 col-lg-4 control-label"> File: </label> <div class="col-sm-8 col-md-8 col-lg-8">' + file.name + '</div>'+
-                '</div>' +
-                '<div class="form-group">'+
-                
-               ' <label class="col-sm-4 col-md-4 col-lg-4 control-label">File Type:</label> <div class="col-sm-8 col-md-8 col-lg-8"> <select class="form-control"  id="filetype" name="filetype">'+
-                '<option value="RDF" selected="selected">Direct RDF upload</option>'+
-                '<option value="GRF">Grafter transformation</option>'+
-             '</select></div></div><div class="form-group"> <label class="col-sm-4 col-md-4 col-lg-4 control-label" id="contenttypelabel">Content Type:</label> '+
-                '<div class="col-sm-8 col-md-8 col-lg-8"><select id="contenttype" name="contenttype" class="form-control">'+
-            '</select><input id="transformation" name="transformation" class="form-control"/></div></div></form>')
-            .dialog({
-              modal: true, 
-              title: "Import options", 
-              zIndex: 10000, 
-              autoOpen: false,
-              dialogClass : 'dialog-wrapper',
-              width: 'auto', 
-              resizable: false,
-              position: { my: "center top", at: "center top+10%", of: window },
-              buttons: [
-                {
-                  text: "OK",
-                  click: function() {
-                    // success();
-                    file.content = $("#filetype").val();
-                    if ( file.content == "GRF"){
-                      file.transformation = $("#transformation").val();
-                    }else{
-                      file.mimetype = $("#contenttype").val();
-                    }
-                    
-                    var _ref = file.previewElement.querySelectorAll("[data-dz-name]");
-                    for (_i = 0, _len = _ref.length; _i < _len; _i++) {
-                      node = _ref[_i];
-                      node.textContent = contentText(file); //file.name +" " + file.content +" " +file.mimetype;
-                    }
-    
-                    _this._enqueueThumbnail(file);
-                    
-                    var _ref = file.previewElement.querySelectorAll("[data-dz-name]");
-                    for (_i = 0, _len = _ref.length; _i < _len; _i++) {
-                      node = _ref[_i];
-                      node.textContent = contentText(file); //file.name +" " + file.content +" " +file.mimetype;
-                    }
-                    
-                    // set new data to service
-                    var xhr = new XMLHttpRequest();
-                    url = Application.contextPath +"/BaseGateway/updateFileInList.json";
-                    xhr.open("POST", url, true);
-                    // xhr.withCredentials = !!this.options.withCredentials;
-                    headers = {
-                           "Accept": "application/json",
-                           "Cache-Control": "no-cache",
-                           "X-Requested-With": "XMLHttpRequest"
-                         };
-                    for (headerName in headers) {
-                           headerValue = headers[headerName];
-                           xhr.setRequestHeader(headerName, headerValue);
-                         }
-                   xhr.onerror = (function(_this) {
-                           return function() {
-                            
-                           };
-                         })(this);
-                   xhr.onload = (function(_this) {
-                           return function(e) {
-                             
-                           };
-                         })(this);
-    
-                    var formData = new FormData();
-                    formData.append("filetype", file.content);
-                    if ('GRF' != file.content){
-                      formData.append("contenttype", file.mimetype);
-                    }else{
-                      formData.append("contenttype", file.transformation);
-                    }
-                    formData.append("index", file.index);
-                    xhr.send(formData);
-                    $(this).dialog("close");
-                  }
-                },
-                {
-                  text: "Cancel",
-                  click: function() {
-                    $(this).dialog("close");
-                  }
-                }
-                
-              ],
-              close: function(event, ui){
-                $(this).remove();
-              },
-              open: function(){
-                if ('GRF' != file.content){
-                  $("#contenttype").css('visibility', 'visible');
-                  $("#transformation").css('visibility', 'hidden')
-                }else{
-                  $("#transformation").css('visibility', 'visible');
-                  $("#contenttype").css('visibility', 'hidden')
-                }
-              }
-            });
-          confirmdialog.dialog("open");
-          //selectContentType();
-          selectActual(file.content, file.mimetype, file.transformation);
-        },*/
       
       thumbnail: function(file, dataUrl) {
         var thumbnailElement, propertiesLink, _i, _len, _ref, _ref3, _len2,_k, _results;
@@ -685,9 +529,6 @@ require.register("dropzone/lib/dropzone.js", function (exports, module) {
       processing: function(file) {
         if (file.previewElement) {
           file.previewElement.classList.add("dz-processing");
-//          if (file._removeLink) {
-//            return file._removeLink.textContent = this.options.dictCancelUpload;
-//          }
         }
       },
       processingmultiple: noop,
@@ -721,9 +562,6 @@ require.register("dropzone/lib/dropzone.js", function (exports, module) {
       },
       canceledmultiple: noop,
       complete: function(file) {
-//        if (file._removeLink) {
-//          return file._removeLink.textContent = this.options.dictRemoveFile;
-//        }
       },
       completemultiple: noop,
       maxfilesexceeded: noop,
@@ -733,10 +571,7 @@ require.register("dropzone/lib/dropzone.js", function (exports, module) {
     };
 
     contentText = function(file){
-      var result = file.name +" " +file.content;
-      //file.content +" " +
-      //file.mimetype
-      
+      var result = file.name +" " +file.content;      
       if ("RDF" == file.content){
             switch(file.mimetype) {
             case "application/rdf+xml":
@@ -773,14 +608,6 @@ require.register("dropzone/lib/dropzone.js", function (exports, module) {
       if (file.content == "GRF"){
         
         result = result+ " "+file.transformation;
-      }
-      if (file.content == "WAR"){
-        
-        result = result+ " "+"WAR upload";
-      }
-      if (file.content == "CSV"){
-        
-        result = result+ " "+"CSV upload";
       }
       return result;
     };
@@ -903,10 +730,6 @@ require.register("dropzone/lib/dropzone.js", function (exports, module) {
       return this.getFilesWithStatus(Dropzone.UPLOADING);
     };
 
-//    Dropzone.prototype.getUploadingFiles = function() {
-//      return this.getFilesWithStatus(Dropzone.UPLOADING);
-//    };
-    
     Dropzone.prototype.getSuccessFiles = function() {
       return this.getFilesWithStatus(Dropzone.SUCCESS);
     };
@@ -1361,6 +1184,7 @@ require.register("dropzone/lib/dropzone.js", function (exports, module) {
         total: file.size,
         bytesSent: 0
       };
+      this.removeAllFiles(true);
       this.files.push(file);
       pfiles = this.files;
       file.status = Dropzone.ADDED;

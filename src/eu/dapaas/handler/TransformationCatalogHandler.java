@@ -1,7 +1,11 @@
 package eu.dapaas.handler;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -58,11 +62,43 @@ public class TransformationCatalogHandler extends BaseHandler {
         }
       }
       logger.info("get data for portal");
-//      try {
-//        Collections.sort(catalog, Collections.reverseOrder());
-//      } catch (Throwable t) {
-//        logger.error("", t);
-//      }
+      try {
+        if (catalog.size() > 1) {
+          Collections.sort(catalog, Collections.reverseOrder(new Comparator<Transformation>() {
+            public int compare(Transformation one, Transformation two)
+            {
+              SimpleDateFormat sdf = new SimpleDateFormat("yyyy-mm-dd");
+              try {
+                Date thisdate = null;
+                Date odate = null;
+                try{
+                 thisdate = sdf.parse(one.getIssued());
+                 
+                }catch(Exception e){
+                  
+                }
+                try{
+                  
+                  odate = sdf.parse(two.getIssued());
+                 }catch(Exception e){
+                   
+                 }
+                if (thisdate == null && odate == null)
+                  return 0;
+                if (thisdate == null && odate != null)
+                  return -1;
+                if (thisdate != null && odate == null)
+                  return 1;
+                return thisdate.compareTo(odate);
+              } catch (Exception e) {
+                return 0;
+              }
+            }
+          }));
+        }
+      } catch (Throwable t) {
+        logger.error("", t);
+      }
     } catch (IOException e) {
       // showErrorPage(e.getMessage());
     } catch (Exception e) {
@@ -96,11 +132,41 @@ public class TransformationCatalogHandler extends BaseHandler {
         }
       }
       logger.info("get data for portal");
-//      try {
-//        Collections.sort(catalog, Collections.reverseOrder());
-//      } catch (Throwable t) {
-//        logger.error("", t);
-//      }
+      try {
+        if (catalog.size() > 1) {
+          Collections.sort(catalog, Collections.reverseOrder(new Comparator<Transformation>() {
+            public int compare(Transformation one, Transformation two)
+            {
+              SimpleDateFormat sdf = new SimpleDateFormat("yyyy-mm-dd");
+              try {
+                Date thisdate = null;
+                Date odate = null;
+                try{
+                 thisdate = sdf.parse(one.getIssued());
+                }catch(Exception e){
+                  
+                }
+                try{
+                  odate = sdf.parse(two.getIssued());
+                 }catch(Exception e){
+                   
+                 }
+                if (thisdate == null && odate == null)
+                  return 0;
+                if (thisdate == null && odate != null)
+                  return -1;
+                if (thisdate != null && odate == null)
+                  return 1;
+                return thisdate.compareTo(odate);
+              } catch (Exception e) {
+                return 0;
+              }
+            }
+          }));
+        }
+      } catch (Throwable t) {
+        logger.error("", t);
+      }
     } catch (IOException e) {
       // showErrorPage(e.getMessage());
     } catch (Exception e) {

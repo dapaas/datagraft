@@ -2,6 +2,7 @@
 <%@ tag description="Dataset template" pageEncoding="UTF-8"%>
 <%@ taglib prefix="template" tagdir="/WEB-INF/tags"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ attribute name="templateData" type="java.util.List"%>
 <%@attribute description="table empty label" name="emptylabel"%>
@@ -28,7 +29,11 @@
 			<tr id="${data.id}">
   				<td class="first-row">${data.title}</td>
   				<td>
-  				  ${data.description}
+  				 <c:if test="${fn:length(data.description<=150)}" > ${data.description}
+  				 </c:if>
+  				 <c:if test="${fn:length(data.description>150)}" > 
+  				 ${fn:substring(data.description, 0, 150)} ...
+  				 </c:if>
   				</td>
   				
 					<td class="tableAction" id="${data.id}">

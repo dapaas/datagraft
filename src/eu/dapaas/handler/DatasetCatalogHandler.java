@@ -82,10 +82,24 @@ public class DatasetCatalogHandler extends BaseHandler {
             {
               SimpleDateFormat sdf = new SimpleDateFormat("yyyy-mm-dd");
               try {
-                Date thisdate = sdf.parse(one.getIssued());
-                Date odate = sdf.parse(two.getIssued());
-                if (thisdate == null || odate == null)
+                Date thisdate = null;
+                Date odate = null;
+                try{
+                 thisdate = sdf.parse(one.getIssued());
+                }catch(Exception e){
+                  
+                }
+                try{
+                  odate = sdf.parse(two.getIssued());
+                 }catch(Exception e){
+                   
+                 }
+                if (thisdate == null && odate == null)
                   return 0;
+                if (thisdate == null && odate != null)
+                  return -1;
+                if (thisdate != null && odate == null)
+                  return 1;
                 return thisdate.compareTo(odate);
               } catch (Exception e) {
                 return 0;
@@ -141,10 +155,24 @@ public class DatasetCatalogHandler extends BaseHandler {
           {
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-mm-dd");
             try {
-              Date thisdate = sdf.parse(one.getIssued());
-              Date odate = sdf.parse(two.getIssued());
-              if (thisdate == null || odate == null)
+              Date thisdate = null;
+              Date odate = null;
+              try{
+               thisdate = sdf.parse(one.getIssued());
+              }catch(Exception e){
+                
+              }
+              try{
+                odate = sdf.parse(two.getIssued());
+               }catch(Exception e){
+                 
+               }
+              if (thisdate == null && odate == null)
                 return 0;
+              if (thisdate == null && odate != null)
+                return -1;
+              if (thisdate != null && odate == null)
+                return 1;
               return thisdate.compareTo(odate);
             } catch (Exception e) {
               return 0;

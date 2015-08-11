@@ -140,7 +140,7 @@ ${userbean.putInCookie(pageContext.request, pageContext.response, pageContext.se
 		</div>
 
 <div class="form-group">
-			<label class="col-lg-2 control-label" for="description">Date:</label>
+			<label class="col-lg-2 control-label" for="description">Creation Date:</label>
 			 <div class="col-lg-10">
              <div class="form-control-wrapper">
 				<label  class="form-control empty">
@@ -244,7 +244,7 @@ ${userbean.putInCookie(pageContext.request, pageContext.response, pageContext.se
 		
 		<div class="dataset-wrapper ${wizard.action =='new'? 'hide' : '' }" id="sparqueryresult">
 			<h2 class="table-label">SPARQL</h2>
-			<h5>Endpoint: ${wizard.details.accessURL }</h5>
+			<h5 class="table-label theme-bg">Endpoint: ${wizard.details.accessURL }</h5>
 			<ul id="query-tabs" class="nav nav-tabs theme-bg">
 			    <li><a href="#query-results">Query</a></li>
 			    <li><a href="#query-builder-results">Query Builder</a></li>

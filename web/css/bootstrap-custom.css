@@ -582,7 +582,12 @@ SVG>TEXT {
 #catalogresult tr td{
 	cursor: pointer;
 }
-
+#transformationresult tr td {
+    cursor: pointer;
+}
+H5.table-label.theme-bg{
+	padding: 10px;
+}
 @media only screen and (min-width:1199px){
 .dropdown-menu {
 		margin-right: -77px;

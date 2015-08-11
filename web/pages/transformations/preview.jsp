@@ -84,7 +84,7 @@ ${userbean.putInCookie(pageContext.request, pageContext.response, pageContext.se
 		</div>
 		
 		<div class="form-group">
-			<label class="col-lg-2 control-label" for="description">Date:</label>
+			<label class="col-lg-2 control-label" for="description">Creation Date:</label>
 			 <div class="col-lg-10">
              <div class="form-control-wrapper">
 				<label  class="form-control empty">

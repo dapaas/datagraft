@@ -8,10 +8,11 @@ $(document).ready(function() {
         maxThumbnailFilesize: 1,
         thumbnailWidth: 100,
         thumbnailHeight: 100,
+        maxFilesize: 10, // MB
         addRemoveLinks: true,
         dictRemoveFile: "Remove",
         addPropertiesLinks: false,
-        acceptedFiles: ".rdf,.rdfs,.xml,.owl,.nt,.ttl,.n3,.nq,.rj,.trix,.trig,.brf,.csv, .xls, .xlsx"
+        acceptedFiles: ".rdf,.rdfs,.xml,.owl,.nt,.ttl,.n3,.nq,.rj,.trix,.trig,.brf,.csv"
       }
   );
   
@@ -22,10 +23,11 @@ $(document).ready(function() {
         maxThumbnailFilesize: 1,
         thumbnailWidth: 100,
         thumbnailHeight: 100,
+        maxFilesize: 10, // MB
         addRemoveLinks: true,
         dictRemoveFile: "Remove",
         addPropertiesLinks: false,
-        acceptedFiles: ".csv, .xls, .xlsx"
+        acceptedFiles: ".csv"
       }
   );
   
