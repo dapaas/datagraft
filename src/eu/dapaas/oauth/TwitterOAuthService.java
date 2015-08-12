@@ -1,5 +1,7 @@
 package eu.dapaas.oauth;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 
 import net.oauth.consumer.OAuth1Consumer;
@@ -10,6 +12,7 @@ import net.oauth.token.oauth1.AccessToken;
 import net.oauth.token.oauth1.RequestToken;
 
 import org.apache.http.HttpResponse;
+import org.apache.http.cookie.Cookie;
 import org.apache.log4j.Logger;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -76,11 +79,15 @@ public class TwitterOAuthService extends OAuth1Service {
           return;
         }
       }
+      List<Cookie> cookies = gateway.getContext().getCookieStore().getCookies();
       params = new DaPaasParams();
       params.setJsonObject(new NameValuePair<JSONObject>(null, userJason));
       params.getHeaders().put("Content-Type", "application/json");
       UserHandler userHandler = new UserHandler(gateway);
       User user = userHandler.getUserTempKey();
+      user.setCookies(cookies);
+      user.setProvider(AuthenticationProvider.twitter);
+      user.setProviderId(userData.getId());
       request.getSession().setAttribute(SessionConstants.DAPAAS_USER, user);
       
     } catch (Throwable e) {

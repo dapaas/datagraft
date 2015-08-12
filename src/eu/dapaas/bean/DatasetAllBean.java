@@ -18,6 +18,9 @@ public class DatasetAllBean {
   private HttpSession         session;
   private String              searchValue;
   private String              owner;
+  private int                 pageCount  = 0;
+  private int                 pageNumber = 1;
+  private static final int    PAGE_SIZE  = 20;
 
   public List<Dataset> getCatalogDataset() throws JSONException, IOException {
     DatasetCatalogHandler cathandler = new DatasetCatalogHandler();
@@ -33,6 +36,36 @@ public class DatasetAllBean {
     return cathandler.getSharedDatasetCatalog();
   }
 
+  public List<Dataset> getCatalogDatasetByPage(int page) {
+    DatasetCatalogHandler handler = new DatasetCatalogHandler();
+    handler.setSearchValue(searchValue);
+    handler.setOwner(owner);
+    List<Dataset> datasets = handler.getSharedDatasetCatalog();
+    pageCount = calculatePages(datasets);
+    pageNumber = page;
+    List<Dataset> pageData = new ArrayList<Dataset>();
+    int end = PAGE_SIZE * (pageNumber);
+    if (end >= datasets.size()) {
+      end = datasets.size();
+    }
+    for (int i = PAGE_SIZE * (pageNumber - 1); i < end; i++) {
+      pageData.add(datasets.get(i));
+    }
+    return pageData;
+  }
+
+  private int calculatePages(List list) {
+    int maxPages = 0;
+    if (PAGE_SIZE > 0) {
+      if (list.size() % PAGE_SIZE == 0) {
+        maxPages = list.size() / PAGE_SIZE;
+      } else {
+        maxPages = (list.size() / PAGE_SIZE) + 1;
+      }
+    }
+    return maxPages;
+  }
+
   public List<Dataset> getCatalogDatasetPortals() throws JSONException, IOException {
     DatasetCatalogHandler cathandler = new DatasetCatalogHandler();
     cathandler.setSearchValue(searchValue);
@@ -45,7 +78,7 @@ public class DatasetAllBean {
     }
     return datasetsPortals;
   }
-  
+
   public Dataset getCatalogDetails(String datasetId) throws JSONException, IOException {
     DatasetCatalogHandler cathandler = new DatasetCatalogHandler();
     return cathandler.getDetailsCatalog(datasetId);
@@ -81,6 +114,22 @@ public class DatasetAllBean {
 
   public void setOwner(String owner) {
     this.owner = owner;
+  }
+
+  public int getPageCount() {
+    return pageCount;
+  }
+
+  public void setPageCount(int pageCount) {
+    this.pageCount = pageCount;
+  }
+
+  public int getPageNumber() {
+    return pageNumber;
+  }
+
+  public void setPageNumber(int pageNumber) {
+    this.pageNumber = pageNumber;
   }
 
 }

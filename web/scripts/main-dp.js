@@ -320,80 +320,7 @@ $(document).ready(function() {
     $( "#drawtype option:selected" ).each(function() {
       var val = $( this ).val();
       
-      $('.date-pattern').css('display', 'none');
-      $('.poligon').css('display', 'none');
-      if ('drawTable' == val){
-        $("#dialogportal p").html('');
-        if (!iswrite || $("#dialogportal textarea[id='line_numbers']").val().length<=0){
-        	$("#dialogportal textarea[id='line_numbers']").val('');
-        	iswrite = false;
-        }
-      }
-      if ('drawLineChart' == val){
-        $("#dialogportal p").html('In the "Line chart" is required the heading column to be called "title".');
-        if (!iswrite || $("#dialogportal textarea[id='line_numbers']").val().length<=0){
-        	$("#dialogportal textarea[id='line_numbers']").val('SELECT ?title \r\n WHERE { }');
-        	iswrite = false;
-        }
-      }
-      if ('drawBarChart' == val){
-        $("#dialogportal p").html('In the "Bar chart" is required the heading column to be called "title".');
-        if (!iswrite || $("#dialogportal textarea[id='line_numbers']").val().length<=0){
-        	$("#dialogportal textarea[id='line_numbers']").val('SELECT ?title \r\n WHERE { }');
-        	iswrite = false;
-        }
-      }
-      if ('drawPieChart' == val){       
-        $("#dialogportal p").html('In the "Pie chart" is required the heading column to be called "title" and every other column must be digits.');
-        if (!iswrite || $("#dialogportal textarea[id='line_numbers']").val().length<=0){
-        	$("#dialogportal textarea[id='line_numbers']").val('SELECT ?title \r\n WHERE { }');
-        	iswrite = false;
-        }
-      }
-      if ('drawPoligonChart' == val){  
-        $(".poligon").show();
-        $("#dialogportal p").html('In the "Poligon chart" is required columns "code" and "value".');
-        if (!iswrite || $("#dialogportal textarea[id='line_numbers']").val().length<=0){
-          $("#dialogportal textarea[id='line_numbers']").val('SELECT ?code ?value \r\n WHERE { }');
-          iswrite = false;
-        }
-      }
-      if ( 'drawTimeLine' == val ){
-        $(".date-pattern").show();
-        $("#dialogportal p").html('In the "Time Line chart" is required the heading column to be called "title", date column called "date" and every other column are shown like additional data.');
-        if (!iswrite || $("#dialogportal textarea[id='line_numbers']").val().length<=0){
-        	$("#dialogportal textarea[id='line_numbers']").val('SELECT ?title ?date \r\n WHERE { }');
-        	iswrite = false;
-        }
-      }
-      if ('googleMaps'== val){
-        $("#dialogportal p").html('In the "Google Map chart" is required columns "lng" and "lat", every other column are shown like additional data with title column called "title".');
-        if (!iswrite || $("#dialogportal textarea[id='line_numbers']").val().length<=0){
-        	$("#dialogportal textarea[id='line_numbers']").val('SELECT ?title ?lng ?lat \r\n WHERE { }');
-        	iswrite = false;
-        }
-      }
-      if ('drawMaps' == val){
-        $("#dialogportal p").html('In the "Map chart" is required columns "title, "lng" and "lat", every other column are shown like additional data with title column called "title".');
-        if (!iswrite || $("#dialogportal textarea[id='line_numbers']").val().length<=0){
-        	$("#dialogportal textarea[id='line_numbers']").val('SELECT ?title ?lng ?lat \r\n WHERE { }');
-        	iswrite = false;
-        }
-      }
-      if ('drawScatterChart' == val){
-          $("#dialogportal p").html('In the "Scatter chart" is required the heading column to be called "title".');
-          if (!iswrite || $("#dialogportal textarea[id='line_numbers']").val().length<=0){
-            $("#dialogportal textarea[id='line_numbers']").val('SELECT ?title  \r\n WHERE { }');
-            iswrite = false;
-          }
-        }
-        if ('drawBubbleChart' == val){
-          $("#dialogportal p").html('In the "Bubble chart" is required the heading column to be called "title", "y" and "r", every other column are shown like additional data with title column called "title".');
-          if (!iswrite || $("#dialogportal textarea[id='line_numbers']").val().length<=0){
-            $("#dialogportal textarea[id='line_numbers']").val('SELECT ?title ?y ?r  \r\n WHERE { }');
-            iswrite = false;
-          }
-        }
+      selectDrawType(val);
       
       
     });
@@ -492,7 +419,9 @@ $(document).ready(function() {
       $("#transformationpage").toggle();
       $('#dialog-refresh').modal('hide')
 //      });
-    })
+    });
+    
+
 });
 
 var Application = {
@@ -501,6 +430,82 @@ var Application = {
 
 };
 
+function selectDrawType(val){
+  $('.date-pattern').css('display', 'none');
+  $('.poligon').css('display', 'none');
+  if ('drawTable' == val){
+    $("#dialogportal p").html('Tabular view shows entire result set from query as a table with corresponding columns and rows.');
+    if (!iswrite || $("#dialogportal textarea[id='line_numbers']").val().length<=0){
+      $("#dialogportal textarea[id='line_numbers']").val('');
+      iswrite = false;
+    }
+  }
+  if ('drawLineChart' == val){
+    $("#dialogportal p").html('Query should have column "title", which is used as a X values. All other columns are plot as a lines.');
+    if (!iswrite || $("#dialogportal textarea[id='line_numbers']").val().length<=0){
+      $("#dialogportal textarea[id='line_numbers']").val('SELECT ?title \r\n WHERE { }');
+      iswrite = false;
+    }
+  }
+  if ('drawBarChart' == val){
+    $("#dialogportal p").html('Query should have column "title", which is used as a X values. All other columns are plot as a series of bars.');
+    if (!iswrite || $("#dialogportal textarea[id='line_numbers']").val().length<=0){
+      $("#dialogportal textarea[id='line_numbers']").val('SELECT ?title \r\n WHERE { }');
+      iswrite = false;
+    }
+  }
+  if ('drawPieChart' == val){       
+    $("#dialogportal p").html('Query should have column "title", which values are used as a segment titles. All other columns are plot as a separate pies.');
+    if (!iswrite || $("#dialogportal textarea[id='line_numbers']").val().length<=0){
+      $("#dialogportal textarea[id='line_numbers']").val('SELECT ?title \r\n WHERE { }');
+      iswrite = false;
+    }
+  }
+  if ('drawPoligonChart' == val){  
+    $(".poligon").show();
+    $("#dialogportal p").html('In the "Poligon chart" is required columns "code" and "value".');
+    if (!iswrite || $("#dialogportal textarea[id='line_numbers']").val().length<=0){
+      $("#dialogportal textarea[id='line_numbers']").val('SELECT ?code ?value \r\n WHERE { }');
+      iswrite = false;
+    }
+  }
+  if ( 'drawTimeLine' == val ){
+    $(".date-pattern").show();
+    $("#dialogportal p").html('In the "Time Line chart" is required the heading column to be called "title", date column called "date" and every other column are shown like additional data.');
+    if (!iswrite || $("#dialogportal textarea[id='line_numbers']").val().length<=0){
+      $("#dialogportal textarea[id='line_numbers']").val('SELECT ?title ?date \r\n WHERE { }');
+      iswrite = false;
+    }
+  }
+  if ('googleMaps'== val){
+    $("#dialogportal p").html('Map requires columns "lng" and "lat". All other column are used as additional data for the geo location.');
+    if (!iswrite || $("#dialogportal textarea[id='line_numbers']").val().length<=0){
+      $("#dialogportal textarea[id='line_numbers']").val('SELECT ?title ?lng ?lat \r\n WHERE { }');
+      iswrite = false;
+    }
+  }
+  if ('drawMaps' == val){
+    $("#dialogportal p").html('In the "Map chart" is required columns "title, "lng" and "lat", every other column are shown like additional data with title column called "title".');
+    if (!iswrite || $("#dialogportal textarea[id='line_numbers']").val().length<=0){
+      $("#dialogportal textarea[id='line_numbers']").val('SELECT ?title ?lng ?lat \r\n WHERE { }');
+      iswrite = false;
+    }
+  }
+  if ('drawScatterChart' == val){
+      $("#dialogportal p").html('Query should have column "title", which is used as a X values. All other columns are used as a Y values.');
+      if (!iswrite || $("#dialogportal textarea[id='line_numbers']").val().length<=0){
+        $("#dialogportal textarea[id='line_numbers']").val('SELECT ?title  \r\n WHERE { }');
+        iswrite = false;
+      }
+    }
+    if ('drawBubbleChart' == val){
+      $("#dialogportal p").html('Query should have columns "title" (used as a X values), "y" (used as a Y values) and "r" (used as a radius of a bubble). All other column are used as additional data for the bubble.');
+      if (!iswrite || $("#dialogportal textarea[id='line_numbers']").val().length<=0){
+        $("#dialogportal textarea[id='line_numbers']").val('SELECT ?title ?y ?r  \r\n WHERE { }');
+        iswrite = false;
+      }
+    }
+}
 
 function tabsControl(tabSection, tabId) {
 	var tabSectionClass = '.'+tabSection;
@@ -555,12 +560,6 @@ function deleteTransformation(link) {
   $("#deletedataset input[id=delete]").val("transformation");
   $('#deletedataset').submit();
 }
-//function deleteApplication(link) {
-//  $("#deletedataset input[id=id]").val(link);
-//  $("#deletedataset input[id=delete]").val("application");
-//  $('#deletedataset').submit();
-//}
-
 
 function addRDFOptions(){
   $('#contenttype option').remove(); 
@@ -595,47 +594,7 @@ function addXLSOptions(){
   // get list from json service
   
  
-//  $("#transformation").autocomplete({
-//    source: function(request, response) {
-//      $.ajax({
-//      type : "POST",
-//        async: false,
-//        url: Application.contextPath +"/BaseGateway/getTransformations.json",
-//        data: {
-//          q: request.term
-//        }
-//        }).done(function(data) {
-//          var result = data.result;
-//          
-//           //for (var i=0; i<result.length; i++){
-////            var el = result[i]; 
-////            var transText = el.id + " : " + el.description;
-////             if(transText.length >= 50) {
-////               var slicedText = transText.slice(0, 47);
-////               transText = slicedText.concat("...");
-////             }             
-//             response($.map(data.result, function(el) {
-//                 var transText = el.id + " : " + el.description;
-//                 if(transText.length >= 50) {
-//                   var slicedText = transText.slice(0, 47);
-//                   transText = slicedText.concat("...");
-//                 }
-//                 var item = new Object();
-//                 item.value= el.id;
-//                 item.label= transText;
-//                 return item;                  
-//               }));
-//           //}
-//        }); 
-//    },
-//    select: function(event, ui) {
-//      this.value = ui.item.label;
-//      return false;
-//    }
-//});
-  
- // $("#contenttypelabel").text("Transformation:");
-  
+
   
 }
 
@@ -647,6 +606,7 @@ function openDialogPortal(){
   $("#dialogportal textarea[id=pdescription]").val("");
   $("#dialogportal textarea[id=psummary]").val("");
   $('#drawtype option[value="drawTable"]').attr('selected', 'selected');
+  selectDrawType("drawTable");
   iswrite=false;
   $("#dialog-portal").dialog("open");
 }
@@ -665,7 +625,7 @@ function editConfiguration(pc){
   $("#dialogportal textarea[id=psummary]").val(s);
   
   $('#drawtype option[value="'+pc.chart+'"]').attr('selected', 'selected');
-  
+  selectDrawType(pc.chart);
   iswrite = true;
   
   if (pc.chart == 'drawTimeLine'){
@@ -713,4 +673,28 @@ function fnOpenNormalDialog(targetUrl) {
         }
     });
     $("#dialog-confirm").dialog("open");
+}
+
+function pageTransformationLess(){
+  var pn = $("#transformationresult").data("page");
+  $("#pagetransformation input[id=page]").val(pn*1-1);
+  $("#pagetransformation").submit();
+}
+
+function pageTransformationAdd(){
+  var pn = $("#transformationresult").data("page");
+  $("#pagetransformation input[id=page]").val(pn*1+1);
+  $("#pagetransformation").submit();
+}
+
+function pageDatasetLess(){
+  var pn = $("#catalogresult").data("page");
+  $("#pagedataset input[id=page]").val(pn*1-1);
+  $("#pagedataset").submit();
+}
+
+function pageDatasetAdd(){
+  var pn = $("#catalogresult").data("page");
+  $("#pagedataset input[id=page]").val(pn*1+1);
+  $("#pagedataset").submit();
 }

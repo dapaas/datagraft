@@ -18,6 +18,7 @@ import org.apache.log4j.Logger;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import eu.dapaas.constants.AuthenticationProvider;
 import eu.dapaas.constants.SessionConstants;
 import eu.dapaas.dao.User;
 import eu.dapaas.http.HttpMethod;
@@ -74,6 +75,8 @@ public class LoginHandler extends BaseHandler {
           UserHandler userHandler = new UserHandler(gateway);
           User user = userHandler.getUserTempKey();
           user.setCookies(cookies);
+          user.setProvider(AuthenticationProvider.dapaas);
+          user.setProviderId(username);
           request.getSession().setAttribute(SessionConstants.DAPAAS_USER, user);
           if (Utils.checkCatalog(user.getApiKey(), user.getApiSecret())) {
             redirectToPage("pages/myassets", serverResponse);

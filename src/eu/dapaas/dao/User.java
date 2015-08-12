@@ -3,8 +3,11 @@ package eu.dapaas.dao;
 import java.util.List;
 
 import org.apache.http.cookie.Cookie;
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import eu.dapaas.constants.AuthenticationProvider;
 
 /*
  * RESULT:
@@ -13,15 +16,17 @@ import org.json.JSONObject;
  }
  */
 public class User {
-  private String username;
-  private String email;
-  private String name;
-  private String role;
-  private String phone;
-  private String address;
-  private String apiKey;
-  private String apiSecret;
-  private List<Cookie> cookies;
+  private String                 username;
+  private String                 email;
+  private String                 name;
+  private String                 role;
+  private String                 phone;
+  private String                 address;
+  private String                 apiKey;
+  private String                 apiSecret;
+  private List<Cookie>           cookies;
+  private AuthenticationProvider provider;
+  private String                 providerId;
 
   public User() {
 
@@ -40,6 +45,22 @@ public class User {
     }
   }
 
+  public JSONObject toJSON() {
+    try {
+      JSONObject json = new JSONObject();
+      json.put("username", this.username);
+      json.put("email", this.email);
+      json.put("name", this.name);
+      json.put("role", this.role);
+      json.put("phone_num", this.phone);
+      json.put("addr_1", this.address);
+      return json;
+    } catch (JSONException e) {
+      
+      return new JSONObject();
+    }
+  }
+  
   public void setUserApi(JSONObject api) {
     try {
       this.apiKey = api.get("api_key").toString();
@@ -119,6 +140,22 @@ public class User {
 
   public void setCookies(List<Cookie> cookies) {
     this.cookies = cookies;
+  }
+
+  public AuthenticationProvider getProvider() {
+    return provider;
+  }
+
+  public void setProvider(AuthenticationProvider provider) {
+    this.provider = provider;
+  }
+
+  public String getProviderId() {
+    return providerId;
+  }
+
+  public void setProviderId(String providerId) {
+    this.providerId = providerId;
   }
 
 }

@@ -12,6 +12,9 @@
 <%@attribute description="table label" name="label"%>
 <%@attribute description="table empty label" name="emptylabel"%>
 <%@attribute description="table body data" name="values"%>
+<%@attribute description="all sizepage" name="sizepage"%>
+
+<%@attribute description="table page" name="page"%>
 
 <%@attribute description="table id" name="id"%>
 <%@attribute name="templateData" type="java.util.List"%>
@@ -20,7 +23,7 @@
 
 
  <h2>${label}</h2>
-<table  id="${id}" class="table table-latest table-striped table-hover  table-responsive">
+<table  id="${id}" data-page="${page}"  class="table table-latest table-striped table-hover  table-responsive">
 	
 	<thead>
 		<tr>
@@ -71,6 +74,12 @@
 		</c:forEach>
 	</tbody>
 </table>
+<c:if test="${not empty templateData and sizepage>1}" >
+<ul class="pager">
+    <li class="previous ${(page == sizepage)? 'disabled' : ''}"><a class="theme-text" href="javascript:pageDatasetAdd()">← Older</a></li>
+    <li class="next ${(page == 1)? 'disabled' : ''}"><a class="theme-text" href="javascript:pageDatasetLess()">Newer →</a></li>
+</ul>
+</c:if>
 <c:if test="${empty templateData}" >
 	<p>${emptylabel}</p>
 </c:if>

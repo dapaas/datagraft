@@ -2,6 +2,7 @@ package eu.dapaas.bean;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
@@ -19,6 +20,9 @@ public class TransformationBean {
   private HttpSession         session;
   private String              searchValue;
   private String              owner;
+  private int                 pageCount = 0;
+  private int                 pageNumber = 1;
+  private static final int    PAGE_SIZE = 20;
 
   public List<Transformation> getCatalogTransformations(User user) {
     TransformationCatalogHandler handler = new TransformationCatalogHandler(user.getApiKey(), user.getApiSecret());
@@ -35,6 +39,36 @@ public class TransformationBean {
     return transformations;
   }
 
+  public List<Transformation> getCatalogTransformationsByPage(int page) {
+    TransformationCatalogHandler handler = new TransformationCatalogHandler();
+    handler.setSearchValue(searchValue);
+    handler.setOwner(owner);
+    List<Transformation> transformations = handler.getTransformationCatalog();
+    pageCount = calculatePages(transformations);
+    pageNumber = page;
+    List<Transformation> pageData = new ArrayList<Transformation>();
+    int end = PAGE_SIZE*(pageNumber);
+    if (end>=transformations.size()){
+      end = transformations.size();
+    }
+    for (int i=PAGE_SIZE*(pageNumber-1); i<end; i++){
+      pageData.add(transformations.get(i));
+    }
+    return pageData;
+  }
+
+  private int calculatePages(List list) {
+    int maxPages = 0;
+    if (PAGE_SIZE > 0) {
+      if (list.size() % PAGE_SIZE == 0) {
+        maxPages = list.size() / PAGE_SIZE;
+      } else {
+        maxPages = (list.size() / PAGE_SIZE) + 1;
+      }
+    }
+    return maxPages;
+  }
+  
   public List<Transformation> getScharedTransformations(User user) {
     TransformationCatalogHandler handler = new TransformationCatalogHandler(user.getApiKey(), user.getApiSecret());
     handler.setSearchValue(searchValue);
@@ -52,7 +86,7 @@ public class TransformationBean {
     TransformationCatalogHandler handler = new TransformationCatalogHandler();
     return handler.getDetail(id);
   }
-  
+
   public void delete(User user, String id) {
     TransformationHandler header = new TransformationHandler(user.getApiKey(), user.getApiSecret());
     header.deleteTransformation(id);
@@ -110,5 +144,21 @@ public class TransformationBean {
 
   public void setOwner(String owner) {
     this.owner = owner;
+  }
+
+  public int getPageNumber() {
+    return pageNumber;
+  }
+
+  public void setPageNumber(int pageNumber) {
+    this.pageNumber = pageNumber;
+  }
+
+  public int getPageCount() {
+    return pageCount;
+  }
+
+  public void setPageCount(int pageCount) {
+    this.pageCount = pageCount;
   }
 }

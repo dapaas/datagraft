@@ -80,7 +80,7 @@ public class DatasetCatalogHandler extends BaseHandler {
           Collections.sort(catalog, Collections.reverseOrder(new Comparator<Dataset>() {
             public int compare(Dataset one, Dataset two)
             {
-              SimpleDateFormat sdf = new SimpleDateFormat("yyyy-mm-dd");
+              SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
               try {
                 Date thisdate = null;
                 Date odate = null;
@@ -153,7 +153,7 @@ public class DatasetCatalogHandler extends BaseHandler {
         Collections.sort(catalogShared, Collections.reverseOrder(new Comparator<Dataset>() {
           public int compare(Dataset one, Dataset two)
           {
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-mm-dd");
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
             try {
               Date thisdate = null;
               Date odate = null;

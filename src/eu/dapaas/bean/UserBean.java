@@ -119,7 +119,35 @@ public class UserBean {
     LoginHandler handler = new LoginHandler(request, response, request.getSession());
     return handler.loginStatus();
   }
-
+  
+  public User getDetail(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
+    try {
+      UserHandler cathandler = new UserHandler(request, response, session);
+      return cathandler.getUserDetail();
+      
+    } catch (Exception e) {;
+      logger.error("", e);
+      return null;
+    }
+  }
+  
+  
+  public void updateDetail(HttpServletRequest request, HttpServletResponse response, HttpSession session) throws Exception{
+    try {
+      UserHandler cathandler = new UserHandler(request, response, session);
+      User userdetails = new User();
+      userdetails.setUsername(request.getParameter("username"));
+      userdetails.setName(request.getParameter("name"));
+      userdetails.setEmail(request.getParameter("email"));
+      
+      cathandler.updateUserDetail(userdetails);
+      
+    } catch (Exception e) {
+      logger.error("", e);
+      return;
+    }
+  }
+  
   public void putInCookie(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
     if (session.getAttribute(SessionConstants.DAPAAS_USER) != null) {
       User user = (User) session.getAttribute(SessionConstants.DAPAAS_USER);

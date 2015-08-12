@@ -1,5 +1,6 @@
 package eu.dapaas.handler;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,6 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.http.HttpResponse;
+import org.apache.http.HttpStatus;
 import org.apache.http.cookie.Cookie;
 import org.apache.log4j.Logger;
 import org.json.JSONArray;
@@ -17,6 +19,7 @@ import eu.dapaas.constants.SessionConstants;
 import eu.dapaas.dao.APIKey;
 import eu.dapaas.dao.User;
 import eu.dapaas.http.HttpMethod;
+import eu.dapaas.http.NameValuePair;
 import eu.dapaas.http.impl.DaPaasParams;
 import eu.dapaas.http.impl.DaPaasUserGateway;
 import eu.dapaas.utils.Utils;
@@ -70,18 +73,18 @@ public class UserHandler extends BaseHandler {
     try {
       DaPaasParams params = new DaPaasParams();
       params.getHeaders().put("Content-Type", "application/json");
-      
+
       // get api key and secret
       User user = (User) request.getSession().getAttribute(SessionConstants.DAPAAS_USER);
-      if (user == null){
+      if (user == null) {
         return null;
       }
-      
+
       gateway = new DaPaasUserGateway(HttpMethod.POST, Utils.getDaPaasEndpoint("dapaas-management-services/api/api_keys/temporary"), params);
-      for (Cookie cookie : user.getCookies()){
-          gateway.getContext().getCookieStore().addCookie(cookie);
+      for (Cookie cookie : user.getCookies()) {
+        gateway.getContext().getCookieStore().addCookie(cookie);
       }
-      
+
       HttpResponse httpresponse = gateway.execute();
       JSONObject apiResponse = Utils.convertEntityToJSON(httpresponse);
       user.setUserApi(apiResponse);
@@ -91,26 +94,27 @@ public class UserHandler extends BaseHandler {
       return null;
     }
   }
-  //GET /api_keys/
-  public List<APIKey> getAPIKeys(){
+
+  // GET /api_keys/
+  public List<APIKey> getAPIKeys() {
     try {
       List<APIKey> result = new ArrayList<APIKey>();
       DaPaasParams params = new DaPaasParams();
       params.getHeaders().put("Content-Type", "application/json");
-      
+
       // get api key and secret
       User user = (User) request.getSession().getAttribute(SessionConstants.DAPAAS_USER);
-      if (user == null){
+      if (user == null) {
         return new ArrayList<APIKey>();
       }
       gateway = new DaPaasUserGateway(HttpMethod.GET, Utils.getDaPaasEndpoint("dapaas-management-services/api/api_keys"), params);
-      for (Cookie cookie : user.getCookies()){
+      for (Cookie cookie : user.getCookies()) {
         gateway.getContext().getCookieStore().addCookie(cookie);
       }
-      
+
       HttpResponse httpresponse = gateway.execute();
       JSONArray apiResponse = Utils.convertToJSONArray(httpresponse);
-      for (int i=0; i<apiResponse.length(); i++){
+      for (int i = 0; i < apiResponse.length(); i++) {
         JSONObject o = apiResponse.getJSONObject(i);
         result.add(new APIKey(o));
       }
@@ -120,22 +124,23 @@ public class UserHandler extends BaseHandler {
       return new ArrayList<APIKey>();
     }
   }
-  //POST /api_keys/
-  public APIKey createAPIKeys(){
+
+  // POST /api_keys/
+  public APIKey createAPIKeys() {
     try {
       DaPaasParams params = new DaPaasParams();
       params.getHeaders().put("Content-Type", "application/json");
-      
+
       // get api key and secret
       User user = (User) request.getSession().getAttribute(SessionConstants.DAPAAS_USER);
-      if (user == null){
+      if (user == null) {
         return null;
       }
       gateway = new DaPaasUserGateway(HttpMethod.POST, Utils.getDaPaasEndpoint("dapaas-management-services/api/api_keys"), params);
-      for (Cookie cookie : user.getCookies()){
+      for (Cookie cookie : user.getCookies()) {
         gateway.getContext().getCookieStore().addCookie(cookie);
       }
-      
+
       HttpResponse httpresponse = gateway.execute();
       APIKey key = new APIKey(Utils.convertEntityToJSON(httpresponse));
       key.setEnable(true);
@@ -145,70 +150,135 @@ public class UserHandler extends BaseHandler {
     }
     return null;
   }
-  
+
   // DELETE /api_keys/<api_key>
-  public void deleteAPIKeys(String apiKey){
+  public void deleteAPIKeys(String apiKey) {
     try {
       DaPaasParams params = new DaPaasParams();
       params.getHeaders().put("Content-Type", "application/json");
-      
+
       // get api key and secret
       User user = (User) request.getSession().getAttribute(SessionConstants.DAPAAS_USER);
-      if (user == null){
+      if (user == null) {
         return;
       }
-      gateway = new DaPaasUserGateway(HttpMethod.DELETE, Utils.getDaPaasEndpoint("dapaas-management-services/api/api_keys/"+apiKey), params);
-      for (Cookie cookie : user.getCookies()){
+      gateway = new DaPaasUserGateway(HttpMethod.DELETE, Utils.getDaPaasEndpoint("dapaas-management-services/api/api_keys/" + apiKey), params);
+      for (Cookie cookie : user.getCookies()) {
         gateway.getContext().getCookieStore().addCookie(cookie);
       }
-      
+
       HttpResponse httpresponse = gateway.execute();
     } catch (Exception e) {
       logger.error(e);
     }
   }
-  
-//PUT /api_keys/<api_key>/disable
- public void disableAPIKeys(String apiKey){
-   try {
-     DaPaasParams params = new DaPaasParams();
-     params.getHeaders().put("Content-Type", "application/json");
-     
-     // get api key and secret
-     User user = (User) request.getSession().getAttribute(SessionConstants.DAPAAS_USER);
-     if (user == null){
-       return;
-     }
-     gateway = new DaPaasUserGateway(HttpMethod.PUT, Utils.getDaPaasEndpoint("dapaas-management-services/api/api_keys/"+apiKey+"/disable"), params);
-     for (Cookie cookie : user.getCookies()){
-       gateway.getContext().getCookieStore().addCookie(cookie);
-     }
-     
-     HttpResponse httpresponse = gateway.execute();
-   } catch (Exception e) {
-     logger.error(e);
-   }
- }
- 
-//PUT /api_keys/<api_key>/enable
-public void enableAPIKeys(String apiKey){
-  try {
-    DaPaasParams params = new DaPaasParams();
-    params.getHeaders().put("Content-Type", "application/json");
-    
-    // get api key and secret
-    User user = (User) request.getSession().getAttribute(SessionConstants.DAPAAS_USER);
-    if (user == null){
-      return;
+
+  // PUT /api_keys/<api_key>/disable
+  public void disableAPIKeys(String apiKey) {
+    try {
+      DaPaasParams params = new DaPaasParams();
+      params.getHeaders().put("Content-Type", "application/json");
+
+      // get api key and secret
+      User user = (User) request.getSession().getAttribute(SessionConstants.DAPAAS_USER);
+      if (user == null) {
+        return;
+      }
+      gateway = new DaPaasUserGateway(HttpMethod.PUT, Utils.getDaPaasEndpoint("dapaas-management-services/api/api_keys/" + apiKey + "/disable"), params);
+      for (Cookie cookie : user.getCookies()) {
+        gateway.getContext().getCookieStore().addCookie(cookie);
+      }
+
+      HttpResponse httpresponse = gateway.execute();
+    } catch (Exception e) {
+      logger.error(e);
     }
-    gateway = new DaPaasUserGateway(HttpMethod.PUT, Utils.getDaPaasEndpoint("dapaas-management-services/api/api_keys/"+apiKey+"/enable"), params);
-    for (Cookie cookie : user.getCookies()){
-      gateway.getContext().getCookieStore().addCookie(cookie);
-    }
-    
-    HttpResponse httpresponse = gateway.execute();
-  } catch (Exception e) {
-    logger.error(e);
   }
-}
+
+  // PUT /api_keys/<api_key>/enable
+  public void enableAPIKeys(String apiKey) {
+    try {
+      DaPaasParams params = new DaPaasParams();
+      params.getHeaders().put("Content-Type", "application/json");
+
+      // get api key and secret
+      User user = (User) request.getSession().getAttribute(SessionConstants.DAPAAS_USER);
+      if (user == null) {
+        return;
+      }
+      gateway = new DaPaasUserGateway(HttpMethod.PUT, Utils.getDaPaasEndpoint("dapaas-management-services/api/api_keys/" + apiKey + "/enable"), params);
+      for (Cookie cookie : user.getCookies()) {
+        gateway.getContext().getCookieStore().addCookie(cookie);
+      }
+
+      HttpResponse httpresponse = gateway.execute();
+    } catch (Exception e) {
+      logger.error(e);
+    }
+  }
+
+  public User getUserDetail() {
+    User userdetails = new User();
+    try {
+      DaPaasParams params = new DaPaasParams();
+      params.getHeaders().put("Content-Type", "application/json");
+
+      // get api key and secret
+      User user = (User) request.getSession().getAttribute(SessionConstants.DAPAAS_USER);
+      if (user == null) {
+        return null;
+      }
+      gateway = new DaPaasUserGateway(HttpMethod.GET, Utils.getDaPaasEndpoint("dapaas-management-services/api/accounts/details"), params);
+      for (Cookie cookie : user.getCookies()) {
+        gateway.getContext().getCookieStore().addCookie(cookie);
+      }
+      HttpResponse httpresponse = gateway.execute();
+      userdetails.setUser(Utils.convertEntityToJSON(httpresponse));
+    } catch (Exception e) {
+      logger.error(e);
+    }
+    return userdetails;
+  }
+
+  public void updateUserDetail(User userdetails) throws Exception{
+    try {
+      DaPaasParams params = new DaPaasParams();
+      params.getHeaders().put("Content-Type", "application/json");
+
+      // get api key and secret
+      User user = (User) request.getSession().getAttribute(SessionConstants.DAPAAS_USER);
+      if (user == null) {
+        return;
+      }
+      params.setJsonObject(new NameValuePair<JSONObject>(null, userdetails.toJSON()));
+      gateway = new DaPaasUserGateway(HttpMethod.PUT, Utils.getDaPaasEndpoint("dapaas-management-services/api/accounts/details"), params);
+      for (Cookie cookie : user.getCookies()) {
+        gateway.getContext().getCookieStore().addCookie(cookie);
+      }
+      HttpResponse httpresponse = gateway.execute();
+      if (httpresponse.getStatusLine().getStatusCode() == HttpStatus.SC_OK) {
+        
+      }else{
+        JSONObject serverResponse = Utils.convertEntityToJSON(httpresponse);
+        if (serverResponse != null && serverResponse.has("error_message")) {
+          showErrorPage(serverResponse.getString("error_message"));
+        } else {
+          showErrorPage("Invalid User data.");
+        }
+      }
+      
+    } catch (Exception e) {
+      logger.error(e);
+      throw e;
+    }
+  }
+  
+  protected void showErrorPage(String error) {
+    getSession().setAttribute("error", error);
+    try {
+      getResponse().sendRedirect("error");
+    } catch (IOException e) {
+      logger.error("", e);
+    }
+  }
 }

@@ -1,5 +1,4 @@
 <%@page import="eu.dapaas.utils.Config"%>
-<%@page import="eu.dapaas.constants.AuthenticationProvider"%>
 <%@page import="com.neurologic.oauth.util.Globals"%>
 <%@page import="com.neurologic.oauth.config.ModuleConfig"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -68,7 +67,7 @@ Application.state="${state}";
 			 			<label for="email" class="control-label">E-mail</label>
 			 			
                         <div class="form-control-wrapper">
-			 			<input type="text" class="form-control col-lg-8" placeholder="e-mail" name="email" id="email">
+			 			<input type="text" class="form-control col-lg-8" placeholder="e-mail" name="email" id="email" required="required">
 			 			<span class="material-input"></span>
                         </div>
                        

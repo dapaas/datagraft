@@ -1,9 +1,12 @@
 package eu.dapaas.oauth;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 
 import net.oauth.token.oauth2.AccessToken;
 
+import org.apache.http.cookie.Cookie;
 import org.apache.log4j.Logger;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -34,7 +37,6 @@ public abstract class AbstractOAuthService extends OAuth2Service {
     try {
       OAuthUserData userData = getOAuthUserData(token, request);
       // first try to login with id if exception create user 
-      // 
       if (getProvider().equals(AuthenticationProvider.facebook)){
         JSONObject userJason = new JSONObject();
         try {
@@ -48,6 +50,9 @@ public abstract class AbstractOAuthService extends OAuth2Service {
         JSONObject serverResponse = Utils.convertEntityToJSON(gateway.execute());
         if (serverResponse != null && serverResponse.has("error_message")) {
           try {
+            if (Utils.isEmpty(userData.getName())){
+              userData.setName(userData.getEmail());
+            }
             userJason.put("name", userData.getName());
             userJason.put("email", userData.getEmail());
             userJason.put("role", userData.getRole());
@@ -56,19 +61,22 @@ public abstract class AbstractOAuthService extends OAuth2Service {
           }
           gateway.modifiedUserGateway(HttpMethod.POST, Utils.getDaPaasEndpoint("dapaas-management-services/api/accounts"), params);
           serverResponse = Utils.convertEntityToJSON(gateway.execute());
-          //{"error_message":"Email already in use"}
           logger.info(serverResponse);
           if (!Utils.isEmpty(serverResponse.getString("error_message"))){
             request.getSession().setAttribute(SessionConstants.ERROR, serverResponse.getString("error_message"));
             return;
           }
         }
+        List<Cookie> cookies = gateway.getContext().getCookieStore().getCookies();
         params = new DaPaasParams();
         params.setJsonObject(new NameValuePair<JSONObject>(null, userJason));
         params.getHeaders().put("Content-Type", "application/json");
         UserHandler userHandler = new UserHandler(gateway);
         User user = userHandler.getUserTempKey();
         user.setUsername(userData.getId());
+        user.setCookies(cookies);
+        user.setProvider(AuthenticationProvider.facebook);
+        user.setProviderId(userData.getId());
         request.getSession().setAttribute(SessionConstants.DAPAAS_USER, user);
       }
       
@@ -85,6 +93,9 @@ public abstract class AbstractOAuthService extends OAuth2Service {
         JSONObject serverResponse = Utils.convertEntityToJSON(gateway.execute());
         if (serverResponse != null && serverResponse.has("error_message")) {
           try {
+            if (Utils.isEmpty(userData.getName())){
+              userData.setName(userData.getEmail());
+            }
             userJason.put("name", userData.getName());
             userJason.put("email", userData.getEmail());
             userJason.put("role", userData.getRole());
@@ -99,12 +110,19 @@ public abstract class AbstractOAuthService extends OAuth2Service {
             return;
           }
         }
+        List<Cookie> cookies = gateway.getContext().getCookieStore().getCookies();
         params = new DaPaasParams();
         params.setJsonObject(new NameValuePair<JSONObject>(null, userJason));
         params.getHeaders().put("Content-Type", "application/json");
         UserHandler userHandler = new UserHandler(gateway);
         User user = userHandler.getUserTempKey();
         user.setUsername(userData.getId());
+        user.setCookies(cookies);
+        user.setProvider(AuthenticationProvider.google);
+        user.setProviderId(userData.getId());
+        if (Utils.isEmpty(user.getName())){
+          user.setName(user.getEmail());
+        }
         request.getSession().setAttribute(SessionConstants.DAPAAS_USER, user);
       }
     } catch (Throwable e) {

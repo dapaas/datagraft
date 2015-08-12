@@ -72,7 +72,7 @@ ${userbean.putInCookie(pageContext.request, pageContext.response, pageContext.se
 <c:if test="${wizard.action =='new' }" >			
 	<div id="content" class="container ${not empty wizard.uploadesFile.file? 'up': 'down'}" >
 		<div class="row">
-			<div class="col-xs-4 col-md-6">  <a type="button" class="btn btn-primary btn-raised theme-bg input-full-button ${ (transformation.transformationType == 'pipe') ? 'disabled' : '' }" id="execsrepository" href="#">Continue</a> </div>
+			<div class="col-xs-4 col-md-6">  <a type="button" class="btn btn-primary btn-raised theme-bg input-full-button ${ (transformation.transformationType == 'pipe') ? 'disabled' : '' }" id="execsrepository" href="#">Publish data page</a> </div>
 			<div class="col-xs-4 col-md-6"> <a type="button" class="btn btn-primary btn-raised theme-bg input-full-button" id="execdlresult" href="#"> Download results </a> </div>
 		
 		</div>
@@ -82,7 +82,7 @@ ${userbean.putInCookie(pageContext.request, pageContext.response, pageContext.se
 <c:if test="${wizard.action =='edit' }" >			
 	<div id="content" class="container up" >
 		<div class="row">
-			<div class="col-xs-4 col-md-6">  <a type="button" class="btn btn-primary btn-raised theme-bg input-full-button ${ (transformation.transformationType == 'pipe') ? 'disabled' : '' }" id="updaterepository" href="#">Continue</a> </div>
+			<div class="col-xs-4 col-md-6">  <a type="button" class="btn btn-primary btn-raised theme-bg input-full-button ${ (transformation.transformationType == 'pipe') ? 'disabled' : '' }" id="updaterepository" href="#">Publish data page</a> </div>
 			<div class="col-xs-4 col-md-6"> <a type="button" class="btn btn-primary btn-raised theme-bg input-full-button" id="execdlresult" href="#"> Download results </a> </div>
 		
 		</div>

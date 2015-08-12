@@ -29,9 +29,9 @@
 			<tr id="${data.id}">
   				<td class="first-row">${data.title}</td>
   				<td>
-  				 <c:if test="${fn:length(data.description<=150)}" > ${data.description}
+  				 <c:if test="${fn:length(data.description)<=150}" > ${data.description}
   				 </c:if>
-  				 <c:if test="${fn:length(data.description>150)}" > 
+  				 <c:if test="${fn:length(data.description)>150}" > 
   				 ${fn:substring(data.description, 0, 150)} ...
   				 </c:if>
   				</td>
