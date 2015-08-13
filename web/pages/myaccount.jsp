@@ -10,10 +10,13 @@
 <%@taglib prefix="template" tagdir="/WEB-INF/tags"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <jsp:useBean id="userBean" class="eu.dapaas.bean.UserBean"/>
+<template:validation />
+
 <%
-
 User user = (User) session.getAttribute(SessionConstants.DAPAAS_USER);
-
+if (user == null){
+  response.sendRedirect("");
+}
 if (AuthenticationProvider.facebook.equals(user.getProvider())){
   response.sendRedirect("http://www.facebook.com/"+user.getProviderId());
   return;

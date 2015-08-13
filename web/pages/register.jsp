@@ -41,7 +41,7 @@ Application.state="${state}";
 	    	<form action="${contextPath}/signup" method="POST" id="createoauth" class="sign-popup-form">
 		
 				<input type="hidden" name="signup">
-				<input type="hidden" name="action" id="action" />
+				<input type="hidden" name="action" id="caction" />
 				
 				
 				<div class="form-group">
