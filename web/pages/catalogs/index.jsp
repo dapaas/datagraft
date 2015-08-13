@@ -72,9 +72,9 @@ ${userbean.putInCookie(pageContext.request, pageContext.response, pageContext.se
 	
 	
 	<c:if test="${ not empty param['searchvalue']}">
-	
-	<c:set var="titleDataset" value="Data pages (filtered by &quot;${param['searchvalue']}&quot;)" />
-	<c:set var="emptylabel" value="No matching data pages found. <a class='theme-text' href='${contextPath }/pages/catalogs'>Show all?</a> " />
+		<c:set var="titleDataset" value="Public data pages" />
+		<c:set var="footer" value="Data pages filtered by &quot;${param['searchvalue']}&quot;. <a class='theme-text' href='${contextPath }/pages/catalogs'>Clear filter?</a>" />
+		<c:set var="emptylabel" value="No data pages matching &quot;${param['searchvalue']}&quot; found. <a class='theme-text' href='${contextPath }/pages/catalogs'>Show all?</a> " />
 	</c:if>
 	<form id="selectdataset" action="${contextPath}/pages/publish/preview.jsp" method="get">
 		<input type="hidden" id="id" name="id" />
@@ -83,7 +83,7 @@ ${userbean.putInCookie(pageContext.request, pageContext.response, pageContext.se
 		<input type="hidden" id="page" name="pagedataset" />
 	</form>
 		<div class="col-lg-6 col-md-6">
-			<template:latestdatasets id='catalogresult' col1="Data page" col2="User" col3="Published" col4="Portal" emptylabel="${emptylabel}" label="${titleDataset}" templateData="${datasetBean.getCatalogDatasetByPage(datasetBean.getPageNumber())}" sizepage="${datasetBean.getPageCount()}" page="${datasetBean.getPageNumber()}" />
+			<template:latestdatasets id='catalogresult' col1="Data page" col2="User" col3="Published" col4="Portal" emptylabel="${emptylabel}" label="${titleDataset}" footer="${footer }" templateData="${datasetBean.getCatalogDatasetByPage(datasetBean.getPageNumber())}" sizepage="${datasetBean.getPageCount()}" page="${datasetBean.getPageNumber()}" />
 		</div>
 		
 		
@@ -95,8 +95,9 @@ ${userbean.putInCookie(pageContext.request, pageContext.response, pageContext.se
 	</c:if>
 	
 	<c:if test="${ not empty param['searchvalue']}">
-	<c:set var="titleApplication" value="Transformations (filtered by  &quot;${param['searchvalue']}&quot;)" />
-	<c:set var="emptylabel" value="No matching transformations found. <a class='theme-text' href='${contextPath }/pages/catalogs'>Show all?</a>" />
+	<c:set var="titleApplication" value="Public transformations" />
+	<c:set var="footer" value="Transformations filtered by &quot;${param['searchvalue']}&quot;. <a class='theme-text' href='${contextPath }/pages/catalogs'>Clear filter?</a>" />
+	<c:set var="emptylabel" value="No transformations matching &quot;${param['searchvalue']}&quot; found. <a class='theme-text' href='${contextPath }/pages/catalogs'>Show all?</a>" />
 	</c:if>
     <form id="selecttransformation" action="${contextPath}/pages/transformations/preview.jsp" method="get">
 		<input type="hidden" id="id" name="id" />
@@ -106,7 +107,7 @@ ${userbean.putInCookie(pageContext.request, pageContext.response, pageContext.se
 	</form>
 	
 		<div class="col-lg-6 col-md-6">
-			<template:latesttransformation id='transformationresult' col1="Transformation" col2="User" col3="Published" emptylabel="${emptylabel}" label="${titleApplication}" templateData="${transformationBean.getCatalogTransformationsByPage(transformationBean.getPageNumber())}" sizepage="${transformationBean.getPageCount()}" page="${transformationBean.getPageNumber()}"/>
+			<template:latesttransformation id='transformationresult' col1="Transformation" col2="User" col3="Published" emptylabel="${emptylabel}"  footer="${footer }" label="${titleApplication}" templateData="${transformationBean.getCatalogTransformationsByPage(transformationBean.getPageNumber())}" sizepage="${transformationBean.getPageCount()}" page="${transformationBean.getPageNumber()}"/>
 		</div>
 </div>
     </jsp:body>

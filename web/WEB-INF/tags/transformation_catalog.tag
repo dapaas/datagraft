@@ -7,7 +7,7 @@
 <%@ attribute name="templateData" type="java.util.List"%>
 <%@attribute description="table empty label" name="emptylabel"%>
 <%@attribute description="table id" name="id"%>
-
+<%@attribute description="all footer" name="footer"%>
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
 
 <form id="selectdataset" action="${contextPath }/pages/transformation/details.jsp" method="get">
@@ -18,6 +18,7 @@
 	<thead class="table-head">
 		<tr>
 			<th class="theme-bg">Transformation</th>
+			<th class="theme-bg">Date</th>
 			<th class="theme-bg">Description</th>
 			<th class="theme-bg">Actions</th>
 		</tr>
@@ -25,14 +26,34 @@
 	<tbody>
 		
 		<c:forEach items="${templateData}" var="data">
+		
+			<fmt:parseDate value="${data.issued}" pattern="yyyy-MM-dd" var="issuedDate"/>
+			<fmt:formatDate var="todayString" value="${today}" pattern="yyyy-MM-dd" />
+			<fmt:formatDate var="issuedString" value="${issuedDate}" pattern="yyyy-MM-dd" />
+			<fmt:formatDate var="issuedDateString" value="${issuedDate}" pattern="d MMM"/>
+			<fmt:formatDate var="yesterdayString" value="${yesterday}" pattern="yyyy-MM-dd" />
 			
 			<tr id="${data.id}">
   				<td class="first-row">${data.title}</td>
+  				<td data-toggle="tooltip" data-container="body" title="<fmt:formatDate value="${issuedDate}" pattern="d MMM yyyy"/>" data-sort="${issuedString}">
+  				<c:choose>
+				  <c:when test="${todayString == issuedString}">
+				  Today
+				  </c:when>
+				  <c:when test="${yesterdayString == issuedString}">
+				  Y-day
+				  </c:when>
+				  <c:otherwise>
+				  ${issuedDateString}
+				  </c:otherwise>
+				</c:choose>
+  				</td>
+  				
   				<td>
-  				 <c:if test="${fn:length(data.description)<=150}" > ${data.description}
+  				 <c:if test="${fn:length(data.description)<=30}" > ${data.description}
   				 </c:if>
-  				 <c:if test="${fn:length(data.description)>150}" > 
-  				 ${fn:substring(data.description, 0, 150)} ...
+  				 <c:if test="${fn:length(data.description)>30}" > 
+  				 ${fn:substring(data.description, 0, 30)} ...
   				 </c:if>
   				</td>
   				
@@ -57,6 +78,9 @@
 		</c:forEach>
 	</tbody>
 </table>
+<c:if test="${not empty footer &&  not empty templateData}">
+<p>${footer} </p>
+</c:if>
 <c:if test="${empty templateData}" >
 	<p>${emptylabel}</p>
 </c:if>

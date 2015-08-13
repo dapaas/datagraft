@@ -7,6 +7,7 @@
 <%@ attribute name="action" type="java.lang.Boolean"%>
 <%@attribute description="table empty label" name="emptylabel"%>
 <%@attribute description="table id" name="id"%>
+<%@attribute description="all footer" name="footer"%>
 <jsp:useBean id="utils" class="eu.dapaas.utils.Utils"/>
 
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
@@ -85,6 +86,9 @@
 		</c:forEach>
 	</tbody>
 </table>
+<c:if test="${not empty footer &&  not empty templateData}">
+<p>${footer} </p>
+</c:if>
 <c:if test="${empty templateData}" >
 	<p>${emptylabel}</p>
 </c:if>

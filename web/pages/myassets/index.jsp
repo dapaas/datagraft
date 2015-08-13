@@ -64,8 +64,9 @@ ${userbean.putInCookie(pageContext.request, pageContext.response, pageContext.se
 			<c:set var="titleDataset" value="My data pages"/>
 			<c:set var="emptylabel" value="No user data pages found. <a class='theme-text'  href='${contextPath }/pages/publish'>Create your first data page?</a> " />
 			<c:if test="${ not empty param['mydatapagesearch']}">
-			<c:set var="titleDataset" value="My data pages (filtered by &quot;${param['mydatapagesearch']}&quot;)" />
-			<c:set var="emptylabel" value="No matching data pages found. <a class='theme-text' href='${contextPath }/pages/myassets'>Show all?</a> " />
+			
+			<c:set var="footerdataset" value="Data pages filtered by &quot;${param['mydatapagesearch']}&quot;. <a class='theme-text' href='${contextPath }/pages/myassets'>Clear filter?</a>" />
+			<c:set var="emptylabel" value="No user data pages matching &quot;${param['mydatapagesearch']}&quot; found. <a class='theme-text' href='${contextPath }/pages/myassets'>Show all?</a> " />
 			</c:if>
 			<div class="col-lg-6 col-md-6">
 				<h2>${titleDataset }</h2>
@@ -77,13 +78,14 @@ ${userbean.putInCookie(pageContext.request, pageContext.response, pageContext.se
 				    </div> 
 				    </div>
 				</form>
-				<template:dataset_catalog id="mycatalogresult" templateData="${datasetBean.getCatalogDataset(user.apiKey, user.apiSecret)}" action="${true }" emptylabel="${emptylabel }"/>
+				<template:dataset_catalog id="mycatalogresult" templateData="${datasetBean.getCatalogDataset(user.apiKey, user.apiSecret)}" footer="${footerdataset }" action="${true }" emptylabel="${emptylabel }"/>
 			</div>
 			<c:set var="titleTransformation" value="My transformations"/>
 			<c:set var="emptylabel1" value="No user transformations found. <a class='theme-text'  href='${contextPath }/pages/transformations'>Create your first transformation?</a> " />
 			<c:if test="${ not empty param['mytransformationsearch']}">
-			<c:set var="titleTransformation" value="My transformations (filtered by &quot;${param['mytransformationsearch']}&quot;)"/>
-			<c:set var="emptylabel1" value="No matching transformations found. <a class='theme-text' href='${contextPath }/pages/myassets'>Show all?</a> " />
+			
+			<c:set var="footertransformation" value="Transformations filtered by &quot;${param['mytransformationsearch']}&quot;. <a class='theme-text' href='${contextPath }/pages/myassets'>Clear filter?</a>" />
+			<c:set var="emptylabel1" value="No user transformations matching &quot;${param['mytransformationsearch']}&quot; found. <a class='theme-text' href='${contextPath }/pages/myassets'>Show all?</a> " />
 			</c:if>
 			<div class="col-lg-6 col-md-6">
 				<h2>${titleTransformation }</h2>
@@ -95,7 +97,7 @@ ${userbean.putInCookie(pageContext.request, pageContext.response, pageContext.se
 				    </div> 
 				    </div>
 				</form>
-				<template:transformation_catalog id="mytransformationresult" templateData="${transformationBean.getCatalogTransformations(user)}" emptylabel="${emptylabel1 }"/>
+				<template:transformation_catalog id="mytransformationresult" templateData="${transformationBean.getCatalogTransformations(user)}" footer="${footertransformation }" emptylabel="${emptylabel1 }"/>
 			</div>
 		</div>
 	

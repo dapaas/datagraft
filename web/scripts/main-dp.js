@@ -421,6 +421,48 @@ $(document).ready(function() {
 //      });
     });
     
+    
+    
+    
+
+    $("#pageTransformationLess").click( function(){
+      if ($(this).hasClass( "disabled" )){
+        return;
+      }
+      var pn = $("#transformationresult").data("page");
+      $("#pagetransformation input[id=page]").val(pn*1-1);
+      $("#pagetransformation").submit();
+    });
+
+    $("#pageTransformationAdd").click(function(){
+      if ($(this).hasClass( "disabled" )){
+        return;
+      }
+      var pn = $("#transformationresult").data("page");
+      $("#pagetransformation input[id=page]").val(pn*1+1);
+      $("#pagetransformation").submit();
+    });
+
+    $("#pageDatasetLess").click(function (){
+      if ($(this).hasClass( "disabled" )){
+        return;
+      }
+      var pn = $("#catalogresult").data("page");
+      $("#pagedataset input[id=page]").val(pn*1-1);
+      $("#pagedataset").submit();
+    });
+
+    $("#pageDatasetAdd").click(function(){
+      if ($(this).hasClass( "disabled" )){
+        return;
+      }
+      var pn = $("#catalogresult").data("page");
+      $("#pagedataset input[id=page]").val(pn*1+1);
+      $("#pagedataset").submit();
+    });
+    
+    
+    
 
 });
 

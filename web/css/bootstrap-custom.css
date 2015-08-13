@@ -588,6 +588,11 @@ SVG>TEXT {
 H5.table-label.theme-bg{
 	padding: 10px;
 }
+
+.pager li>a, .pager li>span {
+	cursor: pointer;
+}
+
 @media only screen and (min-width:1199px){
 .dropdown-menu {
 		margin-right: -77px;

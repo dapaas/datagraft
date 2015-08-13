@@ -13,7 +13,7 @@
 <%@attribute description="table empty label" name="emptylabel"%>
 <%@attribute description="table body data" name="values"%>
 <%@attribute description="all sizepage" name="sizepage"%>
-
+<%@attribute description="all footer" name="footer"%>
 <%@attribute description="table page" name="page"%>
 
 <%@attribute description="table id" name="id"%>
@@ -76,9 +76,12 @@
 </table>
 <c:if test="${not empty templateData and sizepage>1}" >
 <ul class="pager">
-    <li class="previous ${(page == sizepage)? 'disabled' : ''}"><a class="theme-text" href="javascript:pageDatasetAdd()">← Older</a></li>
-    <li class="next ${(page == 1)? 'disabled' : ''}"><a class="theme-text" href="javascript:pageDatasetLess()">Newer →</a></li>
+    <li class="previous ${(page == 1)? 'disabled' : ''}"><a class="theme-text ${(page == 1)? 'disabled' : ''}" id="pageDatasetLess" >← Previous</a></li>
+    <li class="next ${(page == sizepage)? 'disabled' : ''}" ><a class="theme-text ${(page == sizepage)? 'disabled' : ''}" id="pageDatasetAdd" >Next →</a></li>
 </ul>
+</c:if>
+<c:if test="${not empty footer &&  not empty templateData}">
+<p>${footer} </p>
 </c:if>
 <c:if test="${empty templateData}" >
 	<p>${emptylabel}</p>
