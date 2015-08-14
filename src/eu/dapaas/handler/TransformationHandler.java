@@ -1,6 +1,9 @@
 package eu.dapaas.handler;
 
 import java.io.File;
+import java.io.FileOutputStream;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -31,52 +34,67 @@ public class TransformationHandler extends BaseHandler {
   }
 
   // create
-  public Transformation createTransformation(TransformationMeta metadata, File clojure) {
+  public String createTransformation(TransformationMeta metadata, File clojure, File jsonfile) {
     try {
-      // {"@context":{}}
-      /*
-       * {"@context":{"dcat":"http://www.w3.org/ns/dcat#",
-       * "dct":"http://purl.org/dc/terms/"
-       * ,"dct:issued":{"@type":"xsd:date"},"dct:modified"
-       * :{"@type":"xsd:date"}}, "@type":"dcat:Transformation",
-       * "dct:issued":"2014-08-18", "dct:modified":"2014-08-17",
-       * "dct:title":"Sample Transformation from Graftwerk",
-       * "dct:description":"Description for Transformation",
-       * "dcat:public":"true", "dcat:transformationType":"graft",
-       * "dcat:transformationCommand":"my-graft" }
-       * 
-       * curl -X POST -F
-       * "meta=@transf/createTransformationMeta.json;type=application/ld+json"
-       * -F "tr-clojure=@transf/code.clj" -F "tr-json=@transf/code.json"
-       * http://ec2
-       * -54-76-140-62.eu-west-1.compute.amazonaws.com:8080/catalog/transformations
-       */
-
-      // String transformationId = "";
-
+ //"meta=@transf/createTransformationMeta.json;type=application/ld+json" -F "tr-clojure=@transf/code.clj" -F "tr-json=@transf/code.json"
       DaPaasParams params = new DaPaasParams();
-      // params.getHeaders().put("Content-Type", "multipart/mixed; boundary=&");
-      // TransformationMeta metadata = new TransformationMeta(new JSONObject());
       metadata.setIssued(formatCurrentDate());
       metadata.setModified(formatCurrentDate());
       params.setMultipart(true);
+      
       params.setFile(new NameValuePair<File>("tr-clojure", clojure));
+      params.setFile(new NameValuePair<File>("tr-json", jsonfile));
+       
       params.setJsonObject(new NameValuePair<JSONObject>("meta", metadata.toJSON()));
 
       gateway = new DaPaasGateway(HttpMethod.POST, apiKey, apiSecret, Utils.getDaPaasEndpoint("catalog/transformations"), params);
       JSONObject response2 = Utils.convertEntityToJSON(gateway.execute());
       String transformationId = response2.get("@id").toString();
       logger.info("transformation ID: " + transformationId);
-
+      return transformationId;
     } catch (Exception e) {
       logger.error("", e);
     }
-    return new Transformation();
+    return null;
   }
 
-  // update
-
-  // delete
+  /*GET      /transformations/code/clojure    'transformation-id*/
+  
+  public File getClojureFile(String transformationId, String username){
+    try {
+      //"meta=@transf/createTransformationMeta.json;type=application/ld+json" -F "tr-clojure=@transf/code.clj" -F "tr-json=@transf/code.json"
+      DaPaasParams params = new DaPaasParams();
+      params.getHeaders().put("transformation-id", transformationId.replace(" ", "+"));
+           gateway = new DaPaasGateway(HttpMethod.GET, apiKey, apiSecret, Utils.getDaPaasEndpoint("catalog/transformations/code/clojure"), params);
+           HttpResponse response = gateway.execute();
+           String filename = username+"code.clj";
+           File file = getFile(username, filename, response);
+           logger.info("transformation ID: " + transformationId);
+           return file;
+         } catch (Exception e) {
+           logger.error("", e);
+         }
+    return null;
+  }
+  
+  /*GET      /transformations/code/json       'transformation-id*/
+  
+  public File getJsonFile(String transformationId, String username){
+    try {
+      DaPaasParams params = new DaPaasParams();
+      params.getHeaders().put("transformation-id", transformationId.replace(" ", "+"));
+           gateway = new DaPaasGateway(HttpMethod.GET, apiKey, apiSecret, Utils.getDaPaasEndpoint("catalog/transformations/code/json"), params);
+           HttpResponse response = gateway.execute();
+           String filename = username+"code.json";
+           File file = getFile(username, filename, response);
+           logger.info("transformation ID: " + transformationId);
+           return file;
+         } catch (Exception e) {
+           logger.error("", e);
+         }
+    return null;
+  }
+  
   public void deleteTransformation(String transformationId) {
     try {
       DaPaasParams params = new DaPaasParams();
@@ -94,5 +112,37 @@ public class TransformationHandler extends BaseHandler {
     Date today = Calendar.getInstance().getTime();
     String reportDate = df.format(today);
     return reportDate;
+  }
+  
+  private File getFile(String username, String filename, HttpResponse response) throws Exception{
+    String tempFolder = new File(System.getProperty("java.io.tmpdir")).getAbsolutePath();
+    InputStream ins = null;
+    OutputStream out = null;
+    File tempfile = null;
+    try {
+      File dir = new File(tempFolder + File.separator + username);
+      if (!dir.exists()) {
+        dir.mkdir();
+      }
+      ins = response.getEntity().getContent();
+      tempfile = new File(tempFolder + File.separator + username + File.separator + filename);
+      if (tempfile.exists()) {
+        tempfile.delete();
+      }
+      out = new FileOutputStream(tempfile);
+      byte[] buf = new byte[1024];
+      int len;
+      while ((len = ins.read(buf)) > 0) {
+        out.write(buf, 0, len);
+      }
+      ins.close();
+      out.close();
+    } finally {
+      if (ins != null)
+        ins.close();
+      if (out != null)
+        out.close();
+    }
+    return tempfile;
   }
 }

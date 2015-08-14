@@ -10,6 +10,7 @@ import javax.servlet.http.HttpSession;
 
 import eu.dapaas.constants.SessionConstants;
 import eu.dapaas.dao.Transformation;
+import eu.dapaas.dao.TransformationMeta;
 import eu.dapaas.dao.User;
 import eu.dapaas.handler.DatasetHandler;
 import eu.dapaas.handler.TransformationCatalogHandler;
@@ -25,6 +26,9 @@ public class TransformationBean {
   private static final int    PAGE_SIZE = 20;
 
   public List<Transformation> getCatalogTransformations(User user) {
+    if (user == null){
+      return new ArrayList<Transformation>();
+    }
     TransformationCatalogHandler handler = new TransformationCatalogHandler(user.getApiKey(), user.getApiSecret());
     handler.setSearchValue(searchValue);
     List<Transformation> transformations = handler.getTransformationCatalog();
@@ -70,6 +74,9 @@ public class TransformationBean {
   }
   
   public List<Transformation> getScharedTransformations(User user) {
+    if (user == null){
+      return new ArrayList<Transformation>();
+    }
     TransformationCatalogHandler handler = new TransformationCatalogHandler(user.getApiKey(), user.getApiSecret());
     handler.setSearchValue(searchValue);
     handler.setOwner(owner);
@@ -78,20 +85,47 @@ public class TransformationBean {
   }
 
   public Transformation getDetail(User user, String id) {
-    TransformationCatalogHandler handler = new TransformationCatalogHandler(user.getApiKey(), user.getApiSecret());
+    if (user == null){
+      return new Transformation();
+    }
+    TransformationCatalogHandler handler = new TransformationCatalogHandler();
+    if (user != null){
+      handler = new TransformationCatalogHandler(user.getApiKey(), user.getApiSecret());
+    }
     return handler.getDetail(id);
   }
 
-  public Transformation getDetail(String id) {
-    TransformationCatalogHandler handler = new TransformationCatalogHandler();
-    return handler.getDetail(id);
-  }
+
 
   public void delete(User user, String id) {
+    if (user == null){
+      return ;
+    }
     TransformationHandler header = new TransformationHandler(user.getApiKey(), user.getApiSecret());
     header.deleteTransformation(id);
   }
 
+//  public void forkTransformation(String id){
+//    if (user == null){
+//      return;
+//    }
+//    TransformationHandler header = new TransformationHandler(user.getApiKey(), user.getApiSecret());
+//    TransformationCatalogHandler handlercatalog = new TransformationCatalogHandler(user.getApiKey(), user.getApiSecret());
+//    Transformation transformation = handlercatalog.getDetail(id);
+//    TransformationMeta transformationMeta = new TransformationMeta();
+//    
+//    transformationMeta.setDescription(transformation.getDescription());
+//    transformationMeta.setPublic(transformation.isPublic());
+//    transformationMeta.setTitle(transformation.getTitle());
+//    transformationMeta.setTransformationCommand(transformation.getTransformationCommand());
+//    transformationMeta.setTransformationType(transformation.getTransformationType());
+//    
+//    header.getClojureFile(id);
+//    header.getJsonFile(id);
+////    header.createTransformation(transformationMeta, clojure);
+//  }
+  
+  
   public void executeAndDownload() {
     try {
       User user = (User) session.getAttribute(SessionConstants.DAPAAS_USER);

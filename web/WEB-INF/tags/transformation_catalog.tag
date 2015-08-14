@@ -10,7 +10,7 @@
 <%@attribute description="all footer" name="footer"%>
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
 
-<form id="selectdataset" action="${contextPath }/pages/transformation/details.jsp" method="get">
+<form id="selecttransformation" action="${contextPath }/pages/transformations/details.jsp" method="get">
 	<input type="hidden" id="id" name="id"/>
 </form>
 
@@ -68,7 +68,11 @@
 						 <a href="${dwnUrl}" class="aimg" title="Edit">
 						 <i class="mdi-content-create theme-text"></i>
 						 </a> 
-	           			 <a id="deleteda" class="confirmation aimg" href="javascript:deleteTransformation('${data.id }')" title="Delete">
+						 <c:url value="/pages/myassets" var="delUrl" scope="request">
+							  <c:param name="id" value="${data.id}"/>
+							  <c:param name="delete" value="transformation"/>
+						 </c:url>
+	           			 <a id="deleteda" class="confirmation aimg" href="${delUrl }" title="Delete">
 	           			 	<i class="mdi-content-remove-circle-outline theme-text"></i>
 	           			 </a>
            			</div>

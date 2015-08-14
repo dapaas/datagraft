@@ -99,7 +99,7 @@ ${userbean.putInCookie(pageContext.request, pageContext.response, pageContext.se
 	<c:set var="footer" value="Transformations filtered by &quot;${param['searchvalue']}&quot;. <a class='theme-text' href='${contextPath }/pages/catalogs'>Clear filter?</a>" />
 	<c:set var="emptylabel" value="No transformations matching &quot;${param['searchvalue']}&quot; found. <a class='theme-text' href='${contextPath }/pages/catalogs'>Show all?</a>" />
 	</c:if>
-    <form id="selecttransformation" action="${contextPath}/pages/transformations/preview.jsp" method="get">
+    <form id="selecttransformation" action="${contextPath}/pages/transformations/details.jsp" method="get">
 		<input type="hidden" id="id" name="id" />
 	</form>
 	<form id="pagetransformation" method="post" action="${contextPath }/pages/catalogs/index.jsp">

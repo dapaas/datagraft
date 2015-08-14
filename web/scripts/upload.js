@@ -110,28 +110,12 @@ $(document).ready(function() {
     formData.append("public", $("#ispublic").is(":checked"));
     formData.append("israw", $("#savedataset").data("israw"));
     xhr.send(formData);
-//    var reg = /^[-\w\s]+$/ig;
-//      if (reg.test($("#datasetname").val())) {
-//        xhr.send(formData);
-//      } else {
-//        $( "label[for='datasetname']").parent().addClass('has-error');
-//        
-//      }
-    
-   
-    
+
   });
   
-//  $("#description").bind('change keyup keydown', function(event){
-//    Dropzone.prototype.isdescrwrite = true;
-//  });
-//  $("#applicationname").bind('change keyup keydown', function(event){
-//    Dropzone.prototype.isappwrite = true;
-//  });
-//  $("#datasetname").bind('change keyup keydown', function(event){
-//    Dropzone.prototype.isdatasetwrite = true;
-//  });
-  
+//$("#deletedataset").click(function(){
+//  document.location = Application.contextPath +"/pages/myassets";
+//});
  
   $("#transfsearchsubmitbutton").click(function(){
     putTransformationTable(); 
@@ -150,15 +134,7 @@ $(document).ready(function() {
 	$("#transformationpage").toggle();
   });
   
-//  $('#transform-table tr td:not(:last-child)').click(function(event) {
-//    var v = $(this).parent().attr("id");
-//    $("#selectdataset input[id=id]").val(v);
-//    $('#selectdataset').submit();
-//    return true;
-//  });
-  
-  
-  
+
   if ($("#content").hasClass("down")){
     $("#content").toggle();  
   }

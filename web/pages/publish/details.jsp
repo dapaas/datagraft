@@ -18,23 +18,29 @@ String israw = request.getParameter("israw");
 <c:set var="ddpurl" value="<%=Config.getInstance().getPortalURL() %>"></c:set>
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
 ${userbean.putInCookie(pageContext.request, pageContext.response, pageContext.session) }
-<c:set var="user" value="${sessionScope.dapaas_user}" />
 
-<c:if test="${not empty param['id'] && param['action'] != 'execute'}" >
-	<c:set var="wizard" value="${catalogdetails.getDatasetForEdit(wizard, user.apiKey, user.apiSecret, param['id'])}" scope="session" />
+
+<c:set var="user" value="${sessionScope.dapaas_user}" />
+<c:if test="${not empty user }" >
+<c:set var="apiKey" value="${user.apiKey }" />
+<c:set var="apiSecret" value="${user.apiSecret }" />
 </c:if>
+<c:if test="${not empty param['id'] && param['action'] != 'execute' and not empty user}" >
+	<c:set var="wizard" value="${catalogdetails.getDatasetForEdit(wizard, apiKey, apiSecret, param['id'])}" scope="session" />
+</c:if>
+
 	
 <c:set var="filename" value="${fn:substring(wizard.uploadesFile.file.name, 0, fn:indexOf(wizard.uploadesFile.file.name, '.'))}" /> 
 
 <c:if test="${param['action'] == 'export' }">
-	${querydetails.exportRDF(pageContext.response, user.apiKey, user.apiSecret, user.username, wizard.details.id, param['exportcontenttype'])}
+	${querydetails.exportRDF(pageContext.response, apiKey, apiSecret, user.username, wizard.details.id, param['exportcontenttype'])}
 </c:if>
 <c:if test="${param['action'] == 'exportraw' }">
-	${querydetails.exportRaw(pageContext.response, user.apiKey, user.apiSecret, user.username, wizard.details.id)}
+	${querydetails.exportRaw(pageContext.response, apiKey, apiSecret, user.username, wizard.details.id)}
 </c:if>
 
 <c:set var="poligons" value="${catalogdetails.getPoligons() }" />
-<c:set var="propertyArray" value="${querydetails.getDatasetProperties( user.apiKey, user.apiSecret, wizard.details.id)}"></c:set>
+<c:set var="propertyArray" value="${querydetails.getDatasetProperties( apiKey, apiSecret, wizard.details.id)}"></c:set>
 
 <template:genericpage title="DataGraft Publisher portal">
 
@@ -338,6 +344,13 @@ ${userbean.putInCookie(pageContext.request, pageContext.response, pageContext.se
 			</c:if>
 			
 			<input type="button" id="savedataset" data-israw="${param['israw'] }" value="${(wizard.action =='new') ? 'Create Data Page' : 'Save Data Page'}" class="btn btn-primary btn-raised publish-button theme-bg" />
+			<c:if test="${wizard.action =='edit'}">
+				<c:url value="/pages/myassets" var="delUrl" scope="request">
+				  <c:param name="id" value="${wizard.details.id}"/>
+				  <c:param name="delete" value="dataset"/>
+				</c:url>
+				<a href="${delUrl }" class="btn btn-primary btn-raised publish-button theme-bg confirmation" >Delete Data Page</a>
+			</c:if>
 		</div>
 		
 		</div>

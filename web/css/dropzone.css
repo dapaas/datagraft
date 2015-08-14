@@ -160,7 +160,7 @@
 .dropzone-dataset {
   /* border: 1px solid rgba(0,0,0,0.03); */
   border: 5px white solid;
-  min-height: 360px !important;
+  min-height: 250px !important;
   -webkit-border-radius: 3px;
   border-radius: 3px;
   background: rgba(0,0,0,0.03);
@@ -288,6 +288,7 @@
   -webkit-box-shadow: 1px 1px 4px rgba(0,0,0,0.16);
   box-shadow: 1px 1px 4px rgba(0,0,0,0.16);
   font-size: 14px;
+  left: 45%;
 }
 .dropzone-dataset .dz-preview.dz-image-preview:hover .dz-details img,
 .dropzone-previews .dz-preview.dz-image-preview:hover .dz-details img {

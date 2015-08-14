@@ -36,13 +36,21 @@ $(document).ready(function() {
     return true;
   });
 
+  $('#mycatalogresult tr td:not(:last-child)').click(function(event) {
+    var v = $(this).parent().attr("id");
+    $("#selectdataset input[id=id]").val(v);
+    $('#selectdataset').submit();
+    return true;
+  }); 
   
-  $('#mycatalogresult a[id=previewdetail]').click(function(event) {
-	    var v = encodeURI($(this).parent().parent().attr("id"));
-	    document.location = Application.contextPath + "/pages/publish/details.jsp?id="+v;
-	    return false;
+  $('#mytransformationresult tr td:not(:last-child)').click(function(event) {
+    var v = $(this).parent().attr("id");
+    $("#selecttransformation input[id=id]").val(v);
+    $('#selecttransformation').submit();
+    return true;
   });
   
+
   $('#mytransformationresult a[id=previewdetail]').click(function(event) {
     var v = encodeURI($(this).parent().parent().parent().attr("id"));
     document.location = Application.contextPath + "/pages/transformations/details.jsp?id="+v;
@@ -221,17 +229,7 @@ $(document).ready(function() {
     	iswrite = false;
     }
   });
-  
-//  if ($("#dialogportal input[id=action]").val() == 'new'){
-//      $( "#dialog-portal" ).dialog( "option", "buttons", { 
-//      "Save": function () {
-//          addContent();
-//          $(this).dialog('close');
-//      }
-//    } );
-//  }
-  
-  
+ 
   $("#keyword").tokenfield({
     delimiter: [',', ' ', ', ']
   });
@@ -400,6 +398,7 @@ $(document).ready(function() {
     
     xhr.send(formData);
   });
+
   
   $("#execdlresult").click(function (){
     $("#formexport input[id='action']").val("export");
@@ -471,6 +470,38 @@ var Application = {
   state : ""
 
 };
+
+
+function forktransformation(id){
+   var xhr = new XMLHttpRequest();
+  url = Application.contextPath +"/BaseGateway/forkTransformation.json";
+  xhr.open("POST", url, true);
+  headers = {
+         "Accept": "application/json",
+         "Cache-Control": "no-cache",
+         "X-Requested-With": "XMLHttpRequest"
+       };
+  for (headerName in headers) {
+         headerValue = headers[headerName];
+         xhr.setRequestHeader(headerName, headerValue);
+       }
+ xhr.onerror = (function(_this) {
+         return function() {
+          
+         };
+       })(this);
+ xhr.onload = (function(_this) {
+         return function(e) {
+           var response = jQuery.parseJSON(xhr.responseText);
+           document.location=Application.contextPath +"/pages/transformations?id="+encodeURIComponent(response.result);
+         };
+       })(this);
+
+  var formData = new FormData();
+  formData.append("transformationId", id);
+  
+  xhr.send(formData);
+}
 
 function selectDrawType(val){
   $('.date-pattern').css('display', 'none');

@@ -29,6 +29,10 @@ public class TransformationMeta {
   private String              transformationType;
   private String              transformationCommand;
 
+  public TransformationMeta(){
+    
+  }
+  
   public TransformationMeta(JSONObject o) {
     try {
       this.id = o.getString("@id");

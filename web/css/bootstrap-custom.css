@@ -585,6 +585,12 @@ SVG>TEXT {
 #transformationresult tr td {
     cursor: pointer;
 }
+#mytransformationresult{
+	cursor: pointer;
+}
+#mycatalogresult tr td{
+	cursor: pointer;
+}
 H5.table-label.theme-bg{
 	padding: 10px;
 }

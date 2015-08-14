@@ -39,7 +39,7 @@ ${userbean.putInCookie(pageContext.request, pageContext.response, pageContext.se
 		var graftInstance = new Grafterizer("https://grafterizer.datagraft.net", document.body)
 			.setAuthorization("${basicAuth}")
 			.go('transformations.transformation.preview', {
-				id: '${transformationId}',
+				id: encodeURI('${transformationId}'),
 				distribution: '${distributionId}'
 			});
 	});

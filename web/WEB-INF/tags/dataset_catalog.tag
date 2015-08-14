@@ -75,7 +75,7 @@
 						 <c:url value="/pages/myassets" var="delUrl" scope="request">
 							  <c:param name="id" value="${data.id}"/>
 							  <c:param name="delete" value="dataset"/>
-							  </c:url>
+						 </c:url>
 	           			 <a id="deleteda" class="confirmation aimg" href="${delUrl }" title="Delete">
 	           			 	<i class="mdi-content-remove-circle-outline theme-text"></i>
 	           			 </a>

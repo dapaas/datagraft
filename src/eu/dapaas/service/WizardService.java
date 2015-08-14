@@ -1,5 +1,6 @@
 package eu.dapaas.service;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,9 +21,11 @@ import eu.dapaas.constants.SessionConstants;
 import eu.dapaas.dao.ErrorService;
 import eu.dapaas.dao.PortalContent;
 import eu.dapaas.dao.Transformation;
+import eu.dapaas.dao.TransformationMeta;
 import eu.dapaas.dao.User;
 import eu.dapaas.handler.DatasetHandler;
 import eu.dapaas.handler.TransformationCatalogHandler;
+import eu.dapaas.handler.TransformationHandler;
 import eu.dapaas.utils.Utils;
 
 @WebService
@@ -190,23 +193,27 @@ public class WizardService {
     // webSession.putSessionObject("wizard", null);
     return true;
   }
-//
-//  @WebMethod
-//  public Object executeAndDownload(@WebResponse WebResponseObject webResponse, @WebSession WebSessionObject webSession) {
-//    User user = (User) webSession.getSessionObject(SessionConstants.DAPAAS_USER);
-//    Wizard wizard = (Wizard) webSession.getSessionObject("wizard");
-//    DatasetHandler handler = new DatasetHandler(wizard, user);
-//    File file = handler.executeAndDownload();
-//    if (file != null) {
-//      try {
-//        webResponse.sendFile(file, file.getName());
-//        file.delete();
-//      } catch (IOException io) {
-//        io.printStackTrace();
-//      }
-//    }
-//    return true;
-//  }
+  @WebMethod
+  public Object forkTransformation(@WebParam(name = "transformationId") String id, @WebSession WebSessionObject webSession){
+    User user = (User) webSession.getSessionObject(SessionConstants.DAPAAS_USER);
+    if (user == null){
+      return null;
+    }
+    TransformationHandler header = new TransformationHandler(user.getApiKey(), user.getApiSecret());
+    TransformationCatalogHandler handlercatalog = new TransformationCatalogHandler(user.getApiKey(), user.getApiSecret());
+    Transformation transformation = handlercatalog.getDetail(id);
+    TransformationMeta transformationMeta = new TransformationMeta();
+    
+    transformationMeta.setDescription(transformation.getDescription());
+    transformationMeta.setPublic(transformation.isPublic());
+    transformationMeta.setTitle(transformation.getTitle()+"-fork");
+    transformationMeta.setTransformationCommand(transformation.getTransformationCommand());
+    transformationMeta.setTransformationType(transformation.getTransformationType());
+    
+    File clojure = header.getClojureFile(id, user.getUsername());
+    File json = header.getJsonFile(id, user.getUsername());
+    return header.createTransformation(transformationMeta, clojure, json);
+  }
 
   @WebMethod
   public Object addConfiguration(@WebParam(name = "portalpara") String portalparam,
