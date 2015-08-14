@@ -11,8 +11,8 @@
 .dropzone-dataset {
   position: relative;
   /* border: 1px solid rgba(0,0,0,0.08); */
-  border: 5px white solid
-  background: rgba(0,0,0,0.02);
+  /*border: 5px white solid;
+  background: rgba(0,0,0,0.02);*/
   padding: 1em;
   
 }
@@ -161,11 +161,11 @@
   /* border: 1px solid rgba(0,0,0,0.03); */
   border: 5px white solid;
   min-height: 250px !important;
-  -webkit-border-radius: 3px;
-  border-radius: 3px;
-  background: rgba(0,0,0,0.03);
+ /* -webkit-border-radius: 3px;
+  border-radius: 3px;*/
+ /* background: rgba(0,0,0,0.03);*/
   padding: 23px;
-  box-shadow: 0px 0px 0px 2px black;
+ /* box-shadow: 0px 0px 0px 2px black;*/
 }
 
 .dropzone-dataset .dz-default.dz-message {

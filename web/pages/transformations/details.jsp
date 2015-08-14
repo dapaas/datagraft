@@ -136,7 +136,7 @@ ${userbean.putInCookie(pageContext.request, pageContext.response, pageContext.se
 		<c:if test="${empty wizard.uploadesFile.file}">
 					${ wizard.uploadesFile.setFiletype("GRF")}
 					${ wizard.uploadesFile.setContentType(param['id'])}
-			<div id="tr_dropzone_dataset" class="dropzone-dataset well up">
+			<div id="tr_dropzone_dataset" class="dropzone-dataset up">
 			</div>
 		</c:if>
 		<div id="content" class="publish-div ${not empty wizard.uploadesFile.file? 'up': 'down'}">
