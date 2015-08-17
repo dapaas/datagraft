@@ -8,6 +8,9 @@
 <%@attribute description="table empty label" name="emptylabel"%>
 <%@attribute description="table id" name="id"%>
 <%@attribute description="all footer" name="footer"%>
+<%@attribute description="all sizepage" name="sizepage"%>
+<%@attribute description="table page" name="page"%>
+
 <jsp:useBean id="utils" class="eu.dapaas.utils.Utils"/>
 
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
@@ -16,7 +19,7 @@
 	<input type="hidden" id="id" name="id"/>
 </form>
 
-<table id="${id}" class="table table-striped table-hover  table-responsive">
+<table id="${id}" data-page="${page}"  class="table table-striped table-hover  table-responsive">
 	<thead class="table-head">
 		<tr>
 			<th class="theme-bg">Data page</th>
@@ -44,7 +47,7 @@
   				<c:if test="${not action}">
           <td>${data.publisher }</td>
           </c:if>
-  				<td data-toggle="tooltip" data-container="body" title="<fmt:formatDate value="${issuedDate}" pattern="d MMM yyyy"/>" data-sort="${issuedString}">
+  				<td class="tableDate" data-toggle="tooltip" data-container="body" title="<fmt:formatDate value="${issuedDate}" pattern="d MMM yyyy"/>" data-sort="${issuedString}">
   				<c:choose>
 				  <c:when test="${todayString == issuedString}">
 				  Today
@@ -86,6 +89,12 @@
 		</c:forEach>
 	</tbody>
 </table>
+<c:if test="${not empty templateData and sizepage>1}" >
+<ul class="pager">
+    <li class="previous ${(page == 1)? 'disabled' : ''}"><a class="theme-text ${(page == 1)? 'disabled' : ''}" id="pageDatasetLess" >← Previous</a></li>
+    <li class="next ${(page == sizepage)? 'disabled' : ''}" ><a class="theme-text ${(page == sizepage)? 'disabled' : ''}" id="pageDatasetAdd" >Next →</a></li>
+</ul>
+</c:if>
 <c:if test="${not empty footer &&  not empty templateData}">
 <p>${footer} </p>
 </c:if>

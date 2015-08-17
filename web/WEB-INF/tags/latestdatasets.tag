@@ -45,7 +45,7 @@
 			<tr id="${data.id}" data-portal="${(empty data.portalParameter)? ''  : data.portalParameter}">
   				<td class="first-row">${data.title}</td>
   				<td class="hidden-xs">${data.publisher}</td>
-  				<td data-toggle="tooltip" data-container="body" title="<fmt:formatDate value="${issuedDate}" pattern="d MMM yyyy"/>" data-sort="${issuedString}">
+  				<td class="tableDate" data-toggle="tooltip" data-container="body" title="<fmt:formatDate value="${issuedDate}" pattern="d MMM yyyy"/>" data-sort="${issuedString}">
   				<c:choose>
 				  <c:when test="${todayString == issuedString}">
 				  Today

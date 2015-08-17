@@ -10,11 +10,11 @@ import javax.servlet.http.HttpSession;
 
 import eu.dapaas.constants.SessionConstants;
 import eu.dapaas.dao.Transformation;
-import eu.dapaas.dao.TransformationMeta;
 import eu.dapaas.dao.User;
 import eu.dapaas.handler.DatasetHandler;
 import eu.dapaas.handler.TransformationCatalogHandler;
 import eu.dapaas.handler.TransformationHandler;
+import eu.dapaas.utils.Utils;
 
 public class TransformationBean {
   private HttpServletResponse response;
@@ -42,9 +42,17 @@ public class TransformationBean {
     List<Transformation> transformations = handler.getTransformationCatalog();
     return transformations;
   }
-
   public List<Transformation> getCatalogTransformationsByPage(int page) {
+    return getCatalogTransformationsByPage(page, null, null);
+  }
+
+  public List<Transformation> getCatalogTransformationsByPage(int page, String key, String secret) {
+    
     TransformationCatalogHandler handler = new TransformationCatalogHandler();
+    if (!Utils.isEmpty(key) && !Utils.isEmpty(secret)){
+      handler = new TransformationCatalogHandler(key, secret);
+    }
+    
     handler.setSearchValue(searchValue);
     handler.setOwner(owner);
     List<Transformation> transformations = handler.getTransformationCatalog();
@@ -101,27 +109,6 @@ public class TransformationBean {
     TransformationHandler header = new TransformationHandler(user.getApiKey(), user.getApiSecret());
     header.deleteTransformation(id);
   }
-
-//  public void forkTransformation(String id){
-//    if (user == null){
-//      return;
-//    }
-//    TransformationHandler header = new TransformationHandler(user.getApiKey(), user.getApiSecret());
-//    TransformationCatalogHandler handlercatalog = new TransformationCatalogHandler(user.getApiKey(), user.getApiSecret());
-//    Transformation transformation = handlercatalog.getDetail(id);
-//    TransformationMeta transformationMeta = new TransformationMeta();
-//    
-//    transformationMeta.setDescription(transformation.getDescription());
-//    transformationMeta.setPublic(transformation.isPublic());
-//    transformationMeta.setTitle(transformation.getTitle());
-//    transformationMeta.setTransformationCommand(transformation.getTransformationCommand());
-//    transformationMeta.setTransformationType(transformation.getTransformationType());
-//    
-//    header.getClojureFile(id);
-//    header.getJsonFile(id);
-////    header.createTransformation(transformationMeta, clojure);
-//  }
-  
   
   public void executeAndDownload() {
     try {

@@ -70,6 +70,13 @@ public class DaPaasGateway extends HttpGateway {
   @Override
   protected HttpResponse post() throws IOException {
     HttpPost httpPost = new HttpPost(url);
+    if (username != null && password != null){
+      try{
+        httpPost.addHeader(new BasicScheme().authenticate(new UsernamePasswordCredentials(username, password), httpPost, context));
+      }catch(AuthenticationException e){
+        logger.error("", e);
+      }
+    }
     logger.debug("jsonobj: " + params.getJsonObject());
     httpPost.addHeader("Content-Type", "application/ld+json");
     for (String key : params.getHeaders().keySet()) {

@@ -148,9 +148,9 @@ public class WizardService {
       wizard.getDetails().setTitle(datasetName);
     }
 
-    if (description != null && description.length() > 0) {
+    
       wizard.getDetails().setDescription(description);
-    }
+   
     if (filecontenttype != null && filecontenttype.length() > 0) {
       wizard.getUploadesFile().setContentType(filecontenttype);
     }
@@ -162,12 +162,14 @@ public class WizardService {
           wizard.getDetails().getKeyword().add(k);
         }
       }
+    }else{
+      wizard.getDetails().getKeyword().clear();
     }
     
     if (!Utils.isEmpty(portalparam))
-    wizard.getPortal().setParameter(portalparam);
+      wizard.getPortal().setParameter(portalparam);
     if (!Utils.isEmpty(portaltitle))
-    wizard.getPortal().setTitle(portaltitle);
+      wizard.getPortal().setTitle(portaltitle);
 
     webSession.putSessionObject("wizard", wizard);
     if (wizard.getType().equals("dataset")) {

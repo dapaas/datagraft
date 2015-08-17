@@ -274,7 +274,11 @@ a.linkbutton {
 
 .tableAction {
 	text-align: center;
-	width: 120px;
+	width: 76px;
+}
+
+.tableDate{
+	min-width: 56px;
 }
 
 legend.scheduler-border {

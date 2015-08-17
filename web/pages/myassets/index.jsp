@@ -1,3 +1,4 @@
+<%@page import="eu.dapaas.utils.Utils"%>
 <%@page import="eu.dapaas.constants.SessionConstants"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="template" tagdir="/WEB-INF/tags"%>
@@ -16,14 +17,24 @@ ${userbean.putInCookie(pageContext.request, pageContext.response, pageContext.se
 	String mydatapagesearch = request.getParameter("mydatapagesearch");
 	if (mydatapagesearch != null && mydatapagesearch.length()>0){
 	  datasetBean.setSearchValue(mydatapagesearch);
+	  datasetBean.setPageNumber(1);
 	}
 
 	String mytransformationsearch = request.getParameter("mytransformationsearch");
 	if (mytransformationsearch != null && mytransformationsearch.length()>0){
 	  transformationBean.setSearchValue(mytransformationsearch);
+	  transformationBean.setPageNumber(1);
 	}
 
-
+	 String pagetransformationStr = request.getParameter("pagetransformation");
+	  if (!Utils.isEmpty(pagetransformationStr)) {
+	  	transformationBean.setPageNumber(new Integer(pagetransformationStr));
+	  }
+	  
+	  String pagedataset = request.getParameter("pagedataset");
+	  if (!Utils.isEmpty(pagedataset)) {
+	    datasetBean.setPageNumber(new Integer(pagedataset));
+	  }
 %>
 <c:set var="user" value="${sessionScope.dapaas_user }" />
 <c:remove var="wizard"/>
@@ -78,7 +89,10 @@ ${userbean.putInCookie(pageContext.request, pageContext.response, pageContext.se
 				    </div> 
 				    </div>
 				</form>
-				<template:dataset_catalog id="mycatalogresult" templateData="${datasetBean.getCatalogDataset(user.apiKey, user.apiSecret)}" footer="${footerdataset }" action="${true }" emptylabel="${emptylabel }"/>
+				<form id="pagedataset" method="post" action="${contextPath }/pages/myassets/index.jsp">
+					<input type="hidden" id="page" name="pagedataset" />
+				</form>
+				<template:dataset_catalog id="mycatalogresult" footer="${footerdataset }" action="${true }" emptylabel="${emptylabel }" templateData="${datasetBean.getCatalogDatasetByPage(datasetBean.getPageNumber(), user.apiKey, user.apiSecret)}" sizepage="${datasetBean.getPageCount()}" page="${datasetBean.getPageNumber()}"/>
 			</div>
 			<c:set var="titleTransformation" value="My transformations"/>
 			<c:set var="emptylabel1" value="No user transformations found. <a class='theme-text'  href='${contextPath }/pages/transformations'>Create your first transformation?</a> " />
@@ -97,7 +111,10 @@ ${userbean.putInCookie(pageContext.request, pageContext.response, pageContext.se
 				    </div> 
 				    </div>
 				</form>
-				<template:transformation_catalog id="mytransformationresult" templateData="${transformationBean.getCatalogTransformations(user)}" footer="${footertransformation }" emptylabel="${emptylabel1 }"/>
+				<form id="pagetransformation" method="post" action="${contextPath }/pages/myassets/index.jsp">
+					<input type="hidden" id="page" name="pagetransformation" />
+				</form>
+				<template:transformation_catalog id="mytransformationresult"  footer="${footertransformation }" emptylabel="${emptylabel1 }" templateData="${transformationBean.getCatalogTransformationsByPage(transformationBean.getPageNumber(), user.apiKey, user.apiSecret)}" sizepage="${transformationBean.getPageCount()}" page="${transformationBean.getPageNumber()}"/>
 			</div>
 		</div>
 	

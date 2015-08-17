@@ -429,6 +429,9 @@ $(document).ready(function() {
         return;
       }
       var pn = $("#transformationresult").data("page");
+      if (pn == null){
+        pn = pn = $("#mytransformationresult").data("page");
+      }
       $("#pagetransformation input[id=page]").val(pn*1-1);
       $("#pagetransformation").submit();
     });
@@ -438,6 +441,9 @@ $(document).ready(function() {
         return;
       }
       var pn = $("#transformationresult").data("page");
+      if (pn == null){
+        pn = pn = $("#mytransformationresult").data("page");
+      }
       $("#pagetransformation input[id=page]").val(pn*1+1);
       $("#pagetransformation").submit();
     });
@@ -447,6 +453,9 @@ $(document).ready(function() {
         return;
       }
       var pn = $("#catalogresult").data("page");
+      if (pn == null){
+        pn = pn = $("#mycatalogresult").data("page");
+      }
       $("#pagedataset input[id=page]").val(pn*1-1);
       $("#pagedataset").submit();
     });
@@ -456,11 +465,19 @@ $(document).ready(function() {
         return;
       }
       var pn = $("#catalogresult").data("page");
+      if (pn == null){
+        pn = pn = $("#mycatalogresult").data("page");
+      }
       $("#pagedataset input[id=page]").val(pn*1+1);
       $("#pagedataset").submit();
     });
     
-    
+    $("#transfsearchtext").keypress(function (e) {
+      if (e.which == 13) {
+        putTransformationTable(); 
+        return false; 
+      }
+    });
     
 
 });

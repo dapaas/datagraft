@@ -1,6 +1,7 @@
 package eu.dapaas.bean;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
@@ -20,6 +21,10 @@ public class DatasetBean {
   private HttpServletResponse response;
   private HttpSession         session;
   private String              searchValue;
+  
+  private int                 pageCount  = 0;
+  private int                 pageNumber = 1;
+  private static final int    PAGE_SIZE  = 20;
 
   public List<Dataset> getCatalogDataset(String apiKey, String apiSecret) throws JSONException, IOException {
     // get data from handler
@@ -42,6 +47,36 @@ public class DatasetBean {
   public void catalogDelete(String apiKey, String apiSecret, String datasetId) throws JSONException, IOException {
     DatasetCatalogHandler cathandler = new DatasetCatalogHandler(apiKey, apiSecret);
     cathandler.deleteDatasetHandler(datasetId);
+  }
+  
+
+  public List<Dataset> getCatalogDatasetByPage(int page, String apiKey, String apiSecret) {
+    DatasetCatalogHandler handler = new DatasetCatalogHandler(apiKey, apiSecret);
+    handler.setSearchValue(searchValue);
+    List<Dataset> datasets = handler.getDatasetCatalog();
+    pageCount = calculatePages(datasets);
+    pageNumber = page;
+    List<Dataset> pageData = new ArrayList<Dataset>();
+    int end = PAGE_SIZE * (pageNumber);
+    if (end >= datasets.size()) {
+      end = datasets.size();
+    }
+    for (int i = PAGE_SIZE * (pageNumber - 1); i < end; i++) {
+      pageData.add(datasets.get(i));
+    }
+    return pageData;
+  }
+
+  private int calculatePages(List list) {
+    int maxPages = 0;
+    if (PAGE_SIZE > 0) {
+      if (list.size() % PAGE_SIZE == 0) {
+        maxPages = list.size() / PAGE_SIZE;
+      } else {
+        maxPages = (list.size() / PAGE_SIZE) + 1;
+      }
+    }
+    return maxPages;
   }
 
   public Wizard getDatasetForEdit(Wizard wizard, String apiKey, String apiSecret, String datasetId) throws JSONException, IOException {
@@ -140,5 +175,21 @@ public class DatasetBean {
   
   public List<Poligon> getPoligons(){
     return LocalDBProvider.getPoligons();
+  }
+
+  public int getPageCount() {
+    return pageCount;
+  }
+
+  public void setPageCount(int pageCount) {
+    this.pageCount = pageCount;
+  }
+
+  public int getPageNumber() {
+    return pageNumber;
+  }
+
+  public void setPageNumber(int pageNumber) {
+    this.pageNumber = pageNumber;
   }
 }

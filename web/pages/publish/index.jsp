@@ -69,7 +69,7 @@ ${wizard.emptyNew()}
 					   <div class="input-group">
 					        <input type="text" id="transfsearchtext" name="transfsearchtext" class="form-control col-lg-8" placeholder="Search transformation">
 					        <span class="input-group-btn">
-					            <a id="transfsearchsubmitbutton" class="btn btn-default theme-bg">Search</a>
+					            <input type="button" id="transfsearchsubmitbutton" class="btn btn-default theme-bg" value="Search" />
 					        </span>
 					    </div> 
 					    </div>

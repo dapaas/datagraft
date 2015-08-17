@@ -8,13 +8,16 @@
 <%@attribute description="table empty label" name="emptylabel"%>
 <%@attribute description="table id" name="id"%>
 <%@attribute description="all footer" name="footer"%>
+<%@attribute description="all sizepage" name="sizepage"%>
+<%@attribute description="table page" name="page"%>
+
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
 
 <form id="selecttransformation" action="${contextPath }/pages/transformations/details.jsp" method="get">
 	<input type="hidden" id="id" name="id"/>
 </form>
 
-<table id="${id}" class="table table-striped table-hover  table-responsive">
+<table id="${id}" data-page="${page}"class="table table-striped table-hover  table-responsive">
 	<thead class="table-head">
 		<tr>
 			<th class="theme-bg">Transformation</th>
@@ -35,7 +38,7 @@
 			
 			<tr id="${data.id}">
   				<td class="first-row">${data.title}</td>
-  				<td data-toggle="tooltip" data-container="body" title="<fmt:formatDate value="${issuedDate}" pattern="d MMM yyyy"/>" data-sort="${issuedString}">
+  				<td class="tableDate" data-toggle="tooltip" data-container="body" title="<fmt:formatDate value="${issuedDate}" pattern="d MMM yyyy"/>" data-sort="${issuedString}">
   				<c:choose>
 				  <c:when test="${todayString == issuedString}">
 				  Today
@@ -59,9 +62,7 @@
   				
 					<td class="tableAction" id="${data.id}">
 					<div class="right">
-						<a id="previewdetail" href="" class="aimg" title="Apply transformation">
-						 	<i class="mdi-hardware-keyboard-arrow-right theme-text"></i>
-						 </a>
+						
 						<c:url value="/pages/transformations" var="dwnUrl" scope="request">
 							<c:param name="id" value="${data.id}"></c:param>
 						 </c:url>
@@ -82,6 +83,12 @@
 		</c:forEach>
 	</tbody>
 </table>
+<c:if test="${not empty templateData and sizepage>1}" >
+<ul class="pager">
+    <li class="previous ${(page == 1)? 'disabled' : ''}" ><a class="theme-text ${(page == 1)? 'disabled' : ''}" id="pageTransformationLess">← Previous</a></li>
+    <li class="next ${(page == sizepage)? 'disabled' : ''}" ><a class="theme-text ${(page == sizepage)? 'disabled' : ''}" id="pageTransformationAdd" >Next →</a></li>
+</ul>
+</c:if>
 <c:if test="${not empty footer &&  not empty templateData}">
 <p>${footer} </p>
 </c:if>
