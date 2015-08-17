@@ -85,9 +85,6 @@ public class TransformationBean {
   }
 
   public Transformation getDetail(User user, String id) {
-    if (user == null){
-      return new Transformation();
-    }
     TransformationCatalogHandler handler = new TransformationCatalogHandler();
     if (user != null){
       handler = new TransformationCatalogHandler(user.getApiKey(), user.getApiSecret());

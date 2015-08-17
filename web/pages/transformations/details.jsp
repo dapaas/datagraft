@@ -37,7 +37,7 @@ ${userbean.putInCookie(pageContext.request, pageContext.response, pageContext.se
 	<form id="formexport" method="post">
 		<input type="hidden" name="action" id="action" />
 	</form>
-	<form id="deletedataset" method="post">
+	<form id="deletedataset" method="post" action="${contextPath }/pages/transformations/details.jsp">
 		<input type="hidden" id="delete" name="delete" />
 		<input type="hidden" id="id" name="id"/>
 	</form>
@@ -114,7 +114,12 @@ ${userbean.putInCookie(pageContext.request, pageContext.response, pageContext.se
 			<div class="publish-div">
 			<!-- is user owner -->
 			<c:if test="${not empty user && user.username == transformation.publisher}">
-			 <a type="button" id="" class="btn btn-primary btn-raised theme-bg confirmation" href="javascript:deleteTransformation('${transformation.id }')">Delete</a>
+			<c:url value="/pages/myassets" var="delUrl" scope="request">
+			  <c:param name="id" value="${transformation.id}"/>
+			  <c:param name="delete" value="transformation"/>
+			</c:url>
+						 
+			 <a type="button" id="" class="btn btn-primary btn-raised theme-bg confirmation" href="${delUrl }">Delete</a>
 			 <c:url value="/pages/transformations" var="dwnUrl" scope="request">
 				<c:param name="id" value="${transformation.id}"></c:param>
 			</c:url>
