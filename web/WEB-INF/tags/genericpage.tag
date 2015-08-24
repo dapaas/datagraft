@@ -18,7 +18,7 @@
   <link type="text/css" rel="stylesheet" href="${contextPath}/css/dropzone.css">
   <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" />
   <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-material-design/0.2.1/css/material-wfont.css" />
-  <link rel='stylesheet' type='text/css' href='//fonts.googleapis.com/css?family=Roboto:100'/>
+  <link rel='stylesheet' type='text/css' href='//fonts.googleapis.com/css?family=Roboto:100|Montserrat:400'/>
   <link rel='stylesheet' type='text/css' href="//cdn.datatables.net/1.10.4/css/jquery.dataTables.min.css">
   <link rel='stylesheet' type='text/css' href="${contextPath}/css/bootstrap-tokenfield.min.css"/>
   <link rel='stylesheet' type='text/css' href="${contextPath}/css/tokenfield-typeahead.min.css"/>
@@ -88,6 +88,11 @@
         </button>
       </div>
       <div class="navbar-collapse collapse navbar-responsive-collapse">
+        <ul class="nav navbar-nav navbar-left">
+          <li><a href="/documentation/">Documentation</a></li>
+          <li><a href="/api/">API</a></li>
+          <li><a href="/faq/">FAQ</a></li>
+        </ul>
         <ul class="nav navbar-nav navbar-right">
           <li><a href="http://project.dapaas.eu/dapaas-terms-of-use">Terms of use</a></li>
           <li><a href="http://project.dapaas.eu/dapaas-privacy-policy">Privacy policy</a></li>
