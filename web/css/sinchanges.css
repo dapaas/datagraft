@@ -83,3 +83,7 @@ header .navbar-form input {
     font-size: 12px;
     margin-left: 30px;
 }
+
+.navbar-link a {
+	color: #FF609A;
+}
