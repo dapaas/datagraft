@@ -1,6 +1,6 @@
 .grafterizer-container {
   position: absolute;
-  top: 138px;
+  top: 57px;
   bottom: 0;
   left: 0;
   right: 0;
@@ -19,20 +19,20 @@ iframe.grafterizer {
       z-index:2;
     }
     .grafterizer-container {
-        top: 155px;
+        top: 57px;
         /*z-index:-1;*/
     }
 }
-
+/*
 @media (max-width: 341px) {
     .grafterizer-container {
         top: 207px;
     }
-}
+}*/
 
 @media (min-width: 1200px) {
     .grafterizer-container {
-        top: 154px;
+        top: 65px;
     }
 }
 
