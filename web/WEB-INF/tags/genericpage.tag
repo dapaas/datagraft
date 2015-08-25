@@ -100,7 +100,7 @@
           <li><a href="http://project.dapaas.eu/dapaas-contact-us">Contact</a></li>
         </ul>
       </div>
-      <p class="navbar-link">DataGraft is a product of <a href="//dapaas.eu">DaPaaS</a>, project co-founded by the EC under 7th Framework Programme (FP7 2007-2013)</p>
+      <p class="navbar-link">DataGraft is a service operated by the <a href="//dapaas.eu">DaPaaS</a> project, co-founded by the EC under 7th Framework Programme (FP7 2007-2013)</p>
     </nav>
   </footer>
 </body>
