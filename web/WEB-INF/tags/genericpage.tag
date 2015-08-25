@@ -64,7 +64,7 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="${contextPath}/pages/catalogs" title="Data and Platform as a Service">DataGraft</a>
+        <a class="navbar-brand" href="${contextPath}/" title="Data and Platform as a Service">DataGraft</a>
       </div>
       <div class="navbar-collapse collapse navbar-responsive-collapse">
         <ul class="nav navbar-nav navbar-right">
