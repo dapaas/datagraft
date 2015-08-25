@@ -23,3 +23,25 @@ body > footer.navbar {
     margin-bottom:0;
     max-height: 8em;
 }
+
+
+.navbar .navbar-brand {
+    font-size: 20px;
+    font-weight: 400;
+    background: transparent url(https://datagraft.net/static/images/logo.svg) no-repeat center left;
+    background-size: 56px auto;
+    line-height: 56px;
+    vertical-align: middle;
+    padding: 0 15px 0 65px;
+    margin-top: 0px;
+    letter-spacing: .02em;
+    font-family: Montserrat, Roboto, Helvetica, Arial, sans-serif;
+}
+
+.navbar .navbar-brand:after {
+    content: " beta";
+    color: #FF609A;
+    position: relative;
+    bottom: 9px;
+    font-size: 16px;
+}
