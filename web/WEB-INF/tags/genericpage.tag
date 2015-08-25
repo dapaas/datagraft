@@ -70,8 +70,8 @@
         <ul class="nav navbar-nav navbar-right">
           <jsp:invoke fragment="navbar" />
         </ul>
+        <jsp:invoke fragment="search" />
       </div>
-      <jsp:invoke fragment="search" />
       <div></div>
     </div>
   </header>
