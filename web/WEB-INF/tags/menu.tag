@@ -33,7 +33,6 @@
                 	 <li><a class="theme-bg" href="${contextPath}/pages/keymanager">API Key manager</a></li>
                 	 
                 	 <li><a class="theme-bg" href="${contextPath}/pages/myaccount.jsp">My Account</a></li>
-                	 <li><a class="theme-bg" href="http://dapaas.github.io/documentation" target="_blank">Help</a></li>
                     <li><a class="theme-bg" href="${contextPath}/pages/logout">Logout</a></li>
                 </ul>
             </li>
