@@ -26,10 +26,10 @@ public class UserBean {
     LogoutHandler cathandler = new LogoutHandler(request, response, session);
     try {
       cathandler.logout();
-      session.removeAttribute(SessionConstants.DAPAAS_USER);
+      session.invalidate();
     } catch (Exception e) {;
       logger.error("", e);
-      session.removeAttribute(SessionConstants.DAPAAS_USER);
+      session.invalidate();
     }
     try{
       response.sendRedirect(request.getContextPath() + "/pages/catalogs");
