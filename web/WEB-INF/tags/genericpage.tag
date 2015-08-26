@@ -94,10 +94,10 @@
           <li><a href="/faq/">FAQ</a></li>
         </ul>
         <ul class="nav navbar-nav navbar-right">
-          <li><a href="http://project.dapaas.eu/dapaas-terms-of-use">Terms of use</a></li>
-          <li><a href="http://project.dapaas.eu/dapaas-privacy-policy">Privacy policy</a></li>
-          <li><a href="http://project.dapaas.eu/dapaas-cookie-policy">Cookie policy</a></li>
-          <li><a href="http://project.dapaas.eu/dapaas-contact-us">Contact</a></li>
+          <li><a href="/terms-of-use/">Terms of use</a></li>
+          <li><a href="/privacy-policy/">Privacy policy</a></li>
+          <li><a href="/cookie-policy/">Cookie policy</a></li>
+          <li><a href="/contact/">Contact</a></li>
         </ul>
       </div>
       <p class="navbar-link">DataGraft is a service operated by the <a href="//dapaas.eu">DaPaaS</a> project, co-funded by the EC under 7th Framework Programme (FP7 2007-2013)</p>
