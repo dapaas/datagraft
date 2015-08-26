@@ -8,7 +8,6 @@
 
         this.origin = origin;
         this._createIframe(htmlElement);
-        this.hideFooter();
         this._sendMessageWindow = window;
         this._savedAuthorization = null;
 
