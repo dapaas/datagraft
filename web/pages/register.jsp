@@ -84,6 +84,7 @@ Application.state="${state}";
                         </div>
                         
 			 		</div>
+			 		<p style="margin-top:2em;margin-bottom:2em">By signing up, you agree with our <a href="https://datagraft.net/terms-of-use/" target="_blank">Terms of Use</a>.</p>
 	  				<input type="submit" value="Sign up with username" class="btn btn-material-pink btn-raised input-signup">
 	  				<div class="login-text-social marg-top">Or sign up with:</div>
   					
