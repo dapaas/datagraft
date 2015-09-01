@@ -53,10 +53,10 @@ Application.state="${state}";
                         
 			 		</div>
 					<div class="form-group">
-						<label for="r-name" class="control-label">Full names</label>
+						<label for="r-name" class="control-label">Name</label>
 						
                         <div class="form-control-wrapper">
-			 			<input type="text" class="form-control col-lg-8" placeholder="Full names" name="name" id="r-name" >
+			 			<input type="text" class="form-control col-lg-8" placeholder="Name" name="name" id="r-name" >
 			 			<span class="material-input"></span>
                         </div>
                         
@@ -83,7 +83,7 @@ Application.state="${state}";
                         </div>
                         
 			 		</div>
-			 		<p style="margin-top:2em;margin-bottom:2em">By signing up, you agree with our <a href="https://datagraft.net/terms-of-use/" target="_blank">Terms of Use</a>.</p>
+					<p style="margin-top:2em;margin-bottom:2em">By signing up, I agree with DataGraft.net <a href="https://datagraft.net/terms-of-use/" target="_blank">Terms of Use</a> and <a href="https://datagraft.net/privacy-policy/" target="_blank">Privacy Policy</a>.</p>
 	  				<input type="submit" value="Sign up with username" class="btn btn-material-pink btn-raised input-signup">
 	  				<div class="login-text-social marg-top">Or sign up with:</div>
   					
