@@ -34,6 +34,10 @@ public class UserHandler extends BaseHandler {
     setSession(session);
     this.request = request;
   }
+  
+  public UserHandler(){
+    
+  }
 
   public UserHandler(DaPaasUserGateway gateway) {
     this.gateway = gateway;
@@ -240,6 +244,81 @@ public class UserHandler extends BaseHandler {
     return userdetails;
   }
 
+  
+  public void  changePassword(User user, String newpassword){
+   
+    try {
+      DaPaasParams params = new DaPaasParams();
+      params.getHeaders().put("Content-Type", "application/json");
+
+      // get api key and secret
+//      User user = (User) request.getSession().getAttribute(SessionConstants.DAPAAS_USER);
+      if (user == null) {
+        return;
+      }
+//      "new_password" : "<password>"
+      JSONObject passjson = new JSONObject();
+      passjson.put("new_password", newpassword);
+      params.setJsonObject(new NameValuePair<JSONObject>(null, passjson));
+      gateway = new DaPaasUserGateway(HttpMethod.PUT, Utils.getDaPaasEndpoint("dapaas-management-services/api/accounts/password"), params);
+      for (Cookie cookie : user.getCookies()) {
+        gateway.getContext().getCookieStore().addCookie(cookie);
+      }
+      HttpResponse httpresponse = gateway.execute();
+      Utils.convertEntityToJSON(httpresponse);
+    } catch (Exception e) {
+      logger.error(e);
+    }
+    
+  }
+  
+  public void requestPasswordReset(String email) throws Exception{
+    
+      DaPaasParams params = new DaPaasParams();
+      params.getHeaders().put("Content-Type", "application/json");
+
+      JSONObject passjson = new JSONObject();
+      passjson.put("email", email);
+      params.setJsonObject(new NameValuePair<JSONObject>(null, passjson));
+//      try{
+        gateway = new DaPaasUserGateway(HttpMethod.POST, Utils.getDaPaasEndpoint("dapaas-management-services/api/accounts/password/reset"), params);
+        HttpResponse httpresponse = gateway.execute();
+//      } catch (Exception e) {
+//        logger.error(e);
+//      }
+      if (httpresponse.getStatusLine().getStatusCode() == HttpStatus.SC_OK || httpresponse.getStatusLine().getStatusCode() == HttpStatus.SC_NO_CONTENT){
+        
+      }else{
+        throw new Exception("Can't send request for reset password to this email. Please check youre email!");
+      }
+      
+    
+  }
+  
+  public void confirmPasswordReset(String email, String newpassword, String token) throws Exception{
+   
+      DaPaasParams params = new DaPaasParams();
+      params.getHeaders().put("Content-Type", "application/json");
+
+      JSONObject passjson = new JSONObject();
+      passjson.put("email", email);
+      passjson.put("new_password", newpassword);
+      passjson.put("token", token);
+      params.setJsonObject(new NameValuePair<JSONObject>(null, passjson));
+      gateway = new DaPaasUserGateway(HttpMethod.PUT, Utils.getDaPaasEndpoint("dapaas-management-services/api/accounts/password/confirm"), params);
+      
+      HttpResponse httpresponse = gateway.execute();
+      
+      if (httpresponse.getStatusLine().getStatusCode() == HttpStatus.SC_OK || httpresponse.getStatusLine().getStatusCode() == HttpStatus.SC_NO_CONTENT){
+        
+      }else{
+        JSONObject error = Utils.convertEntityToJSON(httpresponse);
+        throw new Exception(error.getString("error_message"));
+      }
+    
+  }
+  
+  
   public void updateUserDetail(User userdetails) throws Exception{
     try {
       DaPaasParams params = new DaPaasParams();
@@ -257,7 +336,10 @@ public class UserHandler extends BaseHandler {
       }
       HttpResponse httpresponse = gateway.execute();
       if (httpresponse.getStatusLine().getStatusCode() == HttpStatus.SC_OK) {
-        
+        user.setName(userdetails.getName());
+        user.setUsername(userdetails.getUsername());
+        user.setEmail(userdetails.getEmail());
+        user.setConfirm(userdetails.isConfirm());
       }else{
         JSONObject serverResponse = Utils.convertEntityToJSON(httpresponse);
         if (serverResponse != null && serverResponse.has("error_message")) {

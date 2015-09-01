@@ -28,7 +28,7 @@ if (user!=null){
 <head>
   <meta charset="utf-8" />
   <title>DataGraft - Data and Platform as a Service brought to you by DaPaaS</title>
-
+  <link rel="icon" type="image/png" href="static/images/favicon.png" >
   <meta name="description" content="Data-and-Platform-as-a-Service">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -208,7 +208,7 @@ if (user!=null){
           <div class="form-group">
             <label for="username" class="control-label">Username</label>
             <div class="form-control-wrapper">
-              <input type="text" class="form-control col-lg-8" placeholder="Username" name="username" id="username">
+              <input type="text" class="form-control col-lg-8" placeholder="Username" name="username" id="username" required="required">
               <span class="material-input"></span>
             </div>
           </div>
@@ -223,7 +223,7 @@ if (user!=null){
           <div class="form-group">
             <label for="email" class="control-label">E-mail</label>
             <div class="form-control-wrapper">
-              <input type="text" class="form-control col-lg-8" placeholder="e-mail" name="email" id="email">
+              <input type="email" class="form-control col-lg-8" placeholder="e-mail" name="email" id="email" required="required">
               <span class="material-input"></span>
             </div>
           </div>
@@ -259,20 +259,20 @@ if (user!=null){
           <div class="form-group">
           	<label for="username" class="control-label">Username</label>
           	<div class="form-control-wrapper">
-          		<input type="text" class="form-control col-lg-8" placeholder="Username" name="username" id="usern">
+          		<input type="text" class="form-control col-lg-8" placeholder="Username" name="username" id="usern" required="required">
           		<span class="material-input"></span>
             </div>
           </div>
           <div class="form-group">
 	          <label for="password" class="control-label">Password</label>
 	          <div class="form-control-wrapper">
-	          	<input type="password" class="form-control col-lg-8" placeholder="Password" name="password" id="password">
+	          	<input type="password" class="form-control col-lg-8" placeholder="Password" name="password" id="password" required="required">
 	          	<span class="material-input"></span>
               </div>
           </div>
           <input type="submit" class="btn btn-material-pink btn-raised input-signup" value="Sign in">
           
-          <div class="forgotten-wrapper"><a href="#">Forgotten password</a></div>
+          <div class="forgotten-wrapper"><a href="${contextPath}/pages/forgotpassword">Forgotten password</a></div>
           <div class="login-text-social">Or Sign in with:</div>
           <input type="button" value="Sign in with Facebook" class="btn btn-raised input-signup fb" id="fblogin">
           <input type="button" value="Sign in with Google+" class="btn btn-raised input-signup gplus" id="glogin">

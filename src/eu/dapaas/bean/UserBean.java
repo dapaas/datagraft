@@ -12,12 +12,15 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
 
+import com.sirmamobile.commlib.annotations.WebParam;
+
 import eu.dapaas.constants.SessionConstants;
 import eu.dapaas.dao.APIKey;
 import eu.dapaas.dao.User;
 import eu.dapaas.handler.LoginHandler;
 import eu.dapaas.handler.LogoutHandler;
 import eu.dapaas.handler.UserHandler;
+import eu.dapaas.utils.Utils;
 
 public class UserBean {
   private static final Logger logger = Logger.getLogger(UserBean.class);
@@ -158,4 +161,27 @@ public class UserBean {
     }
   }
 
+  
+  public void requestPasswordReset(String email)throws Exception{
+    try{
+    UserHandler handler = new UserHandler();
+    handler.requestPasswordReset(email);
+    }catch(Exception e){
+      throw new Exception("Can't send request for reset password to this email. Please check youre email!");
+    }
+  }
+  
+  public void confirmPasswordReset(String email, String newpassword, String newconfirmpass, String token) throws Exception{
+    String error = null;
+    if (Utils.isEmpty(newconfirmpass) || Utils.isEmpty(newpassword)){
+      error = "Cannot set empty password.";
+      throw new Exception(error);
+    }
+    if (!newconfirmpass.equals(newpassword)){
+      error = "Password confirmation does not match.";
+      throw new Exception(error);
+    }
+    UserHandler handler = new UserHandler();
+    handler.confirmPasswordReset(email, newpassword, token);
+  }
 }

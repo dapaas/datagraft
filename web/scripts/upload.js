@@ -8,7 +8,8 @@ $(document).ready(function() {
         maxThumbnailFilesize: 1,
         thumbnailWidth: 100,
         thumbnailHeight: 100,
-        maxFilesize: 10, // MB
+        maxFilesizeRDF: 100, // MB
+        maxFilesizeGRF: 10, // MB
         addRemoveLinks: true,
         dictRemoveFile: "Remove",
         addPropertiesLinks: false,
@@ -23,7 +24,8 @@ $(document).ready(function() {
         maxThumbnailFilesize: 1,
         thumbnailWidth: 100,
         thumbnailHeight: 100,
-        maxFilesize: 10, // MB
+        maxFilesizeRDF: 100, // MB
+        maxFilesizeGRF: 10, // MB
         addRemoveLinks: true,
         dictRemoveFile: "Remove",
         addPropertiesLinks: false,
@@ -102,6 +104,9 @@ $(document).ready(function() {
     formData.append("datasetname", $("#datasetname").val());
     formData.append("description", $("#description").val());
     formData.append("keyword", $("#keyword").tokenfield('getTokensList'));
+    formData.append("licensing", $("#licensing").val());
+    formData.append("usagerights", $("#usagerights").val());
+    formData.append("bytesize", $("#bytesize").val());
     formData.append("portalparam", $("#portalparam").val());
     formData.append("portaltitle", $("#portaltitle").val());
     if ($("#contenttype").val()){

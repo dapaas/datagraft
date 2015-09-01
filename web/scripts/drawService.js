@@ -1,5 +1,13 @@
 $(function() {
 	showTabsByQueryParams();
+	
+	
+	
+//show selected tab for query and query constructor in dataset query results and dataset details
+  tabsControl('tab-section', 'query-tabs');
+
+  //show selected tab for results in dataset query results
+  tabsControl("result-tab-section", "tabs")
 });
 
 function showTabsByQueryParams() {
@@ -10,12 +18,16 @@ function showTabsByQueryParams() {
 		title = /\?title\b/i,
 		lat = /\?lat\b/i,
 		lng = /\?lng\b/i;
-	var query = $('textarea[id=line_numbers]').val(),
-		titleProp = query.match(title),
-		mapLatProp = query.match(lat),
-		mapLngProp = query.match(lng),
-		bubbleYprop = query.match(y),
-		bubbleRprop = query.match(r);
+	var query = $('textarea[id=line_numbers]').val();
+	
+	
+	var matchquery = query.substring(0, query.toLowerCase().indexOf("where"));
+	
+	var	titleProp = matchquery.match(title),
+		  mapLatProp = matchquery.match(lat),
+		  mapLngProp = matchquery.match(lng),
+		  bubbleYprop = matchquery.match(y),
+		  bubbleRprop = matchquery.match(r);
 	
 	  var id = $("#queryform input[id=id]").val(),
 		chart = [];

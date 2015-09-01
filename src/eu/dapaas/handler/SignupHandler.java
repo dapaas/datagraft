@@ -25,6 +25,8 @@ import eu.dapaas.http.NameValuePair;
 import eu.dapaas.http.impl.DaPaasGateway;
 import eu.dapaas.http.impl.DaPaasParams;
 import eu.dapaas.http.impl.DaPaasUserGateway;
+import eu.dapaas.notification.EmailNotificationService;
+import eu.dapaas.notification.impl.EmailVerificationMessage;
 import eu.dapaas.utils.Utils;
 
 /**
@@ -51,12 +53,14 @@ public class SignupHandler extends BaseHandler {
 
     JSONObject userJason = new JSONObject();
     String username = request.getParameter("username");
+    String email = request.getParameter("email");
+    String name = request.getParameter("name");
     try {
       userJason.put("username", username);
       userJason.put("password", request.getParameter("password"));
       userJason.put("role", request.getParameter("role")); // "data explorer"
-      userJason.put("name", request.getParameter("name"));
-      userJason.put("email", request.getParameter("email"));
+      userJason.put("name", name);
+      userJason.put("email", email);
     } catch (JSONException e) {
       logger.error("", e);
     }
@@ -83,8 +87,10 @@ public class SignupHandler extends BaseHandler {
           user.setCookies(cookies);
           user.setProvider(AuthenticationProvider.dapaas);
           user.setProviderId(username);
+          user.setEmail(email);
           getSession().setAttribute(SessionConstants.DAPAAS_USER, user);
-
+// send url to email 
+          EmailNotificationService.getInstance().sendNotificationAsync(new EmailVerificationMessage(email, username, name), email);
           redirectToPage("pages/publish", serverResponse);
         }
       } else {

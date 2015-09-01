@@ -229,86 +229,6 @@ common = (function() {
 			series : seriesArr
 		}
 		
-		/*var nameVals=[],
-			titleVals=[],
-			vIndexVals = [];
-		
-		
-		var newData=[];
-		
-		$.each(data, function(dk, dv) {
-			var newObj = {}
-			
-			if($.inArray(dv[keyAIndex], titleVals) === -1){
-				newObj[keyAIndex]=dv[keyAIndex];
-				$.each(keyVIndex, function(key, value) {
-					newObj[value]=dv[value];				
-				});
-				titleVals.push(dv[keyAIndex]);
-				newData.push(newObj)
-			} else {
-				$.each(keyVIndex, function(key, value) {
-					$.each(newData, function(k, v) {
-						v[value+"_1"] = dv[value]
-					})
-						
-				});
-			}
-		});*/
-		
-		
-		/*var newData=[];
-		$.each(titleVals, function(key, val) {
-			// loop titles
-			var newObj = {	
-					title: val
-			}
-			//loop other keys
-			$.each(keyVIndex, function(key, value) {
-				var arr = [],
-					otherKeysVals=[];
-				var titles=[];
-				
-					$.each(data, function(thekey, theval){
-						
-						if($.inArray(val, titles)){
-							arr.push(theval[value]);
-							titles.push(val)
-						} else {
-							otherKeysVals.push(theval[value]);
-						}
-						
-						
-					});
-					
-					//newData[value + 1] 
-					
-					console.log(otherKeysVals)
-					newObj[value] = arr
-			});
-			
-			newData.push(newObj)
-		})*/
-		
-		/*$.each(data, function(dk, dv) {
-			
-			var series = {
-					name: dv[keyAIndex],
-					data: []
-			}
-			$.each(keyVIndex, function(key, value) {
-				series.data.push(+(dv[value]));
-				series.stack = value;
-			})
-			if($.inArray(dv[keyAIndex], titleVals) === -1){
-				titleVals.push(dv[keyAIndex]);
-				//options.xAxis.categories.push(dv[keyAIndex]);
-			}
-			//options.xAxis.categories.push(dv[keyAIndex]);
-			console.log(series)
-			seriesArr.push(series);
-		});*/
-		
 		
 		
 		var titleVals=[];
@@ -341,14 +261,7 @@ common = (function() {
 	}
 	
 	return {
-		
-//		sort : sort,
-//		chartClick : clickEvent,
-//		chartMouseEvent : mouseEvent,
-//		createSVG : createSVG,
-//		clickTimeLine: clickTimeLineEvent,
 		windowSize: wndsize,
-//		getCSVKeys: getCSVKeys,
 		chartOptions: chartOptions,
 		convertObjectToArray: convertObjectToArray
 	};

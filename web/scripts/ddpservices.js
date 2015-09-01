@@ -147,7 +147,9 @@ var Service = {
         var data = responseData.result,
           i;
         for(i=0; i<chartArr.length; i++){
+          $("#"+chartArr[i]).parent().show();
           Service.initCharts(chartArr[i], data);
+          
       }
       });
   },
@@ -178,7 +180,7 @@ var Service = {
       if ('gMap'== chartName){
           //config.locations
         drawGoogleMaps.google(chartName, respData); 
-        }
+      }
 //      if ('polChart' == chartName){       
 //        poligonChart.init(chartName, respData);
 //        }

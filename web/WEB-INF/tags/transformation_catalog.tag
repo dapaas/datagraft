@@ -20,9 +20,8 @@
 <table id="${id}" data-page="${page}"class="table table-striped table-hover  table-responsive">
 	<thead class="table-head">
 		<tr>
-			<th class="theme-bg">Transformation</th>
-			<th class="theme-bg">Date</th>
-			<th class="theme-bg">Description</th>
+			<th class="header theme-bg">Transformation</th>
+			<th class="header theme-bg">Date</th>
 			<th class="theme-bg">Actions</th>
 		</tr>
 	</thead>
@@ -50,14 +49,6 @@
 				  ${issuedDateString}
 				  </c:otherwise>
 				</c:choose>
-  				</td>
-  				
-  				<td>
-  				 <c:if test="${fn:length(data.description)<=30}" > ${data.description}
-  				 </c:if>
-  				 <c:if test="${fn:length(data.description)>30}" > 
-  				 ${fn:substring(data.description, 0, 30)} ...
-  				 </c:if>
   				</td>
   				
 					<td class="tableAction" id="${data.id}">

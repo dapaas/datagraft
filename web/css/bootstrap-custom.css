@@ -169,6 +169,11 @@ overflow: auto;
 	padding-top: 1em;
 }
 
+.myaccount-form{
+	padding-top: 1em;
+	padding-bottom: 1em;
+}
+
 .marg-top{
 	margin-top: 0.6em; 
 }

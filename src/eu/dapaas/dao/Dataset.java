@@ -19,7 +19,7 @@ public class Dataset {
    * "xsd":"http://www.w3.org/2001/XMLSchema#",
    * "dct:issued":{"@type":"xsd:date"}, "dct:modified":{"@type":"xsd:date"},
    * "foaf:primaryTopic":{"@type":"@id"}, "dcat:distribution":{"@type":"@id"} },
-   * 
+   *
    * ------- for create "@type":"dcat:Dataset",
    * "@id":"http://eu.dapaas/dataset/2", "dct:issued":"2014-09-15",
    * "dct:modified":"2014-09-17", "dct:title":"My second DaPaaS dataset",
@@ -43,6 +43,9 @@ public class Dataset {
   private String              portalParameter;
   private String              accessURL;
   private String              fileId;
+  private String              licensing;
+  private String              usagerights;
+  private String              bytesize;
 
   // private
 
@@ -105,6 +108,11 @@ public class Dataset {
     } catch (JSONException e) {
       // e.printStackTrace();
     }
+
+    this.licensing = o.optString("dapaas:licensing");
+    this.usagerights = o.optString("dapaas:usagerights");
+    this.bytesize = o.optString("dapaas:bytesize");
+
     try {
       JSONArray dis = (JSONArray) o.get("dcat:distribution");
       if (dis != null) {
@@ -129,6 +137,7 @@ public class Dataset {
       jsoncontext.put("foaf", "http://xmlns.com/foaf/0.1/");
       jsoncontext.put("dct", "http://purl.org/dc/terms/");
       jsoncontext.put("xsd", "http://www.w3.org/2001/XMLSchema#");
+      jsoncontext.put("dapaas", "http://dapaas.eu#");
       jsoncontext.put("dct:issued", jsondate);
       jsoncontext.put("dct:modified", jsondate);
       jsoncontext.put("foaf:primaryTopic", jsonid);
@@ -149,6 +158,9 @@ public class Dataset {
         array.put(key);
       }
       json.put("dcat:keyword", array);
+      json.put("dapaas:licensing", this.licensing);
+      json.put("dapaas:usagerights", this.usagerights);
+      json.put("dapaas:bytesize", this.bytesize);
 
       JSONArray dists = new JSONArray();
       for (String dist : distribution) {
@@ -220,6 +232,30 @@ public class Dataset {
 
   public void setKeyword(List<String> keyword) {
     this.keyword = keyword;
+  }
+
+  public String getLicensing() {
+    return licensing;
+  }
+
+  public void setLicensing(String licensing) {
+    this.licensing = licensing;
+  }
+
+  public String getUsagerights() {
+    return usagerights;
+  }
+
+  public void setUsagerights(String usagerights) {
+    this.usagerights = usagerights;
+  }
+
+  public String getBytesize() {
+    return bytesize;
+  }
+
+  public void setBytesize(String bytesize) {
+    this.bytesize = bytesize;
   }
 
   public List<String> getDistribution() {

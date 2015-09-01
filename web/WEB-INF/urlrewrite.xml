@@ -19,6 +19,16 @@
 		<to type="forward" last="true">/pages/register.jsp</to>
 	</rule>
 	<rule>
+		<from>/pages/resetpassword/(.*)$</from>
+		<to type="forward" last="true">/pages/resetpassword.jsp?token=$1</to>
+	</rule>
+	<rule>
+		<from>/pages/forgotpassword$</from>
+		<to type="forward" last="true">/pages/forgotpassword.jsp</to>
+	</rule>
+	
+	
+	<rule>
 		<from>/pages/catalogs/([a-zA-Z]+)$</from>
 		<to type="forward">/pages/catalogs/index.jsp?owner=$1</to>
 	</rule>

@@ -77,6 +77,7 @@ public abstract class AbstractOAuthService extends OAuth2Service {
         user.setCookies(cookies);
         user.setProvider(AuthenticationProvider.facebook);
         user.setProviderId(userData.getId());
+        user.setConfirm(true);
         request.getSession().setAttribute(SessionConstants.DAPAAS_USER, user);
       }
       
@@ -120,6 +121,7 @@ public abstract class AbstractOAuthService extends OAuth2Service {
         user.setCookies(cookies);
         user.setProvider(AuthenticationProvider.google);
         user.setProviderId(userData.getId());
+        user.setConfirm(true);
         if (Utils.isEmpty(user.getName())){
           user.setName(user.getEmail());
         }

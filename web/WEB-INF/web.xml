@@ -20,6 +20,13 @@
 			<param-name>WizardService</param-name>
 			<param-value>eu.dapaas.service.WizardService</param-value>
 		</init-param>
+		
+		<init-param>
+			<param-name>UserService</param-name>
+			<param-value>eu.dapaas.service.UserService</param-value>
+		</init-param>
+		
+		
 		<init-param>
 			<param-name>PortalService</param-name>
 			<param-value>eu.dapaas.service.PortalService</param-value>

@@ -26,6 +26,8 @@ import eu.dapaas.dao.User;
 import eu.dapaas.handler.DatasetHandler;
 import eu.dapaas.handler.TransformationCatalogHandler;
 import eu.dapaas.handler.TransformationHandler;
+import eu.dapaas.notification.EmailNotificationService;
+import eu.dapaas.notification.impl.EmailVerificationMessage;
 import eu.dapaas.utils.Utils;
 
 @WebService
@@ -33,7 +35,16 @@ public class WizardService {
   private static final Logger logger = Logger.getLogger(WizardService.class);
 
   @WebMethod
-  public Object setup(@WebParam(name = "step_number") Integer step, @WebParam(name = "datasetname") String datasetName, @WebParam(name = "description") String description, @WebParam(name = "keyword") String keyword, @WebParam(name = "portalparam") String portalparam, @WebSession WebSessionObject webSession) {
+  public Object setup(
+	  	@WebParam(name = "step_number") Integer step,
+	  	@WebParam(name = "datasetname") String datasetName,
+	  	@WebParam(name = "description") String description,
+	  	@WebParam(name = "keyword") String keyword,
+	  	@WebParam(name = "licensing") String licensing,
+	  	@WebParam(name = "usagerights") String usagerights,
+	  	@WebParam(name = "bytesize") String bytesize,
+	  	@WebParam(name = "portalparam") String portalparam,
+	  	@WebSession WebSessionObject webSession) {
 
     Wizard wizard = (Wizard) webSession.getSessionObject("wizard");
     if (wizard == null) {
@@ -50,6 +61,7 @@ public class WizardService {
       if (description != null && description.length() > 0) {
         wizard.getDetails().setDescription(description);
       }
+
       if (!Utils.isEmpty(keyword)) {
         String[] kws = keyword.trim().split(",");
         wizard.getDetails().setKeyword(new ArrayList<String>());
@@ -58,6 +70,16 @@ public class WizardService {
             wizard.getDetails().getKeyword().add(k);
           }
         }
+      }
+
+      if (licensing != null) {
+        wizard.getDetails().setLicensing(licensing);
+      }
+      if (usagerights != null) {
+        wizard.getDetails().setUsagerights(usagerights);
+      }
+      if (bytesize != null) {
+        wizard.getDetails().setBytesize(bytesize);
       }
     }
 
@@ -102,17 +124,6 @@ public class WizardService {
     return transformations;
   }
 
-  // @WebMethod
-  // public Object updateFileInList(@WebParam(name = "filetype") String
-  // filetype, @WebParam(name = "contenttype") String contenttype, @WebSession
-  // WebSessionObject webSession) {
-  // WizardBean wizard = (WizardBean) webSession.getSessionObject("wizard");
-  // wizard.getUploadesFile().setContentType(contenttype);
-  // wizard.getUploadesFile().setFiletype(filetype);
-  // webSession.putSessionObject("wizard", wizard);
-  // return true;
-  // }
-
   @WebMethod
   public Object removeFileFromList(@WebParam(name = "index") String index, @WebSession WebSessionObject webSession) {
     Wizard wizard = (Wizard) webSession.getSessionObject("wizard");
@@ -130,9 +141,20 @@ public class WizardService {
   }
 
   @WebMethod
-  public Object create(@WebParam(name = "datasetname") String datasetName, @WebParam(name = "description") String description, @WebParam(name = "keyword") String keyword, @WebParam(name = "portalparam") String portalparam,
-      @WebParam(name = "portaltitle") String portaltitle, @WebParam(name = "filecontenttype") String filecontenttype, @WebParam(name = "public") Boolean isPublic, 
-      @WebParam(name="israw")String israw,  @WebSession WebSessionObject webSession) {
+  public Object create(
+		@WebParam(name = "datasetname") String datasetName,
+		@WebParam(name = "description") String description,
+		@WebParam(name = "keyword") String keyword,
+		@WebParam(name = "licensing") String licensing,
+		@WebParam(name = "usagerights") String usagerights,
+		@WebParam(name = "bytesize") String bytesize,
+		@WebParam(name = "portalparam") String portalparam,
+		@WebParam(name = "portaltitle") String portaltitle,
+		@WebParam(name = "filecontenttype") String filecontenttype,
+		@WebParam(name = "public") Boolean isPublic,
+		@WebParam(name="israw")String israw,
+		@WebSession WebSessionObject webSession) {
+
     User user = (User) webSession.getSessionObject(SessionConstants.DAPAAS_USER);
     Wizard wizard = (Wizard) webSession.getSessionObject("wizard");
     if (wizard == null) {
@@ -148,9 +170,9 @@ public class WizardService {
       wizard.getDetails().setTitle(datasetName);
     }
 
-    
+
       wizard.getDetails().setDescription(description);
-   
+
     if (filecontenttype != null && filecontenttype.length() > 0) {
       wizard.getUploadesFile().setContentType(filecontenttype);
     }
@@ -165,7 +187,16 @@ public class WizardService {
     }else{
       wizard.getDetails().getKeyword().clear();
     }
-    
+      if (licensing != null) {
+        wizard.getDetails().setLicensing(licensing);
+      }
+      if (usagerights != null) {
+        wizard.getDetails().setUsagerights(usagerights);
+      }
+      if (bytesize != null) {
+        wizard.getDetails().setBytesize(bytesize);
+      }
+
     if (!Utils.isEmpty(portalparam))
       wizard.getPortal().setParameter(portalparam);
     if (!Utils.isEmpty(portaltitle))
@@ -195,6 +226,7 @@ public class WizardService {
     // webSession.putSessionObject("wizard", null);
     return true;
   }
+  
   @WebMethod
   public Object forkTransformation(@WebParam(name = "transformationId") String id, @WebSession WebSessionObject webSession){
     User user = (User) webSession.getSessionObject(SessionConstants.DAPAAS_USER);
@@ -205,17 +237,21 @@ public class WizardService {
     TransformationCatalogHandler handlercatalog = new TransformationCatalogHandler(user.getApiKey(), user.getApiSecret());
     Transformation transformation = handlercatalog.getDetail(id);
     TransformationMeta transformationMeta = new TransformationMeta();
-    
+
     transformationMeta.setDescription(transformation.getDescription());
     transformationMeta.setPublic(transformation.isPublic());
     transformationMeta.setTitle(transformation.getTitle()+"-fork");
     transformationMeta.setTransformationCommand(transformation.getTransformationCommand());
     transformationMeta.setTransformationType(transformation.getTransformationType());
-    
+
     File clojure = header.getClojureFile(id, user.getUsername());
     File json = header.getJsonFile(id, user.getUsername());
     return header.createTransformation(transformationMeta, clojure, json);
   }
+  
+
+  
+  
 
   @WebMethod
   public Object addConfiguration(@WebParam(name = "portalpara") String portalparam,

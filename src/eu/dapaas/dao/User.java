@@ -3,7 +3,6 @@ package eu.dapaas.dao;
 import java.util.List;
 
 import org.apache.http.cookie.Cookie;
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -27,6 +26,7 @@ public class User {
   private List<Cookie>           cookies;
   private AuthenticationProvider provider;
   private String                 providerId;
+  private boolean                confirm;
 
   public User() {
 
@@ -40,6 +40,7 @@ public class User {
       this.role = user.getString("role");
       this.phone = user.getString("phone_num");
       this.address = user.getString("addr_1");
+//      this.confirm = user.getBoolean("confirm");
     } catch (JSONException je) {
       je.printStackTrace();
     }
@@ -54,13 +55,14 @@ public class User {
       json.put("role", this.role);
       json.put("phone_num", this.phone);
       json.put("addr_1", this.address);
+//      json.put("confirm", confirm);
       return json;
     } catch (JSONException e) {
-      
+
       return new JSONObject();
     }
   }
-  
+
   public void setUserApi(JSONObject api) {
     try {
       this.apiKey = api.get("api_key").toString();
@@ -156,6 +158,14 @@ public class User {
 
   public void setProviderId(String providerId) {
     this.providerId = providerId;
+  }
+
+  public boolean isConfirm() {
+    return true;
+  }
+
+  public void setConfirm(boolean confirm) {
+    this.confirm = confirm;
   }
 
 }

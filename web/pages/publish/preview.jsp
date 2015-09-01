@@ -182,26 +182,26 @@ ${userbean.putInCookie(pageContext.request, pageContext.response, pageContext.se
 			   
 			</ul>
 			<div id="table-results" class="result-tab-section">
-				<div id="tResult" >No result found</div>	
+				<div id="tResult" style="overflow: auto;">No result found</div>	
 			</div>
 			<div id="linechart-results" class="result-tab-section">
-				<div id="lChart">
+				<div id="lChart" style="overflow: auto;">
 				</div>
 			</div>
 			<div id="barchart-results" class="result-tab-section">
-				<div id="bChart"></div>
+				<div id="bChart" style="overflow: auto;"></div>
 			</div>
 			<div id="piechart-results" class="result-tab-section">
-				<div id="pChart"></div>
+				<div id="pChart" style="overflow: auto;"></div>
 			</div>
 			<div id="scatter-results" class="result-tab-section">
-				<div id="sChart"></div>
+				<div id="sChart" style="overflow: auto;"> </div>
 			</div>
 			<div id="bubble-results" class="result-tab-section">
-				<div id="bubbleChart"></div>
+				<div id="bubbleChart" style="overflow: auto;"></div>
 			</div>
 			<div id="googlemap-results" class="result-tab-section">
-				<div id="gMap"></div>
+				<div id="gMap" style="overflow: auto;"></div>
 			</div>
 			
 			<script type="text/javascript" src="//maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>

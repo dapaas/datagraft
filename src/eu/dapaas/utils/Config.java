@@ -88,5 +88,32 @@ public class Config {
     return getString("dapaas.local.db");
   }
 
+  public String getMailSmtpAuth() {
+    return getString("mail.smtp.auth");
+  }
+  
+  public String getMailSmtpHost() {
+    return getString("mail.smtp.host");
+  }
+  
+  public String getMailAuthUsername() {
+    return getString("mail.auth.username");
+  }
+  
+  public String getMailAuthPassword() {
+    return getString("mail.auth.password");
+  }
+  
+  public String getMailSender() {
+    return getString("mail.sender");
+  }
+  
+  public String getConfirmLinkExpireHour(){
+    return getString("confirm.link.expire.hour");
+  }
+  
+  public String getAplicationUrl(){
+    return getString("application.url");
+  }
 
 }

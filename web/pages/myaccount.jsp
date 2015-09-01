@@ -32,9 +32,11 @@ if (AuthenticationProvider.twitter.equals(user.getProvider())){
   return;
 }
 
-String updateaccount = request.getParameter("updateaccount");
-if (!Utils.isEmpty(updateaccount)){
+String action = request.getParameter("action");
+if (!Utils.isEmpty(action) && action.equals("update")){
   userBean.updateDetail(request, response, session);
+  response.sendRedirect("myassets");
+  return;
 }
 %>
 
@@ -56,11 +58,10 @@ if (!Utils.isEmpty(updateaccount)){
 
 
 		<div class="container well">
-		<h2 >User management</h2>
 		
-	    	
-	    	
-	    	<form  method="POST" id="createoauth" class="sign-popup-form">
+		<div class="myaccount-form">
+		<h2 class="dataset-label">User details</h2>
+	    	<form  method="POST" id="createoauth" class="sign-popup-form" >
 		
 				<input type="hidden" name="signup">
 				<input type="hidden" name="action" id="action" />
@@ -70,7 +71,7 @@ if (!Utils.isEmpty(updateaccount)){
 			 			<label for="username" class="control-label">Username</label>
 			 			
                         <div class="form-control-wrapper">
-			 			<input type="text" class="form-control col-lg-8" placeholder="Username" name="username" id="username" value="${ userdetail.username}">
+			 			<input type="text" class="form-control col-lg-8" placeholder="Username" name="username" id="username" value="${ userdetail.username}" required="required">
 			 			<span class="material-input"></span>
                         </div>
                         
@@ -89,15 +90,65 @@ if (!Utils.isEmpty(updateaccount)){
 			 			<label for="email" class="control-label">E-mail</label>
 			 			
                         <div class="form-control-wrapper">
-			 			<input type="text" class="form-control col-lg-8" placeholder="e-mail" name="email" id="email" value="${ userdetail.email}" required="required">
+			 			<input type="email" class="form-control col-lg-8" placeholder="e-mail" name="email" id="email" value="${ userdetail.email}" required="required">
 			 			<span class="material-input"></span>
                         </div>
                        
 			 		</div>
-	  				<input type="submit" id="updateaccount" name="updateaccount" value="Save" class="btn btn-material-pink btn-raised input-signup">
-	  				<!-- <input type="button" value="Change Password" class="btn btn-primary btn-raised theme-bg input-signup"> -->
 	    	</form>
+	    	<div class="publish-div">
+	  			<input type="button" id="updateaccount" name="updateaccount" value="Save" class="btn btn-primary btn-raised publish-button theme-bg">
+	  		</div>
+	    </div>	
 	    
+	    <c:if test="${user.confirm }">
+		    <div class="myaccount-form">	
+		    <h2 class="dataset-label">Email confirmation</h2>
+		    <div class="form-horizontal">
+		    	<p class="sign-popup-form emailmessage">Your email is not confirmed! Please click button bellow and we send new confirmation email to you!</p>
+		    	<div class="publish-div">
+		  			<input type="button" id="emailconfirm" name="emailconfirm" value="Send email" class="btn btn-primary btn-raised publish-button theme-bg">
+		  		</div>
+		    </div>
+		    </div>
+	    </c:if>
+	    
+	   <div class="myaccount-form">
+	   <h2 class="dataset-label">Change password</h2>
+	   <p class="errormessage"> </p>
+	   <form  method="POST" id="changepasswordform" class="sign-popup-form">
+	   				<div class="form-group">
+			 			<label for="username" class="control-label">Old password</label>
+			 			
+                        <div class="form-control-wrapper">
+			 			<input type="password" class="form-control col-lg-8" placeholder="Old password" name="oldpassword" id="oldpassword" >
+			 			<span class="material-input"></span>
+                        </div>
+                        
+			 		</div>
+			 		<div class="form-group">
+			 			<label for="username" class="control-label">New password</label>
+			 			
+                        <div class="form-control-wrapper">
+			 			<input type="password" class="form-control col-lg-8" placeholder="New password" name="newpassword" id="newpassword" >
+			 			<span class="material-input"></span>
+                        </div>
+                        
+			 		</div>
+			 		<div class="form-group">
+			 			<label for="username" class="control-label">Confirm new password</label>
+			 			
+                        <div class="form-control-wrapper">
+			 			<input type="password" class="form-control col-lg-8" placeholder="New password" name="confirmpassword" id="confirmpassword" >
+			 			<span class="material-input"></span>
+                        </div>
+                        
+			 		</div>
+	   </form>
+	   <div class="publish-div">
+	  		<input type="button" id="changepassword" name="changepassword" value="Change Password" class="btn btn-primary btn-raised publish-button theme-bg">
+	   </div>
+	   </div>
 	    </div>
 	</jsp:body>
 </template:genericpage>

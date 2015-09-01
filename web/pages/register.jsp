@@ -1,6 +1,5 @@
 <%@page import="eu.dapaas.utils.Config"%>
-<%@page import="com.neurologic.oauth.util.Globals"%>
-<%@page import="com.neurologic.oauth.config.ModuleConfig"%>
+
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="template" tagdir="/WEB-INF/tags"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
@@ -48,7 +47,7 @@ Application.state="${state}";
 			 			<label for="username" class="control-label">Username</label>
 			 			
                         <div class="form-control-wrapper">
-			 			<input type="text" class="form-control col-lg-8" placeholder="Username" name="username" id="username">
+			 			<input type="text" class="form-control col-lg-8" placeholder="Username" name="username" id="username" required="required">
 			 			<span class="material-input"></span>
                         </div>
                         
@@ -67,7 +66,7 @@ Application.state="${state}";
 			 			<label for="email" class="control-label">E-mail</label>
 			 			
                         <div class="form-control-wrapper">
-			 			<input type="text" class="form-control col-lg-8" placeholder="e-mail" name="email" id="email" required="required">
+			 			<input type="email" class="form-control col-lg-8" placeholder="e-mail" name="email" id="email" required="required">
 			 			<span class="material-input"></span>
                         </div>
                        
