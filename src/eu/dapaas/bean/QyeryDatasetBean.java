@@ -20,7 +20,7 @@ import eu.dapaas.utils.Config;
 import eu.dapaas.utils.Utils;
 
 public class QyeryDatasetBean {
-  public SPARQLResult executeQuery(String apiKey, String apiSecret, String query, String datasetId) throws JSONException, IOException {
+  public SPARQLResult executeQuery(String apiKey, String apiSecret, String query, String datasetId) throws Exception {
     QueryHandler queryhandler = new QueryHandler(query);
     String responseStr = queryhandler.executeQueryById(apiKey, apiSecret, datasetId);
     JSONObject qresult = Utils.convertStringToJSON(responseStr);
@@ -75,7 +75,7 @@ public class QyeryDatasetBean {
 
   }
 	
-	public List<String> getDatasetProperties(String apiKey, String apiSecret, String datasetId) throws JSONException, IOException {
+	public List<String> getDatasetProperties(String apiKey, String apiSecret, String datasetId) throws Exception {
 	  if (Utils.isEmpty(apiKey)){
 	    apiKey = null;
 	  }

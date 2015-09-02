@@ -580,10 +580,10 @@ SVG>TEXT {
 }
 .navbar-brand { margin-top: 40px }
 
-.modal-body #containerl{
+#containerl{
 	height: 300px;
 }
-.modal-body #containerl h4{
+#containerl h4{
 	text-align: center;
 	margin-top: 55px;
 }
@@ -607,7 +607,10 @@ H5.table-label.theme-bg{
 .pager li>a, .pager li>span {
 	cursor: pointer;
 }
-
+/*
+#dialog-preview-portal{
+	height: 420px !important;
+}*/
 @media only screen and (min-width:1199px){
 .dropdown-menu {
 		margin-right: -77px;

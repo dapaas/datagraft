@@ -109,8 +109,8 @@ public class Dataset {
       // e.printStackTrace();
     }
 
-    this.licensing = o.optString("dapaas:licensing");
-    this.usagerights = o.optString("dapaas:usagerights");
+    this.licensing = o.optString("dcat:license");
+    this.usagerights = o.optString("dcat:rights");
     this.bytesize = o.optString("dapaas:bytesize");
 
     try {
@@ -158,8 +158,8 @@ public class Dataset {
         array.put(key);
       }
       json.put("dcat:keyword", array);
-      json.put("dapaas:licensing", this.licensing);
-      json.put("dapaas:usagerights", this.usagerights);
+      json.put("dcat:license", this.licensing);
+      json.put("dcat:rights", this.usagerights);
       json.put("dapaas:bytesize", this.bytesize);
 
       JSONArray dists = new JSONArray();

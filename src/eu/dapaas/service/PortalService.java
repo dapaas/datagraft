@@ -38,8 +38,15 @@ try{
       if (portalId != null) {
         // get s
         PortalContent portalContent = LocalDBProvider.getPortalContent(portalId) ;
+        User user = (User) webSession.getSessionObject(SessionConstants.DAPAAS_USER);
+        String apiKey = null;
+        String apiSecret = null;
+        if (user != null){
+          apiKey = user.getApiKey();
+          apiSecret = user.getApiSecret();
+        }
         QueryHandler hendler = new QueryHandler(portalContent.getQuery());
-        String responseStr = hendler.executeQueryByUrl(portalContent.getAccessURL());
+        String responseStr = hendler.executeQueryByUrl(portalContent.getAccessURL(), apiKey, apiSecret);
         String poligonStr = "";
         if (portalContent.getPoligon() != null && portalContent.getPoligon().getId() != null){
           File file = new File(Config.getInstance().getPathUploadFile()+File.separator+portalContent.getPoligon().getFilename());
@@ -71,7 +78,7 @@ try{
   }
 
   @WebMethod
-  public Object executeQuery(@WebParam(name="query") String query, @WebParam(name="poligonId") String poligonId, @WebSession WebSessionObject webSession){
+  public Object executeQuery(@WebParam(name="query") String query, @WebParam(name="poligonId") String poligonId, @WebSession WebSessionObject webSession) throws Exception{
 	  try{
     Wizard wizard = (Wizard) webSession.getSessionObject("wizard");
     User user = (User) webSession.getSessionObject(SessionConstants.DAPAAS_USER);
@@ -98,7 +105,7 @@ try{
     return sparqlresult;
 	  }catch(Exception e){
 	    e.printStackTrace();
-			return new SPARQLResult();
+			throw new Exception("Error in SPARQL query");
 		}
   }
   

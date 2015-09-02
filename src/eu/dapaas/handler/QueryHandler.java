@@ -9,6 +9,7 @@ import java.io.OutputStream;
 import org.apache.http.Header;
 import org.apache.http.HeaderElement;
 import org.apache.http.HttpResponse;
+import org.apache.http.HttpStatus;
 import org.apache.http.NameValuePair;
 import org.apache.log4j.Logger;
 import org.json.JSONException;
@@ -37,15 +38,15 @@ public class QueryHandler extends BaseHandler {
     super();
   }
 
-  public String executeQueryById(String id) {
+  public String executeQueryById(String id) throws Exception{
     return executeQueryById(null, null, id, null);
   }
 
-  public String executeQueryById(String apiKey, String apiSecret, String id) {
+  public String executeQueryById(String apiKey, String apiSecret, String id) throws Exception{
     return executeQueryById(apiKey, apiSecret, id, null);
   }
 
-  public String executeQueryById(String apiKey, String apiSecret, String id, String accept) {
+  public String executeQueryById(String apiKey, String apiSecret, String id, String accept) throws Exception {
     try {
       JSONObject serverResponse = new JSONObject();
       DaPaasParams params = new DaPaasParams();
@@ -71,22 +72,22 @@ public class QueryHandler extends BaseHandler {
       AccessGateway gateway = new AccessGateway(HttpMethod.GET, apiKey, apiSecret, (accessURL), params);
       HttpResponse response = gateway.execute();
       String responseStr = Utils.convertEntityToString(response.getEntity());
-      return responseStr;
+      if (response.getStatusLine().getStatusCode() == HttpStatus.SC_OK || response.getStatusLine().getStatusCode() == HttpStatus.SC_NO_CONTENT){
+        return responseStr;
+      }
+      throw new Exception("Error in query");
     } catch (IOException e) {
       logger.error("", e);
       // showErrorPage(e.getMessage());
       return null;
-    } catch (Exception e) {
-      logger.error("", e);
-      return null;
     }
   }
 
-  public String executeQueryByUrl(String accessURL) {
+  public String executeQueryByUrl(String accessURL, String apiKey, String apiSecret) {
     try {
       // accessURL = "http://factforge.net/sparql.json";
       accessURL = accessURL + "?query=" + Utils.htmlEncoding(query);
-      AccessGateway gateway = new AccessGateway(HttpMethod.GET, (accessURL));
+      AccessGateway gateway = new AccessGateway(HttpMethod.GET, apiKey, apiSecret, (accessURL));
       HttpResponse response = gateway.execute();
       String responseStr = Utils.convertEntityToString(response.getEntity());
       return responseStr;

@@ -211,7 +211,7 @@ ${userbean.putInCookie(pageContext.request, pageContext.response, pageContext.se
 </form>
 <c:if test="${not empty wizard.details.accessURL}" >
 
-		<div id="setupdpp" class="${wizard.action =='new'? 'down': 'up'}" style="display: none">
+		<div id="setupdpp" class="${wizard.action =='new'? 'down': 'up'}" >
 			<h2 class="dataset-setup-label">Setup visualization</h2>
 			<div class="form-horizontal">
 			<div class="form-group">
@@ -274,7 +274,7 @@ ${userbean.putInCookie(pageContext.request, pageContext.response, pageContext.se
 		</div>
 		<!--  SPARQL  -->
 
-		<div class="dataset-wrapper ${wizard.action =='new'? 'hide' : ''}" id="sparqueryresult">
+		<div class="dataset-wrapper myaccount-form ${wizard.action =='new'? 'hide' : ''}" id="sparqueryresult">
 			<h2 class="dataset-setup-label">SPARQL</h2>
 			<h5 class="table-label theme-bg">Endpoint: ${wizard.details.accessURL}</h5>
 			<ul id="query-tabs" class="nav nav-tabs theme-bg">
@@ -489,9 +489,9 @@ ${userbean.putInCookie(pageContext.request, pageContext.response, pageContext.se
 
 
 
-  <div id="dialog-preview-portal" title="Preview">
-
-	    <div id="container"></div>
+  <div id="dialog-preview-portal" title="Preview" >
+		
+	    
 
   </div>
 

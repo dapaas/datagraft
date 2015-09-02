@@ -17,7 +17,7 @@ import eu.dapaas.handler.QueryHandler;
 @WebServlet("/executeQuery")
 public class SPARQLService extends HttpServlet {
 
-  protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
+  protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException{
     try {
       doPost(request, response);
     } catch (ServletException s) {
@@ -31,10 +31,14 @@ public class SPARQLService extends HttpServlet {
     Wizard wizard = (Wizard) request.getSession().getAttribute("wizard");
     User user = (User) request.getSession().getAttribute(SessionConstants.DAPAAS_USER);
     QueryHandler queryhandler = new QueryHandler(query);
-    String responseStr = queryhandler.executeQueryById(user.getApiKey(), user.getApiSecret(), wizard.getDetails().getId(), "application/sparql-results+xml");
-    response.setContentType("application/sparql-results+xml; charset=UTF-8");
-    PrintWriter printout = response.getWriter();
-    printout.write(responseStr);
-    printout.flush();
+    try{
+      String responseStr = queryhandler.executeQueryById(user.getApiKey(), user.getApiSecret(), wizard.getDetails().getId(), "application/sparql-results+xml");
+      response.setContentType("application/sparql-results+xml; charset=UTF-8");
+      PrintWriter printout = response.getWriter();
+      printout.write(responseStr);
+      printout.flush();
+    }catch(Exception e){
+      e.printStackTrace();
+    }
   }
 }

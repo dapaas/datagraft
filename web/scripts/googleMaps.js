@@ -13,10 +13,10 @@ var cpoint;
           lng : -122.41948
         };
       google.maps.event.trigger(nmap, "resize");
-      nmap.setCenter(cpoint);
+      nmap.setCenter(new google.maps.LatLng(cpoint.lat, cpoint.lng));
     }
   };
-	function googleMap(containerId, datas) {
+	function googleMap(containerId, datas, realheight) {
 		var point = {
 			lat : 37.76487,
 			lng : -122.41948
@@ -38,9 +38,13 @@ var cpoint;
 			number = 1 + Math.floor(Math.random() * 1000),
 			keysOrdered = common.convertObjectToArray(datas.columns);
 		
-		//width: 1102px;
-		$("#" + containerId).css({"width": "100%", "height": contFullHeight})
-		$("#" + containerId).append("<div id='gmap"+number+"' style='height:"+contHeight+"px'></div>");
+		if (realheight){
+		  $("#" + containerId).css({"width": "100%", "height": realheight+"px"})
+      $("#" + containerId).append("<div id='gmap"+number+"' style='height:"+(realheight-dims.margin.top)+"px'></div>");
+		}else{
+		  $("#" + containerId).css({"width": "100%", "height": contFullHeight})
+		  $("#" + containerId).append("<div id='gmap"+number+"' style='height:"+contHeight+"px'></div>");
+		}
 
 		var map = new google.maps.Map(
 				$("#gmap"+number)[0], {

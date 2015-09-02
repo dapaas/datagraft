@@ -12,9 +12,11 @@ var Service = {
     }).done(function(data) {
       // load data in all users seelected chart
       $("#container").append("<div class='well' id='chart-wrapper"+chart.id+"' style='overflow:hidden;'></div>");
-      $("#chart-wrapper"+chart.id).append("<h2>"+chart.title+"</h2>")
-    .append("<p style='clear: both;'>"+chart.descriptionHtml+"</p>")
-    .append("<div id='T"+chart.id+"'></div>");
+      if (chart.title != null){
+        $("#chart-wrapper"+chart.id).append("<h2>"+chart.title+"</h2>");
+      }
+      $("#chart-wrapper"+chart.id).append("<p style='clear: both;'>"+chart.descriptionHtml+"</p>");
+      $("#chart-wrapper"+chart.id).append("<div id='T"+chart.id+"'></div>");
       //var data = response.result;
       if ('drawLineChart' == chart.chart){
         lineChart.init("T"+chart.id, data.result, chart.title);
@@ -89,22 +91,38 @@ var Service = {
                 poligonId: poligonId}
           
       }).done(function(data) {
-        var html = "";
         
+        $("#dialog-preview-portal").dialog("option", "height", $(".container").width()/2);
+        $("#dialog-preview-portal").dialog("option", "width", $(".container").width());
+        
+        $("#dialog-preview-portal").dialog("open");
+        $("#dialog-preview-portal").css("height", '550px');
+        var html = "";
         var error = data.error
-        if ((error!= null && error.lenght>0)){
+        if ((error!= null && error.length>0)){
           
-          html="<pre>"+error+"</pre>  ";
-          
+          html="<div id='containerl'> <h4>"+error+"</h4></div>  ";
+          $("#dialog-preview-portal div[id=container]").html('');
+          $("#dialog-preview-portal div[id=container]").html(html);
         }else{
           if ((data.result.error!=null && data.result.error.length>0)){
-            html="<pre>"+data.result.error+"</pre>  ";
+            html="<div id='containerl'> <h4>"+data.result.error+"</h4></div>  ";
+            $("#dialog-preview-portal div[id=container]").html('');
+            $("#dialog-preview-portal div[id=container]").html(html);
           }else{
+            
             // var data = response.result;
             $("#dialog-preview-portal div[id=container]").html('');
+            
+            if (data.result.values.length <=0){
+              html="<div id='containerl'> <h4>SPARQL query returns no data.</h4></div>  ";
+              $("#dialog-preview-portal div[id=container]").html(html);
+            }
+            
+            
             $("#container").append("<div id='"+selectedChart+"'></div>");
             
-          if ('drawTable' == selectedChart){
+            if ('drawTable' == selectedChart){
               drawTable.init(selectedChart, data.result);
             }
             if ('drawLineChart' == selectedChart){
@@ -121,19 +139,19 @@ var Service = {
             }
             if ( 'drawScatterChart' == selectedChart ){
                 scatterChart.init(selectedChart, data.result);
-          }
-            if ( 'drawBubbleChart' == selectedChart ){
-                bubbleChart.init(selectedChart, data.result);
-          }
+            }
+              if ( 'drawBubbleChart' == selectedChart ){
+                  bubbleChart.init(selectedChart, data.result);
+            }
             if ('googleMaps'== selectedChart){
               //config.locations
-              drawGoogleMaps.google(selectedChart, data.result); 
+              drawGoogleMaps.google(selectedChart, data.result, 400); 
             }
           }
-          $("#dialog-preview-portal").dialog("open");
-          }
         }
-        ).fail(function(err) {});
+        
+        
+     }).fail(function(err) {});
   },
   getResultChartData: function(id, query, chartArr) {
     $.ajax({

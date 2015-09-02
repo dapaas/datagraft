@@ -47,7 +47,7 @@
 				title="Very Good" />
 			<span id="feedback-rate"></span>
 		</div>
-		<h1>${portal.title }</h1>	
+		<h1><c:if test="${not empty portal.title }">${portal.title }</c:if></h1>	
 		
 		<div id="chartsprogress" class="progress progress-striped active">
               <div class="progress-bar theme-bg" ></div>

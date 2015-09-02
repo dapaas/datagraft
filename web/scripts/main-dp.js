@@ -258,7 +258,8 @@ $(document).ready(function() {
   $("#dialog-preview-portal").dialog({
 	    autoOpen : false,
 	    dialogClass : 'dialog-wrapper',
-	    width: 'auto',
+	    width: $(".container").width(),
+	    height: '420px',
 	    buttons : {
 
 	    },
@@ -799,6 +800,9 @@ function editConfiguration(pc){
   // convert  to
   var q = pc.query.replace(/<br>/g, "\r\n");
   $("#dialogportal textarea[id=line_numbers]").val(q);
+  if (q!=null && q.length>0){
+    iswrite = true;
+  }
   var d = pc.description.replace(/<br>/g, "\r\n");
   $("#dialogportal textarea[id=pdescription]").val(d);
   var s = pc.summary.replace(/<br>/g, "\r\n");
@@ -806,8 +810,7 @@ function editConfiguration(pc){
 
   $('#drawtype option[value="'+pc.chart+'"]').attr('selected', 'selected');
   selectDrawType(pc.chart);
-  iswrite = true;
-
+  
   if (pc.chart == 'drawTimeLine'){
     $(".date-pattern").show();
   }
@@ -818,6 +821,7 @@ function editConfiguration(pc){
 }
 
 function previewConfiguration(){
+    $("#dialog-preview-portal").empty();
     Service.param=$("#portalparam").val();
     var query = $("#dialogportal textarea[id=line_numbers]").val();
     var chartType = "";
@@ -830,7 +834,64 @@ function previewConfiguration(){
         poligonId = $( this ).val();
       });
     }
-    Service.executeQuery(query, chartType, poligonId);
+    
+    // check query 
+    var matchquery = query.substring(0, query.toLowerCase().indexOf("where"));
+    var y = /\?y\b/i,
+        r = /\?r\b/i,
+        title = /\?title\b/i,
+        lat = /\?lat\b/i,
+        lng = /\?lng\b/i;
+    var titleProp = matchquery.match(title),
+        mapLatProp = matchquery.match(lat),
+        mapLngProp = matchquery.match(lng),
+        bubbleYprop = matchquery.match(y),
+        bubbleRprop = matchquery.match(r);
+    var error = '';
+      
+      if ('drawLineChart' == chartType && !titleProp){
+        error = "SPARQL query should returns 'title' column";
+      }
+      if ('drawBarChart' == chartType && !titleProp){
+        error = "SPARQL query should returns 'title' column";
+      }
+      if ('drawPieChart' == chartType && !titleProp){
+        error = "SPARQL query should returns 'title' column";
+      }
+      if ('drawPoligonChart' == chartType){
+        // code, value
+        
+      }
+      if ('googleMaps'== chartType && (!mapLatProp || !mapLngProp)){
+        error = "SPARQL query should returns 'lat' and 'lng' columns";
+      }
+      if ('drawScatterChart' == chartType  && !titleProp){
+        error = "SPARQL query should returns 'title' column";
+      }
+      if ('drawBubbleChart' == chartType && (!titleProp || !bubbleYprop || !bubbleRprop)){
+        error = "SPARQL query should returns 'title', 'y' and 'r' columns";
+      }
+    
+    if (error == ''){
+      // title
+      $("#dialog-preview-portal").append("<h2>"+$("#dialogportal input[id=title]").val()+"</h2>");
+      // description
+      
+      $("#dialog-preview-portal").append("<p style='clear: both;'>"+$("#dialogportal textarea[id=pdescription]").val()+"</p>");
+      
+      $("#dialog-preview-portal").append("<div id='container'> </div>");
+      Service.executeQuery(query, chartType, poligonId);
+      // summery
+      $("#dialog-preview-portal").append("<p style='clear: both;'>"+$("#dialogportal textarea[id=psummary]").val()+"</p>")
+    }else{
+      $("#dialog-preview-portal").dialog("option", "height", $(".container").width()/2);
+      $("#dialog-preview-portal").dialog("option", "width", $(".container").width());
+      $("#dialog-preview-portal").append("<div id='container'> </div>");
+      $("#dialog-preview-portal").dialog("open");
+      $("#dialog-preview-portal").css("height", '550px');
+      $("#dialog-preview-portal div[id=container]").html('');
+      $("#dialog-preview-portal div[id=container]").html("<div id='containerl'> <h4>"+error+"</h4></div>");
+    }
 }
 
 function fnOpenNormalDialog(targetUrl) {
