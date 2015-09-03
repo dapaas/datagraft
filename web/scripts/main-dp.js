@@ -370,10 +370,10 @@ $(document).ready(function() {
     xhr.send(formData);
   });
 
-  $("#createnewtransformation").click(function(){
+  /*$("#createnewtransformation").click(function(){
     window.open("//grafterizer.datagraft.net/transformations/new");
 
-  });
+  });*/
 
   $("#execsrepository").click(function (){
     document.location=Application.contextPath +"/pages/publish/details.jsp";
