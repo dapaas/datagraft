@@ -35,17 +35,30 @@ ${userbean.putInCookie(pageContext.request, pageContext.response, pageContext.se
 	</script>
 	</c:if>
 	<c:if test="${not empty param['id'] }">
-	<script async>
-	$(window).load(function() {
-		var graftInstance = new Grafterizer("https://grafterizer.datagraft.net", document.body)
-			.setAuthorization("${basicAuth}")
-			.go('transformations.transformation.preview', {
-				id: encodeURI('${transformationId}'),
-				distribution: '${distributionId}'
-			});
-	});
-	</script>
-	</c:if>
+                <c:if test="${empty distributionId }">
+                <script async>
+                $(window).load(function() {
+                        var graftInstance = new Grafterizer("https://grafterizer.datagraft.net", document.body)
+                                .setAuthorization("${basicAuth}")
+                                .go('transformations.transformation', {
+                                        id: encodeURI('${transformationId}')
+                                });
+                });
+                </script>
+                </c:if>
+                <c:if test="${not empty distributionId }">
+                <script async>
+                $(window).load(function() {
+                        var graftInstance = new Grafterizer("https://grafterizer.datagraft.net", document.body)
+                                .setAuthorization("${basicAuth}")
+                                .go('transformations.transformation.preview', {
+                                        id: encodeURI('${transformationId}'),
+                                        distribution: '${distributionId}'
+                                });
+                });
+                </script>
+                </c:if>
+        </c:if>
 	<link rel='stylesheet' type='text/css' href="${contextPath}/css/grafterizer.css"/>
 	<script type="text/javascript" src="${contextPath}/scripts/grafterizerPostMessage.js" async></script>
 	</jsp:body>
