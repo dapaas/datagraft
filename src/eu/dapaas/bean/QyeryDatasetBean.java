@@ -76,6 +76,7 @@ public class QyeryDatasetBean {
   }
 	
 	public List<String> getDatasetProperties(String apiKey, String apiSecret, String datasetId) throws Exception {
+	  try{
 	  if (Utils.isEmpty(apiKey)){
 	    apiKey = null;
 	  }
@@ -92,6 +93,10 @@ public class QyeryDatasetBean {
 	    List<HashMap<String, String>> propertyValues = result.getValues();
 	    List<String> valResult = substringVals(propertyValues);
 	    return valResult;
+	  }catch(Exception e){
+	    e.printStackTrace();
+	    return new ArrayList<String>();
+	  }
 	 }
 	
 	private List<String> substringVals(List<HashMap<String, String>> propertyValues) {

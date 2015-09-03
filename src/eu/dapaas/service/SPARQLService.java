@@ -39,6 +39,9 @@ public class SPARQLService extends HttpServlet {
       printout.flush();
     }catch(Exception e){
       e.printStackTrace();
+      PrintWriter printout = response.getWriter();
+      printout.write(e.getMessage());
+      printout.flush();
     }
   }
 }
