@@ -270,7 +270,7 @@ if (user!=null){
 	          	<span class="material-input"></span>
               </div>
           </div>
-          <input type="submit" class="btn btn-material-pink btn-raised input-signup" value="Sign in">
+          <input type="submit" class="btn btn-material-pink btn-raised input-signup" value="Sign In with username">
           
           <div class="forgotten-wrapper"><a href="${contextPath}/pages/forgotpassword">Forgotten password</a></div>
           <div class="login-text-social">Or Sign in with:</div>

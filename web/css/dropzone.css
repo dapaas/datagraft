@@ -73,7 +73,7 @@
   left: 25px;
  /* width: 100px;
   height: 100px;*/
-  cursor: pointer;
+  /*cursor: pointer;*/
 }
 .dropzone-dataset .dz-preview .dz-details .dz-size,
 .dropzone-previews .dz-preview .dz-details .dz-size {
@@ -179,18 +179,18 @@
   transition: opacity 0.3s ease-in-out;
   background-image: url("../images/drop_new_data.png");
   background-repeat: no-repeat;
-  background-position: 0 0;
-  position: absolute;
-  width: 650px;
-  height: 150px;
-  margin-left: -214px;
+  background-position: 50% 50%;
+  /*position: absolute;*/
+  /*width: 650px;*/
+  height: 250px;
+  /*margin-left: -214px;
   margin-top: -61.5px;
   top: 50%;
-  left: 50%;
+  left: 50%;*/
 }
 
 .dropzone-dataset.dz-started .dz-message {
-  display: block;
+  /*display: block;*/
   opacity: 0;
   -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
   filter: alpha(opacity=0);
@@ -246,7 +246,7 @@
 }
 
 #dropzone_application.dropzone-dataset.dz-started .dz-message {
-  display: block;
+  /*display: block;*/
   opacity: 0;
   -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
   filter: alpha(opacity=0);
@@ -278,7 +278,7 @@
   filter: alpha(opacity=15);
 }
 .dropzone-dataset.dz-started .dz-message {
-  display: block;
+  /*display: block;*/
   opacity: 0;
   -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
   filter: alpha(opacity=0);

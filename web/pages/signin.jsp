@@ -41,7 +41,7 @@ Application.state="${state}";
               <input type="hidden" name="action" id="action">
               <input type="text" class="form-control col-lg-8" placeholder="Username" name="username" id="username" required="required">
               <input type="password" class="form-control col-lg-8" placeholder="Password" name="password" id="password">
-              <input type="submit" class="btn btn-material-pink btn-raised input-signup" value="Sign in">
+              <input type="submit" class="btn btn-material-pink btn-raised input-signup" value="Sign In with username">
               <div class="forgotten-wrapper"><a class="theme-text" href="${contextPath}/pages/forgotpassword">Forgotten password</a></div>
               <div class="login-text-social">Or Sign in with:</div>
               <input type="button" value="Sign in with Facebook" class="btn btn-raised input-signup fb" id="fblogin">
