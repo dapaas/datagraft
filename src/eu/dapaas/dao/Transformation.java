@@ -110,12 +110,12 @@ public class Transformation {
       // e.printStackTrace();
     }
     try {
-      this.transformationType = o.getString("http://www.w3.org/ns/dcat#transformationType");
+      this.transformationType = o.getString("dcat:transformationType");
     } catch (JSONException e) {
 
     }
     try {
-      this.transformationCommand = o.getString("http://www.w3.org/ns/dcat#transformationCommand");
+      this.transformationCommand = o.getString("dcat:transformationCommand");
     } catch (JSONException e) {
 
     }
