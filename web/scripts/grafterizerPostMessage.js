@@ -47,11 +47,11 @@
     };
 
     Grafterizer.prototype._onReady = function() {
+        this.setAuthorization(this._savedAuthorization);
         for (var a = this._stuffToDo, i = 0, l = a.length; i < l; ++i) {
             this.sendMessage(a[i]);
         }
         this._stuffToDo = [];
-        this.setAuthorization(this._savedAuthorization);
     };
 
     Grafterizer.prototype.sendMessage = function(message) {
