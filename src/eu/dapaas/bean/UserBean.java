@@ -28,6 +28,16 @@ public class UserBean {
   public void logout(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
     LogoutHandler cathandler = new LogoutHandler(request, response, session);
     try {
+      Cookie[]  cookies = request.getCookies();
+      if (cookies != null)
+        for (int i = 0; i < cookies.length; i++){
+          if (cookies[i].getName().equals(SessionConstants.DATAAS_USER_NAME)){
+             cookies[i].setValue(null);
+             cookies[i].setMaxAge(0);
+             cookies[i].setPath(request.getContextPath()+"/");
+             response.addCookie(cookies[i]);
+          }
+        }
       cathandler.logout();
       session.invalidate();
     } catch (Exception e) {;

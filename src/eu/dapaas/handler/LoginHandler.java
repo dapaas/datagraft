@@ -78,6 +78,7 @@ public class LoginHandler extends BaseHandler {
           user.setProvider(AuthenticationProvider.dapaas);
           user.setProviderId(username);
           request.getSession().setAttribute(SessionConstants.DAPAAS_USER, user);
+          Utils.putLoginUser(user, request, getResponse());
           if (Utils.checkCatalog(user.getApiKey(), user.getApiSecret())) {
             redirectToPage("pages/myassets", serverResponse);
           } else {

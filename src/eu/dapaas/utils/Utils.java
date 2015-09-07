@@ -11,6 +11,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.apache.commons.lang.StringEscapeUtils;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -18,7 +21,9 @@ import org.apache.log4j.Logger;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import eu.dapaas.constants.SessionConstants;
 import eu.dapaas.dao.Dataset;
+import eu.dapaas.dao.User;
 import eu.dapaas.handler.DatasetCatalogHandler;
 
 /**
@@ -198,5 +203,14 @@ public class Utils {
 
   public static String escapeJS(String value) {
     return StringEscapeUtils.escapeJavaScript(value);
+  }
+  
+  public static void putLoginUser(User user, HttpServletRequest request, HttpServletResponse response){
+    // put in cookie user_name 
+    javax.servlet.http.Cookie cookie = new javax.servlet.http.Cookie(SessionConstants.DATAAS_USER_NAME, user.getName());
+    cookie.setMaxAge(60 * 60 * 2);
+    cookie.setPath(request.getContextPath()+"/");
+    response.addCookie(cookie);
+    
   }
 }

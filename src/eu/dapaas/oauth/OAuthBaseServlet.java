@@ -62,6 +62,7 @@ public class OAuthBaseServlet extends OAuthServlet {
     if (req.getSession().getAttribute(SessionConstants.DAPAAS_USER) != null) {
       User user = (User) req.getSession().getAttribute(SessionConstants.DAPAAS_USER);
       if (user != null && user.getApiKey()!= null && user.getApiKey().length() > 0) {
+        Utils.putLoginUser(user, req, resp);
         if (Utils.checkCatalog(user.getApiKey(), user.getApiSecret())) {
           resp.sendRedirect(req.getContextPath() + "/pages/myassets");
         } else {
