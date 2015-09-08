@@ -12,7 +12,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="icon" type="image/png" href="static/images/favicon.png" >
+  <link rel="icon" type="image/png" href="https://datagraft.net/static/images/favicon.png" >
   <title>${title}</title>
   <link type="text/css" rel="stylesheet" href="${contextPath}/css/jquery.rating.css">
   <link type="text/css" rel="stylesheet" href="//code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">
