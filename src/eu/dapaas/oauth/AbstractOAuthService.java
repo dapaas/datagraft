@@ -62,7 +62,7 @@ public abstract class AbstractOAuthService extends OAuth2Service {
           gateway.modifiedUserGateway(HttpMethod.POST, Utils.getDaPaasEndpoint("dapaas-management-services/api/accounts"), params);
           serverResponse = Utils.convertEntityToJSON(gateway.execute());
           logger.info(serverResponse);
-          if (!Utils.isEmpty(serverResponse.getString("error_message"))){
+          if (serverResponse != null && serverResponse.has("error_message")) {
             request.getSession().setAttribute(SessionConstants.ERROR, serverResponse.getString("error_message"));
             return;
           }
@@ -106,7 +106,7 @@ public abstract class AbstractOAuthService extends OAuth2Service {
           gateway.modifiedUserGateway(HttpMethod.POST, Utils.getDaPaasEndpoint("dapaas-management-services/api/accounts"), params);
           serverResponse =  Utils.convertEntityToJSON(gateway.execute());
           logger.info(serverResponse);
-          if (!Utils.isEmpty(serverResponse.getString("error_message"))){
+          if (serverResponse != null && serverResponse.has("error_message")) {
             request.getSession().setAttribute(SessionConstants.ERROR, serverResponse.getString("error_message"));
             return;
           }

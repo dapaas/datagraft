@@ -79,7 +79,7 @@ Application.state="${state}";
 			 			<label class="col-lg-2 control-label" for="pass">Password</label>
 			 			<div class="col-lg-10">
                         <div class="form-control-wrapper">
-			 			<input type="password" class="form-control col-lg-8" placeholder="Password" name="password" id="pass">
+			 			<input type="password" class="form-control col-lg-8" placeholder="Password" name="password" id="pass" required="required">
 			 			<span class="material-input"></span>
                         </div>
                         </div>

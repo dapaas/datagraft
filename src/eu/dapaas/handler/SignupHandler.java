@@ -90,7 +90,7 @@ public class SignupHandler extends BaseHandler {
           user.setEmail(email);
           getSession().setAttribute(SessionConstants.DAPAAS_USER, user);
 // send url to email 
-          EmailNotificationService.getInstance().sendNotificationAsync(new EmailVerificationMessage(email, username, name), email);
+          // EmailNotificationService.getInstance().sendNotificationAsync(new EmailVerificationMessage(email, username, name), email);
           redirectToPage("pages/publish", serverResponse);
         }
       } else {
