@@ -43,6 +43,10 @@ public class LoginHandler extends BaseHandler {
   }
 
   public void login(String username, String password) {
+    
+    String contextPath ="";
+    if (request != null)
+      contextPath = request.getContextPath();
 
     JSONObject userJason = new JSONObject();
     try {
@@ -65,12 +69,12 @@ public class LoginHandler extends BaseHandler {
 
         boolean isLogin = loginStatus();
         if (!isLogin) {
-          showErrorPage("User is not Sign In. Please Sign In!");
+          showErrorPage("User is not Sign In. Please Sign In!"+" May be you have <a href='"+contextPath+"/pages/forgotpassword'>forgot your password</a>? ");
           return;
         }
         // if user login det details
         if (serverResponse != null && serverResponse.has("error_message")) {
-          showErrorPage(serverResponse.getString("error_message"));
+          showErrorPage(serverResponse.getString("error_message")+" May be you have <a href='"+contextPath+"/pages/forgotpassword'>forgot your password</a>? ");
         } else {
           UserHandler userHandler = new UserHandler(gateway);
           User user = userHandler.getUserTempKey();
@@ -87,18 +91,18 @@ public class LoginHandler extends BaseHandler {
         }
       } else {
         if (serverResponse != null && serverResponse.has("error_message")) {
-          showErrorPage(serverResponse.getString("error_message"));
+          showErrorPage(serverResponse.getString("error_message")+" May be you have <a href='"+contextPath+"/pages/forgotpassword'>forgot your password</a>? ");
         } else {
-          showErrorPage("Invalid login or password.");
+          showErrorPage("Invalid login or password."+" May be you have <a href='"+contextPath+"/pages/forgotpassword'>forgot your password</a>? ");
         }
       }
     } catch (IOException e) {
-      showErrorPage(e.getMessage());
+      showErrorPage(e.getMessage()+" May be you have <a href='"+contextPath+"/pages/forgotpassword'>forgot your password</a>? ");
     } catch (ServletException e) {
-      showErrorPage(e.getMessage());
+      showErrorPage(e.getMessage()+" May be you have <a href='"+contextPath+"/pages/forgotpassword'>forgot your password</a>? ");
     } catch (JSONException je) {
       je.printStackTrace();
-      showErrorPage(je.getMessage());
+      showErrorPage(je.getMessage()+" May be you have <a href='"+contextPath+"/pages/forgotpassword'>forgot your password</a>? ");
     }finally{
       // gateway.close();
     }

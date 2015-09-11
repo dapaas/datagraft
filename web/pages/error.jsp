@@ -22,7 +22,7 @@
 		    <div class="panel-body">
 		       ${error}
 		       <div>
-		       	<input type="button" value="Back" class="btn btn-danger btn-raised" onclick="location.href='${contextPath}/pages/catalogs'">
+		       	<input type="button" value="Explore public catalog" class="btn btn-danger btn-raised" onclick="location.href='${contextPath}/pages/catalogs'">
 		       </div>
 		    </div>
 		</div>
