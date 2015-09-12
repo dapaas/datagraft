@@ -588,6 +588,14 @@ SVG>TEXT {
 	margin-top: 55px;
 }
 
+#containers{
+	height: 60px;
+}
+#containers h4{
+	text-align: center;
+	/*margin-top: 55px;*/
+}
+
 #catalogresult tr td{
 	cursor: pointer;
 }

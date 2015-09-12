@@ -34,9 +34,10 @@ Application.state="${state}";
 </script>
 		<div class="container well">
 		<h2 >Sign up</h2>
-		
-	    	
-	    	
+			<div class="alert alert-dismissable alert-danger hide">
+	    		<p class="errormessage">  </p>
+	    	</div>
+	    	<div id="containers" class="hide"> </div>
 	    	<form action="${contextPath}/signup" method="POST" id="createoauth" class="sign-popup-form">
 			<div class="form-horizontal">
 				<input type="hidden" name="signup">
@@ -87,7 +88,7 @@ Application.state="${state}";
 			 		<div class="col-lg-2"></div>
 					<div class="col-lg-10"><p style="margin-top:2em;margin-bottom:2em">By signing up, I agree with DataGraft.net <a href="https://datagraft.net/terms-of-use/" target="_blank">Terms of Use</a> and <a href="https://datagraft.net/privacy-policy/" target="_blank">Privacy Policy</a>.</p></div>
 					<div class="col-lg-4"></div>
-	  				<div class="col-lg-4"><input type="submit" value="Sign up with username" class="btn btn-material-pink btn-raised input-signup"></div>
+	  				<div class="col-lg-4"><input type="button" id="registerbutton"value="Sign up with username" class="btn btn-material-pink btn-raised input-signup"></div>
 	  				<div class="col-lg-4"></div>
 	  				
 	  				<div class="col-lg-12"><div class="login-text-social marg-top">Or sign up with:</div></div>
@@ -102,5 +103,20 @@ Application.state="${state}";
 	    	</form>
 	    
 	    </div>
+	    
+	    
+	     <!-- dialog for spinner -->
+ <!-- <div id="complete-dialog-spinner" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+      <h4 class="modal-title">Saving Data Page</h4></div>
+      <div class="modal-body">
+        <div id="containerl"> </div>
+     </div>
+    </div>
+  </div>
+</div> -->
 	</jsp:body>
 </template:genericpage>

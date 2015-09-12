@@ -57,6 +57,108 @@ $(document).ready(function() {
     return false;
 });
 
+  
+  $("#registerbutton").click(function() {
+    
+    // empty values
+   $(".alert").addClass("hide");
+    if ($("#createoauth input[id=username]").val()==''){
+      $(".alert").removeClass("hide");
+      $(".errormessage").html("Cannot set empty username.");
+      return;
+    }
+    if ( $("#createoauth input[id=email]").val()==''){
+      $(".alert").removeClass("hide");
+      $(".errormessage").html("Cannot set empty email.");
+      return;
+    }
+    var re = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i;
+    if (!re.test($("#createoauth input[id=email]").val())){
+      $(".alert").removeClass("hide");
+      $(".errormessage").html("Please enter a valid email address.");
+      return;
+    }
+    if ( $("#createoauth input[id=pass]").val()==''){
+      $(".alert").removeClass("hide");
+      $(".errormessage").html("Cannot set empty password.");
+      return;
+    }
+    //Cannot set empty password.
+    
+    
+    var xhr = new XMLHttpRequest();
+    url = Application.contextPath +"/BaseGateway/signup.json";
+    xhr.open("POST", url, true);
+    headers = {
+           "Accept": "application/json",
+           "Cache-Control": "no-cache",
+           "X-Requested-With": "XMLHttpRequest"
+         };
+    for (headerName in headers) {
+           headerValue = headers[headerName];
+           xhr.setRequestHeader(headerName, headerValue);
+         }
+   xhr.onerror = (function(_this) {
+           return function() {
+
+           };
+         })(this);
+   xhr.onload = (function(_this) {
+           return function(e) {
+             $("#containers").empty();
+             $("#containers").addClass("hide");
+            // $('#complete-dialog-spinner').modal('hide');
+             var response = jQuery.parseJSON(xhr.responseText);
+             if (response.result == 'OK'){
+               document.location = Application.contextPath + "/pages/publish";
+             }else{
+               $(".alert").removeClass("hide");
+               $(".errormessage").html(response.result);
+             }
+           };
+         })(this);
+
+   
+   // $('#complete-dialog-spinner').modal('show');
+   // open dialog
+   
+     var opts = {
+     lines: 12,            // The number of lines to draw
+     length: 7,            // The length of each line
+     width: 5,             // The line thickness
+     radius: 10,           // The radius of the inner circle
+     rotate: 0,            // Rotation offset
+     corners: 1,           // Roundness (0..1)
+     color: '#5264ae',        // #rgb or #rrggbb
+     direction: 1,         // 1: clockwise, -1: counterclockwise
+     speed: 1,             // Rounds per second
+     trail: 100,           // Afterglow percentage
+     opacity: 1/4,         // Opacity of the lines
+     fps: 20,              // Frames per second when using setTimeout()
+     zIndex: 2e9,          // Use a high z-index by default
+     className: 'spinner', // CSS class to assign to the element
+     top: '30%',           // center vertically
+     left: '50%',          // center horizontally
+     position: 'relative'  // element position
+   }
+   var spinner = new Spinner(opts).spin();
+   $("#containers").removeClass("hide");
+   $("#containers").empty();
+   $("#containers").append("<h4>Sign up user. Please wait ...</h4>");
+   $("#containers").append(spinner.el);
+   
+    var formData = new FormData();
+    formData.append("username", $("#createoauth input[id=username]").val());
+    formData.append("email", $("#createoauth input[id=email]").val());
+    formData.append("name", $("#createoauth input[id=r-name]").val());
+    formData.append("password", $("#createoauth input[id=pass]").val());
+    
+    xhr.send(formData);
+    
+  });
+  
+  
+  
   $("#fbcreate").click(function() {
     $("#createoauth input[id=caction]").val("submitFB");
     $('#createoauth').submit();
@@ -565,6 +667,7 @@ $(document).ready(function() {
       formData.append("oldpass", $("#oldpassword").val());
       formData.append("newpass", $("#newpassword").val());
       formData.append("newconfirmpass", $("#confirmpassword").val());
+            
       xhr.send(formData);
       
     });

@@ -1,7 +1,11 @@
 package eu.dapaas.service;
 
+import java.io.IOException;
+import java.util.List;
+
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
+import org.apache.http.cookie.Cookie;
 import org.apache.log4j.Logger;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -12,6 +16,7 @@ import com.sirmamobile.commlib.annotations.WebParam;
 import com.sirmamobile.commlib.annotations.WebService;
 import com.sirmamobile.commlib.annotations.WebSession;
 
+import eu.dapaas.constants.AuthenticationProvider;
 import eu.dapaas.constants.SessionConstants;
 import eu.dapaas.dao.User;
 import eu.dapaas.handler.UserHandler;
@@ -89,5 +94,62 @@ public class UserService {
     }catch(Exception e){
       return false;
     }
+  }
+  
+  @WebMethod
+  public Object signup(@WebParam(name="username") String username,
+      @WebParam(name="email") String email,
+      @WebParam(name="name") String name,
+      @WebParam(name="password") String password,
+      @WebParam(name="role") String role,
+      @WebSession WebSessionObject webSession) {
+
+    String error = "";
+    JSONObject userJason = new JSONObject();
+    try {
+      userJason.put("username", username);
+      userJason.put("password", password);
+      userJason.put("role", role); // "data explorer"
+      userJason.put("name", name);
+      userJason.put("email", email);
+    } catch (JSONException e) {
+      logger.error("", e);
+    }
+    try {
+      DaPaasParams params = new DaPaasParams();
+      params.setJsonObject(new NameValuePair<JSONObject>(null, userJason));
+      params.getHeaders().put("Content-Type", "application/json");
+      DaPaasUserGateway gateway = new DaPaasUserGateway(HttpMethod.POST, Utils.getDaPaasEndpoint("dapaas-management-services/api/accounts"), params);
+      HttpResponse httpresponse = gateway.execute();
+      List<Cookie> cookies = gateway.getContext().getCookieStore().getCookies();
+      JSONObject serverResponse = Utils.convertEntityToJSON(httpresponse);
+      if (httpresponse != null) {
+
+        logger.debug("serverResponse: " + serverResponse);
+        if (serverResponse != null && serverResponse.has("error_message")) {
+          try {
+            error = (serverResponse.getString("error_message"));
+          } catch (JSONException e) {
+            logger.error("", e);
+          }
+        } else {
+          UserHandler userHandler = new UserHandler(gateway);
+          User user = userHandler.getUserTempKey();
+          user.setCookies(cookies);
+          user.setProvider(AuthenticationProvider.dapaas);
+          user.setProviderId(username);
+          user.setEmail(email);
+          webSession.putSessionObject(SessionConstants.DAPAAS_USER, user);
+//          redirectToPage("pages/publish", serverResponse);
+          return "OK";
+        }
+      } else {
+        error = ("Server problem! Please, call to administrator.");
+      }
+      
+    } catch (IOException e) {
+      error = (e.getMessage());
+    } 
+    return error;
   }
 }
