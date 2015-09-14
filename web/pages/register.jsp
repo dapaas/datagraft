@@ -38,7 +38,11 @@ Application.state="${state}";
 	    		<p class="errormessage">  </p>
 	    	</div>
 	    	<div id="containers" class="hide"> </div>
-	    	<form action="${contextPath}/signup" method="POST" id="createoauth" class="sign-popup-form">
+	    	<form action="${contextPath}/signup" method="POST" id="createoauth" class="sign-popup-form" >
+	    	
+	    	 <input style="display:none" type="text" name="hidden1"/>
+			<input style="display:none" type="password" name="hidden2"/> 
+
 			<div class="form-horizontal">
 				<input type="hidden" name="signup">
 				<input type="hidden" name="action" id="caction" />
@@ -48,12 +52,24 @@ Application.state="${state}";
 			 			<label for="username" class="col-lg-2 control-label">Username</label>
 			 			<div class="col-lg-10">
                         <div class="form-control-wrapper">
-			 			<input type="text" class="form-control col-lg-8" placeholder="Username" name="username" id="username" required="required">
+			 			<input type="text" class="form-control col-lg-8" placeholder="Username" name="username" id="username" required="required" >
 			 			<span class="material-input"></span>
                         </div>
                         </div>
                         
 			 		</div>
+			 		
+			 		<div class="form-group">
+			 			<label class="col-lg-2 control-label" for="pass">Password</label>
+			 			<div class="col-lg-10">
+                        <div class="form-control-wrapper">
+			 			<input type="password" class="form-control col-lg-8" placeholder="Password" name="password" id="pass" required="required" >
+			 			<span class="material-input"></span>
+                        </div>
+                        </div>
+			 		</div>
+			 		
+			 		
 					<div class="form-group">
 						<label for="r-name" class="col-lg-2 control-label">Name</label>
 						<div class="col-lg-10">
@@ -76,15 +92,7 @@ Application.state="${state}";
 			 		
 			 		
 			 		
-			 		<div class="form-group">
-			 			<label class="col-lg-2 control-label" for="pass">Password</label>
-			 			<div class="col-lg-10">
-                        <div class="form-control-wrapper">
-			 			<input type="password" class="form-control col-lg-8" placeholder="Password" name="password" id="pass" required="required">
-			 			<span class="material-input"></span>
-                        </div>
-                        </div>
-			 		</div>
+			 		
 			 		<div class="col-lg-2"></div>
 					<div class="col-lg-10"><p style="margin-top:2em;margin-bottom:2em">By signing up, I agree with DataGraft.net <a href="https://datagraft.net/terms-of-use/" target="_blank">Terms of Use</a> and <a href="https://datagraft.net/privacy-policy/" target="_blank">Privacy Policy</a>.</p></div>
 					<div class="col-lg-4"></div>
