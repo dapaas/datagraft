@@ -14,7 +14,7 @@ iframe.grafterizer {
   border: 0;
 }
 
-@media (max-width: 750px) {
+@media (max-width: 768px) {
     body > header {
       z-index:2;
     }
@@ -23,16 +23,22 @@ iframe.grafterizer {
         /*z-index:-1;*/
     }
 }
-/*
-@media (max-width: 341px) {
+
+@media (max-width: 309px) {
     .grafterizer-container {
-        top: 207px;
+        top: 107px;
     }
-}*/
+}
+
+@media (max-width: 991px) {
+    .grafterizer-container {
+        top: 106px;
+    }
+}
 
 @media (min-width: 1200px) {
     .grafterizer-container {
-        top: 65px;
+        top: 67px;
     }
 }
 
