@@ -4,7 +4,8 @@
   bottom: 89px;
   left: 0;
   right: 0;
-  overflow: auto;
+  overflow-x: auto;
+  overflow-y: hidden;
   display: -webkit-flex;
   display: flex;
   box-shadow: 0px -1px 0px 0px rgb(98,114,181), 0px -2px 0px 0px rgb(73, 89, 156);
@@ -12,6 +13,7 @@
 
 iframe.grafterizer {
   width: 100%;
+  height: 100%;
   border: 0;
 }
 
