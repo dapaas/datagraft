@@ -55,11 +55,11 @@ ${userbean.putInCookie(pageContext.request, pageContext.response, pageContext.se
 	</jsp:attribute>
 	<jsp:body>
 		<div class="container">
-			<ul class="breadcrumb">
+			<!--ul class="breadcrumb">
     			<li><a class="theme-text" href="${contextPath}/pages/catalogs">Explore</a></li>
     			<li><a class="theme-text" href="${contextPath}/pages/myassets">Dashboard</a></li>
     			<li class="active">Data Page</li>
-			</ul>
+			</ul-->
 			<c:if test="${wizard.action =='new'}">
 				<h1 class="add-label">Data page</h1>
 			</c:if>

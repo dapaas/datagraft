@@ -66,10 +66,10 @@ ${userbean.putInCookie(pageContext.request, pageContext.response, pageContext.se
 	<input type="hidden" id="id" name="id"/>
 </form>
 
-<ul class="breadcrumb">
+<!--ul class="breadcrumb">
     <li><a class="theme-text" href="${contextPath }/pages/catalogs">Explore</a></li>
     <li class="active">Dashboard</li>
-</ul> 
+</ul--> 
 		<div class="dataset-wrapper">
 			
 			<c:set var="titleDataset" value="My data pages"/>
@@ -89,8 +89,9 @@ ${userbean.putInCookie(pageContext.request, pageContext.response, pageContext.se
 				    </div> 
 				    </div>
 				</form>
-				<form id="pagedataset" method="post" action="${contextPath }/pages/myassets/index.jsp">
-					<input type="hidden" id="page" name="pagedataset" />
+				<form id="pageform" method="post" action="${contextPath }/pages/myassets/index.jsp">
+					<input type="hidden" id="pagedataset" name="pagedataset"  value="${datasetBean.getPageNumber() }"/>
+					<input type="hidden" id="pagetransformation" name="pagetransformation" value="${transformationBean.getPageNumber() }"/>
 				</form>
 				<template:dataset_catalog id="mycatalogresult" footer="${footerdataset }" action="${true }" emptylabel="${emptylabel }" templateData="${datasetBean.getCatalogDatasetByPage(datasetBean.getPageNumber(), user.apiKey, user.apiSecret)}" sizepage="${datasetBean.getPageCount()}" page="${datasetBean.getPageNumber()}"/>
 			</div>
@@ -111,9 +112,7 @@ ${userbean.putInCookie(pageContext.request, pageContext.response, pageContext.se
 				    </div> 
 				    </div>
 				</form>
-				<form id="pagetransformation" method="post" action="${contextPath }/pages/myassets/index.jsp">
-					<input type="hidden" id="page" name="pagetransformation" />
-				</form>
+				
 				<template:transformation_catalog id="mytransformationresult"  footer="${footertransformation }" emptylabel="${emptylabel1 }" templateData="${transformationBean.getCatalogTransformationsByPage(transformationBean.getPageNumber(), user.apiKey, user.apiSecret)}" sizepage="${transformationBean.getPageCount()}" page="${transformationBean.getPageNumber()}"/>
 			</div>
 		</div>

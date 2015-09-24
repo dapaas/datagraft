@@ -42,13 +42,13 @@ ${userbean.putInCookie(pageContext.request, pageContext.response, pageContext.se
 		<input type="hidden" id="id" name="id"/>
 	</form>
 	<div class="container">
-	<ul class="breadcrumb">
+	<!--ul class="breadcrumb">
     	<li><a class="theme-text" href="${contextPath }/pages/catalogs">Explore</a></li>
     	<c:if test="${not empty user }">
     		<li><a class="theme-text" href="${contextPath }/pages/myassets">Dashboard</a></li>
     	</c:if>
     	<li>Transformation page</li>
-	</ul>
+	</ul-->
 	<c:if test="${not empty user }">
 		<h1 class="add-label"> Execute transformation '${transformation.title}'</h1>
 	</c:if>
@@ -71,7 +71,7 @@ ${userbean.putInCookie(pageContext.request, pageContext.response, pageContext.se
 				<label class="col-lg-2 control-label" for="description">Description:</label>
 				 <div class="col-lg-10">
 		             <div class="form-control-wrapper">
-						<div id="description" class="form-control empty">${ transformation.description }</div>
+						<div id="description" class="form-control empty" style="height: auto; min-height: 26px">${ transformation.description }</div>
 					</div>
 				</div>
 			</div>

@@ -6,13 +6,9 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 
-import com.sirmamobile.commlib.WebRequestObject;
-import com.sirmamobile.commlib.WebResponseObject;
 import com.sirmamobile.commlib.WebSessionObject;
 import com.sirmamobile.commlib.annotations.WebMethod;
 import com.sirmamobile.commlib.annotations.WebParam;
-import com.sirmamobile.commlib.annotations.WebRequest;
-import com.sirmamobile.commlib.annotations.WebResponse;
 import com.sirmamobile.commlib.annotations.WebService;
 import com.sirmamobile.commlib.annotations.WebSession;
 
@@ -26,94 +22,92 @@ import eu.dapaas.dao.User;
 import eu.dapaas.handler.DatasetHandler;
 import eu.dapaas.handler.TransformationCatalogHandler;
 import eu.dapaas.handler.TransformationHandler;
-import eu.dapaas.notification.EmailNotificationService;
-import eu.dapaas.notification.impl.EmailVerificationMessage;
 import eu.dapaas.utils.Utils;
 
 @WebService
 public class WizardService {
   private static final Logger logger = Logger.getLogger(WizardService.class);
 
-  @WebMethod
-  public Object setup(
-	  	@WebParam(name = "step_number") Integer step,
-	  	@WebParam(name = "datasetname") String datasetName,
-	  	@WebParam(name = "description") String description,
-	  	@WebParam(name = "keyword") String keyword,
-	  	@WebParam(name = "licensing") String licensing,
-	  	@WebParam(name = "usagerights") String usagerights,
-	  	@WebParam(name = "bytesize") String bytesize,
-	  	@WebParam(name = "portalparam") String portalparam,
-	  	@WebSession WebSessionObject webSession) {
-
-    Wizard wizard = (Wizard) webSession.getSessionObject("wizard");
-    if (wizard == null) {
-      wizard = new Wizard();
-      wizard.setAction("new");
-      wizard.setType("dataset");
-    }
-
-    if (step == 1) {
-      if (datasetName != null && datasetName.length() > 0) {
-        wizard.getDetails().setTitle(datasetName);
-      }
-
-      if (description != null && description.length() > 0) {
-        wizard.getDetails().setDescription(description);
-      }
-
-      if (!Utils.isEmpty(keyword)) {
-        String[] kws = keyword.trim().split(",");
-        wizard.getDetails().setKeyword(new ArrayList<String>());
-        for (String k : kws) {
-          if (k.trim().length() > 0) {
-            wizard.getDetails().getKeyword().add(k);
-          }
-        }
-      }
-
-      if (licensing != null) {
-        wizard.getDetails().setLicensing(licensing);
-      }
-      if (usagerights != null) {
-        wizard.getDetails().setUsagerights(usagerights);
-      }
-      if (bytesize != null) {
-        wizard.getDetails().setBytesize(bytesize);
-      }
-    }
-
-    if (step == 4) {
-      wizard.getPortal().setParameter(portalparam);
-    }
-
-    webSession.putSessionObject("wizard", wizard);
-
-    return true;
-  }
-
-  @WebMethod
-  public Object finish(@WebRequest WebRequestObject request, @WebResponse WebResponseObject response, @WebSession WebSessionObject webSession) {
-    Wizard wizard = (Wizard) webSession.getSessionObject("wizard");
-    User user = (User) webSession.getSessionObject(SessionConstants.DAPAAS_USER);
-
-    if (wizard.getType().equals("dataset")) {
-      DatasetHandler handler = new DatasetHandler(wizard, user);
-      try {
-        if (wizard.getAction().equals("new")) {
-          handler.createDataset(false);
-        }
-        if (wizard.getAction().equals("edit")) {
-          handler.updateDataset();
-        }
-      } catch (Exception e) {
-        logger.error("", e);
-      }
-    }
-    webSession.putSessionObject("wizard", null);
-    // create all in API
-    return true;
-  }
+//  @WebMethod
+//  public Object setup(
+//	  	@WebParam(name = "step_number") Integer step,
+//	  	@WebParam(name = "datasetname") String datasetName,
+//	  	@WebParam(name = "description") String description,
+//	  	@WebParam(name = "keyword") String keyword,
+//	  	@WebParam(name = "licensing") String licensing,
+//	  	@WebParam(name = "usagerights") String usagerights,
+//	  	@WebParam(name = "bytesize") String bytesize,
+//	  	@WebParam(name = "portalparam") String portalparam,
+//	  	@WebSession WebSessionObject webSession) {
+//
+//    Wizard wizard = (Wizard) webSession.getSessionObject("wizard");
+//    if (wizard == null) {
+//      wizard = new Wizard();
+//      wizard.setAction("new");
+//      wizard.setType("dataset");
+//    }
+//
+//    if (step == 1) {
+//      if (datasetName != null && datasetName.length() > 0) {
+//        wizard.getDetails().setTitle(datasetName);
+//      }
+//
+//      if (description != null && description.length() > 0) {
+//        wizard.getDetails().setDescription(description);
+//      }
+//
+//      if (!Utils.isEmpty(keyword)) {
+//        String[] kws = keyword.trim().split(",");
+//        wizard.getDetails().setKeyword(new ArrayList<String>());
+//        for (String k : kws) {
+//          if (k.trim().length() > 0) {
+//            wizard.getDetails().getKeyword().add(k);
+//          }
+//        }
+//      }
+//
+//      if (licensing != null) {
+//        wizard.getDetails().setLicensing(licensing);
+//      }
+//      if (usagerights != null) {
+//        wizard.getDetails().setUsagerights(usagerights);
+//      }
+//      if (bytesize != null) {
+//        wizard.getDetails().setBytesize(bytesize);
+//      }
+//    }
+//
+//    if (step == 4) {
+//      wizard.getPortal().setParameter(portalparam);
+//    }
+//
+//    webSession.putSessionObject("wizard", wizard);
+//
+//    return true;
+//  }
+//
+//  @WebMethod
+//  public Object finish(@WebRequest WebRequestObject request, @WebResponse WebResponseObject response, @WebSession WebSessionObject webSession) {
+//    Wizard wizard = (Wizard) webSession.getSessionObject("wizard");
+//    User user = (User) webSession.getSessionObject(SessionConstants.DAPAAS_USER);
+//
+//    if (wizard.getType().equals("dataset")) {
+//      DatasetHandler handler = new DatasetHandler(wizard, user);
+//      try {
+//        if (wizard.getAction().equals("new")) {
+//          handler.createDataset(false);
+//        }
+//        if (wizard.getAction().equals("edit")) {
+//          handler.updateDataset();
+//        }
+//      } catch (Exception e) {
+//        logger.error("", e);
+//      }
+//    }
+//    webSession.putSessionObject("wizard", null);
+//    // create all in API
+//    return true;
+//  }
 
   @WebMethod
   public Object getTransformations(@WebParam(name = "q") String searchValue, @WebSession WebSessionObject webSession) {

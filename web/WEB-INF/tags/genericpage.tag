@@ -99,6 +99,9 @@
           <li><a href="/privacy-policy/">Privacy policy</a></li>
           <li><a href="/cookie-policy/">Cookie policy</a></li>
           <li><a href="/contact/">Contact</a></li>
+          <li><a class="mdl-navigation__link" id="discussion-icon" href="/feedback/">
+          	<div class="icon-preview"><i class="mdi-communication-messenger"></i><span>mdi-communication-messenger</span></div> 
+          	Feedback</a></li>
         </ul>
       </div>
       <p class="navbar-link">DataGraft is a service operated by the <a href="//dapaas.eu">DaPaaS</a> project, co-funded by the EC under 7th Framework Programme (FP7 2007-2013)</p>

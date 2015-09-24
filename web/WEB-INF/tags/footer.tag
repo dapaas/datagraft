@@ -5,3 +5,4 @@
 	<li><a href="http://project.dapaas.eu/dapaas-privacy-policy">Privacy policy</a></li>
 	<li><a href="http://project.dapaas.eu/dapaas-cookie-policy">Cookie policy</a></li>
 	<li><a href="http://project.dapaas.eu/dapaas-contact-us">Contact</a></li>
+	<li><a class="mdl-navigation__link" id="discussion-icon" href="/feedback/"><i class="material-icons">chat_bubble</i> Feedback</a></li>

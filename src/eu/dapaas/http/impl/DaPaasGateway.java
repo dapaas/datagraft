@@ -7,6 +7,7 @@ import org.apache.http.HttpResponse;
 import org.apache.http.auth.AuthScope;
 import org.apache.http.auth.AuthenticationException;
 import org.apache.http.auth.UsernamePasswordCredentials;
+import org.apache.http.client.entity.EntityBuilder;
 import org.apache.http.client.methods.HttpDelete;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
@@ -15,6 +16,7 @@ import org.apache.http.client.protocol.HttpClientContext;
 import org.apache.http.entity.ByteArrayEntity;
 import org.apache.http.entity.ContentType;
 import org.apache.http.entity.StringEntity;
+import org.apache.http.entity.mime.HttpMultipartMode;
 import org.apache.http.entity.mime.MultipartEntityBuilder;
 import org.apache.http.entity.mime.content.StringBody;
 import org.apache.http.impl.auth.BasicScheme;
@@ -117,14 +119,21 @@ public class DaPaasGateway extends HttpGateway {
         entity.addBinaryBody(params.getFile().getName(), params.getFile().getValue());
       }
       if (sbMeta != null) {
+//        entity.setMode(HttpMultipartMode.)
         entity.addPart(params.getJsonObject().getName(), sbMeta);
       }
       httpPost.setEntity(entity.build());
     } else {
+      logger.debug("has file  : "+params.getFile());
       if (params.getFile() != null) {
+        logger.debug("has file with name : "+params.getFile().getValue().getName());
+        logger.debug("Start put file");
         byte[] bytes = read(params.getFile().getValue());
-        HttpEntity bentity = new ByteArrayEntity(bytes);
-        httpPost.setEntity(bentity);
+        EntityBuilder  bentity = EntityBuilder.create();
+        bentity.setBinary(bytes);
+        bentity.chunked();
+        httpPost.setEntity(bentity.build());
+        logger.debug("end put file");
       }
     }
     logger.debug("executing request " + httpPost.getRequestLine());

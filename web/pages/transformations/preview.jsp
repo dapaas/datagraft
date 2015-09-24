@@ -15,7 +15,7 @@
 ${userbean.putInCookie(pageContext.request, pageContext.response, pageContext.session) }
 
 <c:set var="transformation" value="${transformationbean.getDetail(param['id']) }" />
-	
+
 
 <template:genericpage title="DataGraft Publisher portal">
 
@@ -30,48 +30,48 @@ ${userbean.putInCookie(pageContext.request, pageContext.response, pageContext.se
 	</jsp:attribute>
 	<jsp:body>
 		<div class="container">
-			<ul class="breadcrumb">
+			<!--ul class="breadcrumb">
     			<li><a class="theme-text" href="${contextPath }/pages/catalogs">Explore</a></li>
-    			
+
     			<li class="active">Transformation</li>
-			</ul>
-			
-		
+			</ul-->
+
+
 				<h1 class="add-label">Preview ${transformation.title}  </h1>
-						
-			
-			
+
+
+
 			<div id="content"  class="well">
 <h2 class="dataset-label">Transformation properties</h2>
-  		
+
   		<div class="form-horizontal">
 								<div class="form-group">
                                         <label for="datasetname" class="col-lg-2 control-label">Name:</label>
                                         <div class="col-lg-10">
                                             <div class="form-control-wrapper">
                                             <label id="datasetname" class="form-control empty" >${transformation.title} </label>
-                                            
+
                                             </div>
-                                           
+
                                         </div>
                                   </div>
 
 
-  		
+
 		<div class="form-group">
 			<label class="col-lg-2 control-label" for="description">Description:</label>
 			 <div class="col-lg-10">
 	             <div class="form-control-wrapper">
-				<div id="description" class="form-control empty" >${ transformation.description }</div>
-				
+				<div id="description" class="form-control empty" style="height: auto; min-height: 26px">${ transformation.description }</div>
+
 				</div>
-				 
+
 			</div>
 		</div>
-		
-		
-		
-		
+
+
+
+
 		<div class="form-group">
 			<label class="col-lg-2 control-label" for="description">Owner:</label>
 			 <div class="col-lg-10">
@@ -82,18 +82,18 @@ ${userbean.putInCookie(pageContext.request, pageContext.response, pageContext.se
 			</div>
 			</div>
 		</div>
-		
+
 		<div class="form-group">
 			<label class="col-lg-2 control-label" for="description">Creation Date:</label>
 			 <div class="col-lg-10">
              <div class="form-control-wrapper">
 				<label  class="form-control empty">
-				
+
 					<fmt:parseDate value="${transformation.issued}" pattern="yyyy-MM-dd" var="issuedDate"/>
 					<fmt:formatDate value="${issuedDate }" pattern="d MMM yyyy"/>
-				
-				
-				
+
+
+
 				</label>
 			</div>
 			</div>
@@ -108,24 +108,24 @@ ${userbean.putInCookie(pageContext.request, pageContext.response, pageContext.se
 			<div class="col-lg-10">
             <div class="form-control-wrapper">
 			<label class="form-control empty" >${kw } </label>
-			
+
 			</div>
 			</div>
 		</div>
-		
+
+</div>
+
+
+
+</div>
+
 </div>
 
 
-		
-</div>
 
-</div>
- 
 
- 
 
-  
-  
+
 
 	</jsp:body>
 </template:genericpage>

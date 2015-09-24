@@ -35,11 +35,11 @@ ${wizard.emptyNew()}
 
 <div class="container">
 
-<ul class="breadcrumb">
+<!--ul class="breadcrumb">
     <li><a class="theme-text" href="${contextPath }/pages/catalogs">Explore</a></li>
     <li><a class="theme-text" href="${contextPath }/pages/myassets">Dashboard</a></li>
     <li class="active">Create Data Page</li>
-</ul>
+</ul-->
 
 
 <h1 class="add-label">Upload your data</h1>

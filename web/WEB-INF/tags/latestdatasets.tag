@@ -30,7 +30,7 @@
 			<th class="header theme-bg">${col1}</th>
 			<th class="hidden-xs theme-bg">${col2}</th>
 			<th class="header theme-bg"><span class="hidden-xs">${col3}</span><span class="visible-xs">Date</span></th>
-			<th class="theme-bg"><i class="mdi-av-equalizer"></i></th>
+			<th class="theme-bg"></th>
 		</tr>
 	</thead>
 	<tbody>

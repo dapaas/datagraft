@@ -544,8 +544,8 @@ $(document).ready(function() {
       if (pn == null){
         pn = pn = $("#mytransformationresult").data("page");
       }
-      $("#pagetransformation input[id=page]").val(pn*1-1);
-      $("#pagetransformation").submit();
+      $("#pageform input[id=pagetransformation]").val(pn*1-1);
+      $("#pageform").submit();
     });
 
     $("#pageTransformationAdd").click(function(){
@@ -556,8 +556,8 @@ $(document).ready(function() {
       if (pn == null){
         pn = pn = $("#mytransformationresult").data("page");
       }
-      $("#pagetransformation input[id=page]").val(pn*1+1);
-      $("#pagetransformation").submit();
+      $("#pageform input[id=pagetransformation]").val(pn*1+1);
+      $("#pageform").submit();
     });
 
     $("#pageDatasetLess").click(function (){
@@ -568,8 +568,8 @@ $(document).ready(function() {
       if (pn == null){
         pn = pn = $("#mycatalogresult").data("page");
       }
-      $("#pagedataset input[id=page]").val(pn*1-1);
-      $("#pagedataset").submit();
+      $("#pageform input[id=pagedataset]").val(pn*1-1);
+      $("#pageform").submit();
     });
 
     $("#pageDatasetAdd").click(function(){
@@ -580,8 +580,8 @@ $(document).ready(function() {
       if (pn == null){
         pn = pn = $("#mycatalogresult").data("page");
       }
-      $("#pagedataset input[id=page]").val(pn*1+1);
-      $("#pagedataset").submit();
+      $("#pageform input[id=pagedataset]").val(pn*1+1);
+      $("#pageform").submit();
     });
 
     $("#transfsearchtext").keypress(function (e) {
@@ -1021,24 +1021,24 @@ function fnOpenNormalDialog(targetUrl) {
 
 function pageTransformationLess(){
   var pn = $("#transformationresult").data("page");
-  $("#pagetransformation input[id=page]").val(pn*1-1);
-  $("#pagetransformation").submit();
+  $("#pageform input[id=pagetransformation]").val(pn*1-1);
+  $("#pageform").submit();
 }
 
 function pageTransformationAdd(){
   var pn = $("#transformationresult").data("page");
-  $("#pagetransformation input[id=page]").val(pn*1+1);
-  $("#pagetransformation").submit();
+  $("#pageform input[id=pagetransformation]").val(pn*1+1);
+  $("#pageform").submit();
 }
 
 function pageDatasetLess(){
   var pn = $("#catalogresult").data("page");
-  $("#pagedataset input[id=page]").val(pn*1-1);
-  $("#pagedataset").submit();
+  $("#pageform input[id=pagedataset]").val(pn*1-1);
+  $("#pageform").submit();
 }
 
 function pageDatasetAdd(){
   var pn = $("#catalogresult").data("page");
-  $("#pagedataset input[id=page]").val(pn*1+1);
-  $("#pagedataset").submit();
+  $("#pageform input[id=pagedataset]").val(pn*1+1);
+  $("#pageform").submit();
 }

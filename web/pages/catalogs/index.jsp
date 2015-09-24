@@ -68,7 +68,10 @@ ${userbean.putInCookie(pageContext.request, pageContext.response, pageContext.se
 		<c:set var="titleDataset" value=" <span style='text-transform: capitalize;'>${owner }'s </span> public data pages" />
 		<c:set var="emptylabel" value="No matching data pages found. <a class='theme-text' href='${contextPath }/pages/catalogs'>Show all?</a> " />
 	</c:if>
-	
+	<form id="pageform" method="post" action="${contextPath }/pages/catalogs/index.jsp">
+		<input type="hidden" id="pagedataset" name="pagedataset" value="${datasetBean.getPageNumber() }"/>
+		<input type="hidden" id="pagetransformation" name="pagetransformation" value="${transformationBean.getPageNumber()}" />
+	</form>
 	
 	
 	<c:if test="${ not empty param['searchvalue']}">
@@ -79,9 +82,9 @@ ${userbean.putInCookie(pageContext.request, pageContext.response, pageContext.se
 	<form id="selectdataset" action="${contextPath}/pages/publish/preview.jsp" method="get">
 		<input type="hidden" id="id" name="id" />
 	</form>
-	<form id="pagedataset" method="post" action="${contextPath }/pages/catalogs/index.jsp">
-		<input type="hidden" id="page" name="pagedataset" />
-	</form>
+	<!--  <form id="pagedataset" method="post" action="${contextPath }/pages/catalogs/index.jsp">
+		<input type="hidden" id="pagedataset" name="pagedataset" value="${datasetBean.getPageNumber() }"/>
+	</form> -->
 		<div class="col-lg-6 col-md-6">
 			<template:latestdatasets id='catalogresult' col1="Data page" col2="User" col3="Published" col4="Portal" emptylabel="${emptylabel}" label="${titleDataset}" footer="${footer }" templateData="${datasetBean.getCatalogDatasetByPage(datasetBean.getPageNumber())}" sizepage="${datasetBean.getPageCount()}" page="${datasetBean.getPageNumber()}" />
 		</div>
@@ -102,9 +105,9 @@ ${userbean.putInCookie(pageContext.request, pageContext.response, pageContext.se
     <form id="selecttransformation" action="${contextPath}/pages/transformations/details.jsp" method="get">
 		<input type="hidden" id="id" name="id" />
 	</form>
-	<form id="pagetransformation" method="post" action="${contextPath }/pages/catalogs/index.jsp">
-		<input type="hidden" id="page" name="pagetransformation" />
-	</form>
+	<!-- <form id="pagetransformation" method="post" action="${contextPath }/pages/catalogs/index.jsp">
+		<input type="hidden" id="pagetransformation" name="pagetransformation" value="${transformationBean.getPageNumber()}" />
+	</form> -->
 	
 		<div class="col-lg-6 col-md-6">
 			<template:latesttransformation id='transformationresult' col1="Transformation" col2="User" col3="Published" emptylabel="${emptylabel}"  footer="${footer }" label="${titleApplication}" templateData="${transformationBean.getCatalogTransformationsByPage(transformationBean.getPageNumber())}" sizepage="${transformationBean.getPageCount()}" page="${transformationBean.getPageNumber()}"/>

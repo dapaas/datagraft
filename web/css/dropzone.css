@@ -447,6 +447,20 @@
 .dropzone-previews a.dz-property:hover {
   /*color: #666;*/
 }
+
+
+.dropzone-dataset .dz-preview {
+ left: 35%;
+}
+.dropzone-dataset .dz-preview .dz-details {
+ width: 300px;
+}
+.dropzone-dataset .dz-preview .dz-details img {
+ top: 35px;
+ left: 125px;
+}
+
+
 @-moz-keyframes loading {
   from {
     background-position: 0 -400px;

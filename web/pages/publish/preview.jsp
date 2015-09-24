@@ -42,11 +42,11 @@ ${userbean.putInCookie(pageContext.request, pageContext.response, pageContext.se
 	</jsp:attribute>
 	<jsp:body>
 		<div class="container">
-			<ul class="breadcrumb">
+			<!--ul class="breadcrumb">
     			<li><a class="theme-text" href="${contextPath }/pages/catalogs">Explore</a></li>
     			
     			<li class="active">Data Page</li>
-			</ul>
+			</ul-->
 			
 		
 				<h1 class="add-label">Preview ${dataset.title}  </h1>
@@ -74,7 +74,7 @@ ${userbean.putInCookie(pageContext.request, pageContext.response, pageContext.se
 			<label class="col-lg-2 control-label" for="description">Description:</label>
 			 <div class="col-lg-10">
 	             <div class="form-control-wrapper">
-				<div id="description" class="form-control empty" >${ dataset.description }</div>
+				<div id="description" class="form-control empty" style="height: auto; min-height: 26px">${ dataset.description }</div>
 				
 				</div>
 				 
