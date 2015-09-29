@@ -88,3 +88,14 @@ header .navbar-form input {
 .navbar-link a {
 	color: #FF609A;
 }
+
+#transformationIframeDetails {
+  min-height:400px;
+  padding:0;
+}
+
+#transformationIframeDetails iframe {
+  width: 100%;
+  border: none;
+  height: 400px;
+}
