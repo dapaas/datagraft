@@ -161,7 +161,7 @@ ${userbean.putInCookie(pageContext.request, pageContext.response, pageContext.se
 $(window).load(function() {
 	var graftInstance = new Grafterizer("https://grafterizer.datagraft.net", document.getElementById("transformationIframeDetails"))
 		.setAuthorization("${basicAuth}")
-		.go('readonly', {
+		.go('transformations.readonly', {
 		        id: encodeURI('${transformationId}')
 		});
 });
