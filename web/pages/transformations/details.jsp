@@ -1,4 +1,5 @@
 <%@page import="eu.dapaas.constants.SessionConstants"%>
+<%@page import="eu.dapaas.utils.Utils"%>
 <%@ page contentType="text/html" pageEncoding="UTF-8" import="java.util.*"%>
 <%@ taglib prefix="template" tagdir="/WEB-INF/tags"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -10,6 +11,7 @@
 <jsp:setProperty name="transformationbean" property="response" value="${pageContext.response}" />
 <jsp:setProperty name="transformationbean" property="session" value="${pageContext.session}" />
 
+<c:set var="transformationId" value='<%= Utils.escapeJS(request.getParameter("id")) %>' />
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
 ${userbean.putInCookie(pageContext.request, pageContext.response, pageContext.session) }
 <jsp:useBean id="wizard" class="eu.dapaas.bean.Wizard" scope="session" />
@@ -34,6 +36,7 @@ ${userbean.putInCookie(pageContext.request, pageContext.response, pageContext.se
 		<template:search />
 	</jsp:attribute>
 	<jsp:body>
+	<c:set var="basicAuth" value="${userbean.getTemporaryBasicAuth(pageContext.request, pageContext.response,pageContext.session, 'grafterizer') }"/>
 	<form id="formexport" method="post">
 		<input type="hidden" name="action" id="action" />
 	</form>
@@ -150,8 +153,24 @@ ${userbean.putInCookie(pageContext.request, pageContext.response, pageContext.se
 		</div>
 	</div>
 </c:if>
+
+
+<c:if test="${not empty param['id'] }">
+<div class="well" id="transformationIframeDetails">
+<script async>
+$(window).load(function() {
+	var graftInstance = new Grafterizer("https://grafterizer.datagraft.net", document.getElementById("transformationIframeDetails"))
+		.setAuthorization("${basicAuth}")
+		.go('transformations.readonly', {
+		        id: encodeURI('${transformationId}')
+		});
+});
+</script>
+</div>
+</c:if>
+
 </div>
 <div id="dialog-confirm" title="Delete?"></div>
-
+	<script type="text/javascript" src="${contextPath}/scripts/grafterizerPostMessage.js" async></script>
 	</jsp:body>
 </template:genericpage>
