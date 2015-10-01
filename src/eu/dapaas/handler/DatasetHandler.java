@@ -138,6 +138,10 @@ public class DatasetHandler extends BaseHandler {
             LocalDBProvider.insertDSPortal(wizard.getPortal());
           }
         }
+      }else{
+          if (file.getFile()!=null && file.getFile().exists()){
+            file.getFile().delete();
+          }
       }
 
     } catch (Exception e) {
@@ -349,6 +353,11 @@ public class DatasetHandler extends BaseHandler {
     if (error != null){
       throw new Exception(error);
     }
+    
+ // delete uploaded file 
+    if (file.getFile()!=null && file.getFile().exists()){
+      file.getFile().delete();
+    }
   }
   
   private DistributionDetail createRDFDistribution(String datasetId, String title, String description, List<String> keywords) throws Exception{
@@ -548,8 +557,13 @@ public class DatasetHandler extends BaseHandler {
           throw new Exception(error);
         }
         logger.debug("RESULT upload RDF : " + responseRDF);
+        
       } catch (Throwable t) {
         t.printStackTrace();
+      }
+   // delete uploaded file 
+      if (file.getFile()!=null && file.getFile().exists()){
+        file.getFile().delete();
       }
     }
       break;

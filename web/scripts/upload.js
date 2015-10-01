@@ -101,6 +101,8 @@ $(document).ready(function() {
 
 
     var formData = new FormData();
+    
+    formData.append("datapageid", $("#datapageid").val());
     formData.append("datasetname", $("#datasetname").val());
     formData.append("description", $("#description").val());
     formData.append("keyword", $("#keyword").tokenfield('getTokensList'));

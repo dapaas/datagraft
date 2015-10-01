@@ -6,7 +6,7 @@ import eu.dapaas.dao.UploadFile;
 import eu.dapaas.dao.WizardPortal;
 
 public class Wizard {
-  private String         action       = "new";
+  private String         action       = "none";
   private String         type         = "dataset";
   private Dataset        details      = new Dataset();
   private UploadFile     uploadesFile = new UploadFile();
@@ -39,6 +39,14 @@ public class Wizard {
 
   public void emptyNew() {
     action = "new";
+    details = new Dataset();
+    uploadesFile = null;
+    portal = new WizardPortal();
+    transformation = new Transformation();
+  }
+  
+  public void emptyNone() {
+    action = "none";
     details = new Dataset();
     uploadesFile = null;
     portal = new WizardPortal();

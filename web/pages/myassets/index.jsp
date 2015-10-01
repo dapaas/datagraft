@@ -10,7 +10,7 @@
 <jsp:setProperty name="datasetBean" property="session" value="${pageContext.session}"/>
 <jsp:setProperty name="transformationBean" property="response" value="${pageContext.response}"/>
 <jsp:setProperty name="transformationBean" property="session" value="${pageContext.session}"/>
-
+${wizard.emptyNone()}
 ${userbean.putInCookie(pageContext.request, pageContext.response, pageContext.session) }
 <%
 

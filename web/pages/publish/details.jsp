@@ -15,6 +15,7 @@
 String israw = request.getParameter("israw");
 %>
 <template:validation/>
+<template:validationdp/>
 <c:set var="ddpurl" value="<%=Config.getInstance().getPortalURL() %>"></c:set>
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
 ${userbean.putInCookie(pageContext.request, pageContext.response, pageContext.session)}
@@ -25,7 +26,7 @@ ${userbean.putInCookie(pageContext.request, pageContext.response, pageContext.se
 <c:set var="apiKey" value="${user.apiKey}" />
 <c:set var="apiSecret" value="${user.apiSecret}" />
 </c:if>
-<c:if test="${not empty param['id'] && param['action'] != 'execute' and not empty user}" >
+<c:if test="${not empty param['id'] && param['action'] != 'execute'}" >
 	<c:set var="wizard" value="${catalogdetails.getDatasetForEdit(wizard, apiKey, apiSecret, param['id'])}" scope="session" />
 </c:if>
 
@@ -73,7 +74,7 @@ ${userbean.putInCookie(pageContext.request, pageContext.response, pageContext.se
 
 			<div id="content"  class="well">
 <h2 class="dataset-label">Data page properties</h2>
-
+<input type="hidden" id="datapageid" value="${param['id']}" />
   		<div class="form-horizontal">
 								<div class="form-group">
                                         <label for="datasetname" class="col-lg-2 control-label">Name:</label>

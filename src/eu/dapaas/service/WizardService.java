@@ -6,9 +6,11 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 
+import com.sirmamobile.commlib.WebRequestObject;
 import com.sirmamobile.commlib.WebSessionObject;
 import com.sirmamobile.commlib.annotations.WebMethod;
 import com.sirmamobile.commlib.annotations.WebParam;
+import com.sirmamobile.commlib.annotations.WebRequest;
 import com.sirmamobile.commlib.annotations.WebService;
 import com.sirmamobile.commlib.annotations.WebSession;
 
@@ -136,6 +138,7 @@ public class WizardService {
 
   @WebMethod
   public Object create(
+    @WebParam(name = "datapageid") String datapageid,
 		@WebParam(name = "datasetname") String datasetName,
 		@WebParam(name = "description") String description,
 		@WebParam(name = "keyword") String keyword,
@@ -156,6 +159,10 @@ public class WizardService {
       wizard.setAction("new");
       wizard.setType("dataset");
     }
+    if (!Utils.isEmpty(datapageid) && !datapageid.equals(wizard.getDetails().getId()) && wizard.getAction().equals("edit")){
+      return new ErrorService("Cannot edit multiple data pages in the same session. Please, reload page.");
+    }
+    
     if (isPublic != null) {
       wizard.getDetails().setExposePublic(isPublic);
     }
@@ -325,6 +332,12 @@ public class WizardService {
       }
     }
     webSession.putSessionObject("wizard", wizard);
+    return true;
+  }
+  
+  @WebMethod
+  private Object checkRequest(@WebRequest WebRequestObject webRequest, @WebSession WebSessionObject webSession){
+    Wizard wizard = (Wizard) webSession.getSessionObject("wizard");
     return true;
   }
 }
