@@ -70,7 +70,7 @@ ${querydetails.exportRDF(pageContext.request, pageContext.response, pageContext.
 </c:if>
 <ul id="query-tabs" class="nav nav-tabs margtop theme-bg">
 	<li><a href="#query-results">Query</a></li>
-	<li><a href="#query-builder-results">Query Builder</a></li>
+	<li style="display: none;"><a href="#query-builder-results">Query Builder</a></li>
 </ul>
 <div id="query-results" class="tab-section">
 <form id="queryform" action="${contextPath }/pages/dataset_queryresult.jsp" method="post">

@@ -15,7 +15,7 @@
 String israw = request.getParameter("israw");
 %>
 <template:validation/>
-<template:validationdp/>
+
 <c:set var="ddpurl" value="<%=Config.getInstance().getPortalURL() %>"></c:set>
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
 ${userbean.putInCookie(pageContext.request, pageContext.response, pageContext.session)}
@@ -26,10 +26,11 @@ ${userbean.putInCookie(pageContext.request, pageContext.response, pageContext.se
 <c:set var="apiKey" value="${user.apiKey}" />
 <c:set var="apiSecret" value="${user.apiSecret}" />
 </c:if>
-<c:if test="${not empty param['id'] && param['action'] != 'execute'}" >
+
+<c:if test="${not empty param['id'] && (empty param['action'] || param['action'] == '' ) }" >
 	<c:set var="wizard" value="${catalogdetails.getDatasetForEdit(wizard, apiKey, apiSecret, param['id'])}" scope="session" />
 </c:if>
-
+<template:validationdp/>
 
 <c:set var="filename" value="${fn:substring(wizard.uploadesFile.file.name, 0, fn:indexOf(wizard.uploadesFile.file.name, '.'))}" />
 
@@ -280,7 +281,7 @@ ${userbean.putInCookie(pageContext.request, pageContext.response, pageContext.se
 			<h5 class="table-label theme-bg">Endpoint: ${wizard.details.accessURL}</h5>
 			<ul id="query-tabs" class="nav nav-tabs theme-bg">
 			    <li><a href="#query-results">Query</a></li>
-			    <li><a href="#query-builder-results">Query Builder</a></li>
+			    <li style="display: none;"><a href="#query-builder-results">Query Builder</a></li>
 			</ul>
 			<div id="query-results" class="tab-section">
 				<form id="queryform"  method="post" action="#table-results">

@@ -250,12 +250,14 @@ public class DatasetHandler extends BaseHandler {
         pc.setAccessURL(accessURL);
       }
       // insert or update
-      if (LocalDBProvider.checkPortalParameter(wizard.getPortal().getParameter(), datasetId)) {
-        throw new Exception("Cant update portal because parameter exist");
-      }
-      if (wizard.getPortal().getPortalContent().size() > 0) {
-        LocalDBProvider.deleteDSPortal(datasetId);
-        LocalDBProvider.insertDSPortal(wizard.getPortal());
+      if (wizard.getPortal().getParameter() != null && wizard.getPortal().getParameter().length() > 0 && wizard.getPortal().getPortalContent().size() > 0) {
+        if (wizard.getPortal().getPortalContent().size() > 0) {
+          if (LocalDBProvider.checkPortalParameter(wizard.getPortal().getParameter(), datasetId)) {
+            throw new Exception("Cant update portal because parameter exist");
+          }
+          LocalDBProvider.deleteDSPortal(datasetId);
+          LocalDBProvider.insertDSPortal(wizard.getPortal());
+        }
       }
     } catch (Exception e) {
       error = e.getMessage();
