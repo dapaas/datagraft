@@ -281,7 +281,7 @@ ${userbean.putInCookie(pageContext.request, pageContext.response, pageContext.se
 			<h5 class="table-label theme-bg">Endpoint: ${wizard.details.accessURL}</h5>
 			<ul id="query-tabs" class="nav nav-tabs theme-bg">
 			    <li><a href="#query-results">Query</a></li>
-			    <li style="display: none;"><a href="#query-builder-results">Query Builder</a></li>
+			    <li ${fn:length(propertyArray)==0 ? 'style="display: none;"' : ''}><a href="#query-builder-results">Query Builder</a></li>
 			</ul>
 			<div id="query-results" class="tab-section">
 				<form id="queryform"  method="post" action="#table-results">
