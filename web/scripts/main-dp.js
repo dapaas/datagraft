@@ -83,7 +83,20 @@ $(document).ready(function() {
       $(".errormessage").html("Cannot set empty password.");
       return;
     }
-    //Cannot set empty password.
+    
+    
+    var regexUsername = /^[a-zA-Z0-9]+$/i;
+    if (!regexUsername.test($("#createoauth input[id=username]").val())){
+      $(".alert").removeClass("hide");
+      $(".errormessage").html("Valid characters for Username are: English letters and numbers.");
+      return;
+    }
+    var regexName = /^[a-zA-Z0-9.,-\s]+$/i;
+    if (!regexName.test($("#createoauth input[id=r-name]").val())){
+      $(".alert").removeClass("hide");
+      $(".errormessage").html("Valid characters for Name are: English letters and numbers, space and punctuations.");
+      return;
+    }
     
     
     var xhr = new XMLHttpRequest();
