@@ -92,10 +92,12 @@ $(document).ready(function() {
       return;
     }
     var regexName = /^[a-zA-Z0-9.,-\s]+$/i;
-    if (!regexName.test($("#createoauth input[id=r-name]").val())){
-      $(".alert").removeClass("hide");
-      $(".errormessage").html("Valid characters for Name are: English letters and numbers, space and punctuations.");
-      return;
+    if ($("#createoauth input[id=r-name]").val()!=''){
+      if (!regexName.test($("#createoauth input[id=r-name]").val())){
+        $(".alert").removeClass("hide");
+        $(".errormessage").html("Valid characters for Name are: English letters and numbers, space and punctuations.");
+        return;
+      }
     }
     
     
@@ -456,6 +458,41 @@ $(document).ready(function() {
   });
 
   $("#uploadrawbutton").click(function(){
+    
+    
+    
+    $('#complete-dialog-spinner').modal('show');
+    // open dialog
+    
+      var opts = {
+      lines: 12,            // The number of lines to draw
+      length: 7,            // The length of each line
+      width: 5,             // The line thickness
+      radius: 10,           // The radius of the inner circle
+      rotate: 0,            // Rotation offset
+      corners: 1,           // Roundness (0..1)
+      color: '#5264ae',        // #rgb or #rrggbb
+      direction: 1,         // 1: clockwise, -1: counterclockwise
+      speed: 1,             // Rounds per second
+      trail: 100,           // Afterglow percentage
+      opacity: 1/4,         // Opacity of the lines
+      fps: 20,              // Frames per second when using setTimeout()
+      zIndex: 2e9,          // Use a high z-index by default
+      className: 'spinner', // CSS class to assign to the element
+      top: '30%',           // center vertically
+      left: '50%',          // center horizontally
+      position: 'relative'  // element position
+    }
+    var spinner = new Spinner(opts).spin();
+    $("#containerl").empty();
+    $("#containerl").append("<h4>Uploading raw data. Please wait ...</h4>");
+    $("#containerl").append(spinner.el);
+    
+    
+    
+    
+    
+    
     var xhr = new XMLHttpRequest();
     url = Application.contextPath +"/BaseGateway/create.json";
     xhr.open("POST", url, true);
@@ -476,7 +513,14 @@ $(document).ready(function() {
    xhr.onload = (function(_this) {
            return function(e) {
              // $("#contenttype").attr('disabled', true);
+             spinner.stop();
+             response = jQuery.parseJSON(xhr.responseText);
+             if (response.error){
+               $("#containerl").empty();
+               $("#containerl").append("<h4>"+response.error.message+"</h4>");
+             }else{
                document.location=Application.contextPath +"/pages/publish/details.jsp";
+             }
            };
          })(this);
 
@@ -490,6 +534,91 @@ $(document).ready(function() {
 
   });*/
 
+  $("#execsrepositoryupdate").click(function (){
+    $('#complete-dialog-spinner').modal('show');
+    // open dialog
+    
+      var opts = {
+      lines: 12,            // The number of lines to draw
+      length: 7,            // The length of each line
+      width: 5,             // The line thickness
+      radius: 10,           // The radius of the inner circle
+      rotate: 0,            // Rotation offset
+      corners: 1,           // Roundness (0..1)
+      color: '#5264ae',        // #rgb or #rrggbb
+      direction: 1,         // 1: clockwise, -1: counterclockwise
+      speed: 1,             // Rounds per second
+      trail: 100,           // Afterglow percentage
+      opacity: 1/4,         // Opacity of the lines
+      fps: 20,              // Frames per second when using setTimeout()
+      zIndex: 2e9,          // Use a high z-index by default
+      className: 'spinner', // CSS class to assign to the element
+      top: '30%',           // center vertically
+      left: '50%',          // center horizontally
+      position: 'relative'  // element position
+    }
+    var spinner = new Spinner(opts).spin();
+    $("#containerl").empty();
+    $("#containerl").append("<h4>Publishing data. Please wait ...</h4>");
+    $("#containerl").append(spinner.el);
+    
+    
+    
+    var xhr = new XMLHttpRequest();
+    url = Application.contextPath +"/BaseGateway/create.json";
+    xhr.open("POST", url, true);
+    // xhr.withCredentials = !!this.options.withCredentials;
+    headers = {
+           "Accept": "application/json",
+           "Cache-Control": "no-cache",
+           "X-Requested-With": "XMLHttpRequest"
+         };
+    for (headerName in headers) {
+           headerValue = headers[headerName];
+           xhr.setRequestHeader(headerName, headerValue);
+         }
+   xhr.onerror = (function(_this) {
+           return function() {
+            
+           };
+         })(this);
+   xhr.onload = (function(_this) {
+           return function(e) {
+             spinner.stop();
+             response = jQuery.parseJSON(xhr.responseText);
+             if (response.error){
+               $("#containerl").empty();
+               $("#containerl").append("<h4>"+response.error.message+"</h4>");
+             }else{
+               document.location=Application.contextPath +"/pages/publish/details.jsp";
+             }
+           };
+         })(this);
+
+
+//    var formData = new FormData();
+    
+//    formData.append("datapageid", $("#datapageid").val());
+//    formData.append("datasetname", $("#datasetname").val());
+//    formData.append("description", $("#description").val());
+//    formData.append("keyword", $("#keyword").tokenfield('getTokensList'));
+//    formData.append("licensing", $("#licensing").val());
+//    formData.append("usagerights", $("#usagerights").val());
+//    formData.append("bytesize", $("#bytesize").val());
+//    formData.append("portalparam", $("#portalparam").val());
+//    formData.append("portaltitle", $("#portaltitle").val());
+//    if ($("#contenttype").val()){
+//      formData.append("filecontenttype", $("#contenttype").val());
+//    }
+//    formData.append("public", $("#ispublic").is(":checked"));
+//    formData.append("israw", $("#savedataset").data("israw"));
+    xhr.send();
+    
+    
+    
+    //document.location=Application.contextPath +"/pages/publish/details.jsp";
+  });
+  
   $("#execsrepository").click(function (){
     document.location=Application.contextPath +"/pages/publish/details.jsp";
   });

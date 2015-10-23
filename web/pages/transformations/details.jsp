@@ -148,7 +148,12 @@ ${userbean.putInCookie(pageContext.request, pageContext.response, pageContext.se
 			</div>
 		</c:if>
 		<div id="content" class="publish-div ${not empty wizard.uploadesFile.file? 'up': 'down'}">
-			 <a type="button" class="btn btn-primary btn-raised theme-bg  ${ (transformation.transformationType == 'pipe') ? 'disabled' : '' }" id="execsrepository" href="#">Publish data page</a> 
+		<c:if test="${wizard.action =='edit'}">
+			 <a type="button" class="btn btn-primary btn-raised theme-bg  ${ (transformation.transformationType == 'pipe') ? 'disabled' : '' }" id="execsrepositoryupdate" href="#">Publish data page</a>
+		</c:if>
+		<c:if test="${wizard.action =='new'}">
+			 <a type="button" class="btn btn-primary btn-raised theme-bg  ${ (transformation.transformationType == 'pipe') ? 'disabled' : '' }" id="execsrepository" href="#">Publish data page</a>
+		</c:if>	  
 			 <a type="button" class="btn btn-primary btn-raised theme-bg publish-button" id="execdlresult" href="#"> Download results </a> 
 		</div>
 	</div>
@@ -172,5 +177,19 @@ $(window).load(function() {
 </div>
 <div id="dialog-confirm" title="Delete?"></div>
 	<script type="text/javascript" src="${contextPath}/scripts/grafterizerPostMessage.js" async></script>
+	
+	  <!-- dialog for spinner -->
+ <div id="complete-dialog-spinner" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+      <h4 class="modal-title">Publishing Data</h4></div>
+      <div class="modal-body">
+        <div id="containerl"> </div>
+     </div>
+    </div>
+  </div>
+</div>
 	</jsp:body>
 </template:genericpage>

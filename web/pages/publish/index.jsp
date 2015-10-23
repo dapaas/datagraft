@@ -151,5 +151,19 @@ ${wizard.emptyNew()}
 	</div>
 </div>
 
+	  <!-- dialog for spinner -->
+ <div id="complete-dialog-spinner" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+      <h4 class="modal-title">Uploading raw data</h4></div>
+      <div class="modal-body">
+        <div id="containerl"> </div>
+     </div>
+    </div>
+  </div>
+</div>
+
 	</jsp:body>
 </template:genericpage>
